@@ -1,0 +1,30 @@
+name: Test Pipeline
+
+on:
+  pull_request:
+    branches: [ test ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build React app
+      run: |
+        docker build -f Dockerfile -t community-insights .
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Tag and push to DockerHub
+      run: |
+        docker tag community-insights:latest jackkieny/community-insights:${{ github.sha }}
+        docker tag community-insights:latest jackkieny/community-insights:latest
+        docker push jackkieny/community-insights:${{ github.sha }}
+        docker push jackkieny/community-insights:latest
