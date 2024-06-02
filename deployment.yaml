@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: community-insights-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: community-insights
+  template:
+    metadata:
+      labels:
+        app: community-insights
+    spec:
+      containers:
+      - name: community-insights
+        image: jackkieny/community-insights:latest
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: regcred
+
