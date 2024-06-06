@@ -1,7 +1,7 @@
-name: Deploy to Kubernetes
+name: Deploy Pipeline
 
 on:
-  pull_request:
+  push:
     branches: [ main ]
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
         chmod +x ./kubectl
         sudo mv ./kubectl /usr/local/bin/kubectl
     
-    - name: Deploy to Linode Kubernetes
+    - name: Deploy to Kubernetes
       run: |
         echo "${{ secrets.KUBECONFIG }}" | base64 --decode > kubeconfig.yaml
         export KUBECONFIG=kubeconfig.yaml

@@ -2,7 +2,7 @@ name: Test Pipeline
 
 on:
   pull_request:
-    branches: [ test ]
+    branches: [ main ]
 
 jobs:
   build-and-push:
@@ -12,7 +12,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Build React app
+    - name: Build app
       run: |
         docker build -f Dockerfile -t community-insights .
 
