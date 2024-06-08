@@ -1,0 +1,84 @@
+.loginpage-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 40%;
+    height: 60%;
+
+    border: 3px solid white;
+    border-radius: 15px;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 80%;
+    height: 80%;
+}
+
+.login-form-header{
+    margin-bottom: 1em;
+
+    font-size: 3em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.login-form-label{
+    margin-bottom: 0.5em;
+
+    font-size: 1.5em;
+}
+
+.login-form-input{
+    margin-bottom: 1em;
+
+    width: 30%;
+    height: 2em;
+
+    border: none;
+    border-radius: 5px;
+
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.login-form-button{
+    width: 30%;
+    height: 2em;
+
+    background: none;
+    border: 2px solid white;
+    border-radius: 5px;
+
+    color: white;
+    font-size: 1.4em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.loginpage-home-button{
+    position: absolute;
+    top: 1em;
+    left: 1em;
+
+    padding: 5px;
+    
+    background: none;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.loginpage-home-button-link{
+    color: white;
+}

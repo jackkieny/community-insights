@@ -1,27 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import '../styles/home.css';
 
 function Home() {
-
-    const [currentTime, setCurrentTime] = useState(0)
-
-    useEffect(() => {
-        fetch('/api/time')
-            .then(res => res.json())
-            .then(data => {
-                setCurrentTime(data.time)
-            })
-            .catch(err => console.log(err));
-    }, [])
   return (
-    <div>
-        <h1>Home</h1>
-        <p>Welcome to the Home page!</p>
-        <p>The current time is</p>
-        <p>{currentTime}</p>
-        <Link to="/about" style={{"color": "skyblue"}}>About</Link>
-    </div>
+    <>
+      {/* Home Page Header */}
+      <div className='homepage-header-container'>
+        <div className='homepage-header-logo'>CommunityInsights</div>
+        <div className='homepage-header-nav-container'>
+          <Link to='/how-it-works' className='homepage-header-link'>How It Works</Link>
+          <Link to='/pricing' className='homepage-header-link'>Pricing & Benefits</Link>
+          <Link to='/use-cases' className='homepage-header-link'>Use Cases</Link>
+          <Link to='/blogs' className='homepage-header-link'>Blogs</Link>
+        </div>
+        <div className='homepage-header-login-container'>
+            <button className='homepage-header-login-button'>
+              <Link to='/login' className='homepage-header-link'>Login</Link>
+            </button>
+        </div>
+      </div>
+
+
+      {/* Home Page Content */}
+
+      <div className='homepage-content1-container'>
+        Content
+      </div>
+    </>
   )
+   
 }
 
-export default Home
+export default Home;

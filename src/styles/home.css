@@ -1,0 +1,60 @@
+/* Header */
+.homepage-header-container{
+    /* border: 1px solid red; */
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+
+    width: 60%;
+    height: 3em;
+
+}
+
+.homepage-header-logo{
+    font-size: 2rem;
+}
+
+.homepage-header-nav-container{
+    /* border: 1px solid blue; */
+    
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    
+    font-size: 1rem;
+}
+
+.homepage-header-login-container{
+    border: 1px solid green;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+.homepage-header-login-button{
+    margin: 0 1.5em;
+    background: none;
+
+    border: 1px solid white;
+    border-radius: 5px;
+
+    font-size: 1.5em;
+}
+
+.homepage-header-link{
+    color: white;
+}
+
+/* Content 1 */
+
+.homepage-content1-container{
+    border: 1px solid yellow;
+    
+    width: 60%;
+}
