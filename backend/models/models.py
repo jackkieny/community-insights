@@ -1,11 +1,16 @@
+# Import Flask and ObjectID modules
 from flask_login import UserMixin
-from database.database_init import mongo
 from bson.objectid import ObjectId
 
+# Import local modules
+from database.database_init import mongo
+
+
+### User Class ###
 class User(UserMixin):
-    def __init__(self, id, username, password):
+    def __init__(self, id, email, password):
         self.id = id
-        self.username = username
+        self.email = email
         self.password = password
 
     @staticmethod
@@ -14,4 +19,4 @@ class User(UserMixin):
         if not user_data:
             return None
 
-        return User(id=user_data['_id'], username=user_data['username'], password=user_data['password'])
+        return User(id=user_data['_id'], email=user_data['email'], password=user_data['password'])

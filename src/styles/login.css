@@ -43,7 +43,7 @@
 .login-form-input{
     margin-bottom: 1em;
 
-    width: 30%;
+    min-width: 30%;
     height: 2em;
 
     border: none;
