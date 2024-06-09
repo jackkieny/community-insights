@@ -82,3 +82,38 @@
 .loginpage-home-button-link{
     color: white;
 }
+
+/* Login Page Error Message */
+.loginpage-errormsg{
+    position: relative;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 50%;
+
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid red;
+    border-radius: 50px;
+
+    font-size: 1.25em;
+
+}
+
+
+.loginpage-successmsg{
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 50%;
+
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid green;
+    border-radius: 50px;
+
+    font-size: 1.25em;
+}

@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom' 
+import { Link, useNavigate } from 'react-router-dom' 
 import '../styles/login.css'
 
 function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [response, setResponse] = useState(null)
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,12 +17,19 @@ function Login() {
             },
             body: JSON.stringify({ email, password })
         });
-        // const data = await response.json();
-        // handle response
+        const data = await response.json();
+        setResponse(data);
+        if (data.success) {
+            navigate('/dashboard');
+        }
     }
 
     return (
         <div className='loginpage-container'>
+            <div className='loginpage-home-button'>
+                <Link to='/' className='loginpage-home-button-link'>Home</Link>
+            </div>
+
             <form className='login-form' onSubmit={handleSubmit}>
                 <div className='login-form-header'>Login to<br/>Community Insights</div>
 
@@ -42,9 +51,19 @@ function Login() {
 
                 <button className='login-form-button'>Login</button>
             </form>
-            <div className='loginpage-home-button'>
-                <Link to='/' className='loginpage-home-button-link'>Home</Link>
-            </div>
+
+            {response && response.error ? 
+                <div className="loginpage-errormsg">
+                    <p>Email or password is incorrect.</p>
+                </div>
+              : null}
+            
+            {response && response.success ?
+                <div className="loginpage-successmsg">
+                    <p>Login successful!</p>
+                </div>
+              : null
+            }
         </div>
     )
 }
