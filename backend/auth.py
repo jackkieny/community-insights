@@ -41,16 +41,18 @@ def session_check():
     else:
         return {'session': 'inactive'}
 
+# Check Skool Account Exists
 @auth.route('/api/skool', methods=['GET'])
 @login_required
 def get_skool():
     user_data = mongo.db.users.find_one({'_id' : current_user.id})
 
-    if user_data and 'skool_email' in user_data:
+    if user_data and 'auth_token' in user_data:
         return {'success': 'success'}
     else:
         return {'error': 'Not found'}, 401
     
+# Connect Skool Account
 @auth.route('/api/connectskool', methods=['POST'])
 @login_required
 def connect_skool():
