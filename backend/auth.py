@@ -7,6 +7,7 @@ from bson.json_util import dumps
 # Import local modules
 from database.database_init import mongo
 from models.models import User
+from scripts.login_to_skool import login_to_skool
 
 
 # auth = Blueprint('auth', __name__, static_folder='../build', static_url_path='/')
@@ -20,7 +21,7 @@ def login():
 
     # Check if the user exists in the database
     user_data = mongo.db.users.find_one({'email' : email})
-    print(user_data)
+    # print(user_data)
 
     if data and user_data is not None and check_password_hash(user_data['password'], data['password']):
         user_obj = User(id=user_data['_id'], email=user_data['email'], password=user_data['password'])
@@ -33,12 +34,36 @@ def login():
 # Session Check
 @auth.route('/api/session', methods=['GET'])
 def session_check():
-    print(current_user)
-    print(current_user.is_authenticated)
+    # print(current_user)
+    # print(current_user.is_authenticated)
     if current_user.is_authenticated:
         return {'session': 'active'}
     else:
         return {'session': 'inactive'}
+
+@auth.route('/api/skool', methods=['GET'])
+@login_required
+def get_skool():
+    user_data = mongo.db.users.find_one({'_id' : current_user.id})
+
+    if user_data and 'skool_email' in user_data:
+        return {'success': 'success'}
+    else:
+        return {'error': 'Not found'}, 401
+    
+@auth.route('/api/connectskool', methods=['POST'])
+@login_required
+def connect_skool():
+    data = request.get_json()
+
+    auth_token = login_to_skool(data['skoolEmail'], data['skoolPassword'])
+
+    if auth_token is not None:
+        mongo.db.users.update_one({'_id': current_user.id}, {'$set': {'auth_token': auth_token}})
+        return {'success': 'success'}
+
+    else:
+        return {'error': 'Invalid credentials'}, 401
 
 # Logout Route
 @auth.route('/api/logout', methods=['POST'])

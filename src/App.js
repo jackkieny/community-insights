@@ -6,6 +6,7 @@ import Home from './components/Home';
 import About from './components/About';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
+import ConnectSkool from './components/ConnectSkool';
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
           <Route exact path="/about" element={<About />} />
           <Route exact path='/login' element={<Login />} />
           <Route exact path='/dashboard' element={<Dashboard />} />
+          <Route exact path='/connect-skool' element={<ConnectSkool/>} />
+          <Route exact path='/choose-community' element={<h1>Choose community</h1>} />
         </Routes>
       </Router> 
     </div>

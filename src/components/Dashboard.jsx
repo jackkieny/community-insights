@@ -19,8 +19,21 @@ function Dashboard() {
                 alert('Not logged in! Please log in to access the dashboard.');
             }
         };
+        const fetchUser = async () => {
+            const response = await fetch('/api/skool', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json();
+            if (data.error === 'Not found') {
+                navigate('/connect-skool');
+            }
+        };
 
         fetchData();
+        fetchUser();
     }, []);
 
     const handleLogOut = async () => {
