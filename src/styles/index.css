@@ -19,6 +19,13 @@
   font-style: normal;
 }
 
+:root{
+  --skool-S-color: #262f9d;
+  --skool-K-color: #e24333;
+  --skool-O1-color: #e7b358;
+  --skool-O2-color: #4eb8f3;
+  --skool-L-color: #d1513e;
+}
 
 body {
   margin: 0;
