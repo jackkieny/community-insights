@@ -15,6 +15,7 @@ spec:
       containers:
       - name: community-insights
         image: jackkieny/community-insights:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
       imagePullSecrets:
