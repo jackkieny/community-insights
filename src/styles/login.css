@@ -22,8 +22,8 @@
     align-items: center;
     justify-content: center;
 
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
 }
 
 .login-form-header{
@@ -43,7 +43,7 @@
 .login-form-input{
     margin-bottom: 1em;
 
-    min-width: 30%;
+    min-width: 50%;
     height: 2em;
 
     border: none;
@@ -51,6 +51,30 @@
 
     font-size: 1.2em;
     text-align: center;
+}
+
+.login-form-password-container{
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+
+    border: none;
+    border-radius: 5px;
+
+}
+
+.login-form-password-eye{
+    position: absolute;
+    right: 3em;
+
+    color: white;
+    z-index: 1;
+    font-size: 2em;
+    cursor: pointer;
 }
 
 .login-form-button{
