@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom'
 
 function ChooseCommunity() {
     const navigate = useNavigate();
-    
+
     const [communities, setCommunities] = useState([]);
-    
+
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetch('/api/session', {
@@ -55,56 +55,72 @@ function ChooseCommunity() {
         }
     }
 
+    const activeCommunities = communities.filter(community => community.archived === 0 && community.role === 'group-admin')
 
-  return (
-    <div className='choosecommunity-container'>
-        <h1 style={{'textDecoration': 'underline'}}>SELECT A COMMUNITY</h1>
-        <div className='choosecommunity-active-container'>
-            {communities.map((community) => 
-                community.archived === 0 && community.role === 'group-admin' &&
-                <div
-                    className='choosecommunity-active-card'
-                    key={community.id}
-                    style={{
-                        borderColor: community.color,
-                        backgroundImage: `url(${community.logo_url})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                    }}
-                    onClick={() => handleSelectCommunity(community.id)}
-                >
-                    <div className='choosecommunity-active-card-text'>
-                        {community.display_name}
+    return (
+        <div className='choosecommunity-container'>
+            <h1 style={{ 'textDecoration': 'underline' }}>SELECT A COMMUNITY</h1>
+            <div className='choosecommunity-active-container'>
+                {activeCommunities.length > 0 ? (
+                    activeCommunities.map((community) =>
+                        <div
+                            className='choosecommunity-active-card'
+                            key={community.id}
+                            style={{
+                                borderColor: community.color,
+                                backgroundImage: `url(${community.logo_url})`,
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                            }}
+                            onClick={() => handleSelectCommunity(community.id)}
+                        >
+                            <div className='choosecommunity-active-card-text'>
+                                {community.display_name}
+                            </div>
+                        </div>
+                    )
+                ) : (
+                    // If there are no communities that meet the criteria, render a button to go back to the /connectskool page
+                    <div className="choosecommunity-nocommunities-container">
+                        <div className="choosecommunity-nocommunities-title">
+                            <h3 style={{ 'border': '1px solid red', 'padding': '10px' }}>Error! No communities available</h3>
+                            <p>This is because you are not an admin of any of these communities or becuase these communities have been archived.</p>
+
+                        </div>
+                        <button
+                            className='choosecommunity-nocommunities-button'
+                            onClick={() => navigate('/connect-skool')}
+                        >
+                            Login with Different Account</button>
                     </div>
-                </div> 
-            )}
-        </div>
+                )}
+            </div>
 
-        <h3 style={{'textDecoration': 'underline'}}>UNAVAILABLE COMMUNITIES</h3>
-        <div className='choosecommunity-inactive-container'>
-            {communities.map((community) => 
-                (community.archived === 1 || community.role !== 'group-admin') &&
-                <div
-                    className='choosecommunity-inactive-card'
-                    key={community.id}
-                    style={{
-                        borderColor: community.color,
-                        backgroundImage: `url(${community.logo_url})`,
-                        filter: 'grayscale(100%)',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
+            <h3 style={{ 'textDecoration': 'underline' }}>UNAVAILABLE COMMUNITIES</h3>
+            <div className='choosecommunity-inactive-container'>
+                {communities.map((community) =>
+                    (community.archived === 1 || community.role !== 'group-admin') &&
+                    <div
+                        className='choosecommunity-inactive-card'
+                        key={community.id}
+                        style={{
+                            borderColor: community.color,
+                            backgroundImage: `url(${community.logo_url})`,
+                            filter: 'grayscale(100%)',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
 
-                    }}
-                >
-                    <div className="choosecommunity-inactive-card-text">
-                        {community.display_name}
+                        }}
+                    >
+                        <div className="choosecommunity-inactive-card-text">
+                            {community.display_name}
+                        </div>
                     </div>
-                </div> 
-            )}
+                )}
 
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default ChooseCommunity
