@@ -5,9 +5,9 @@ from pymongo import MongoClient
 from flask_login import LoginManager
 
 # Import the modules from the other files
-from database.database_init import mongo
-from models.models import User
-from auth import auth
+from .database.database_init import mongo
+from .models.models import User
+from .auth import auth
 
 # Load the environment variables
 import os
@@ -16,8 +16,8 @@ load_dotenv()
 
 ### Initialize the Flask App ###
 
-# app = Flask(__name__, static_folder='../build', static_url_path='/')
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='/')
+# app = Flask(__name__)
 CORS(app)
 app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 app.config['SESSION_TYPE'] = 'mongodb'
