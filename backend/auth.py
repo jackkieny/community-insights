@@ -7,7 +7,9 @@ from bson.json_util import dumps
 # Import local modules
 from database.database_init import mongo
 from models.models import User
+
 from scripts.login_to_skool import login_to_skool
+from scripts.get_communities import skool_communities
 
 
 # auth = Blueprint('auth', __name__, static_folder='../build', static_url_path='/')
@@ -66,6 +68,26 @@ def connect_skool():
 
     else:
         return {'error': 'Invalid credentials'}, 401
+
+# Get Communities
+@auth.route('/api/get-communities', methods=['GET'])
+@login_required
+def get_communities():
+    user_data = mongo.db.users.find_one({'_id' : current_user.id})
+
+    if user_data and 'auth_token' in user_data:
+        communities = skool_communities(user_data['auth_token'])
+        return communities
+    else:
+        return {'error': 'Not found'}, 401
+
+@auth.route('/api/selectcommunity', methods=['POST'])
+@login_required
+def select_community():
+    data = request.get_json()
+    user_data = mongo.db.users.find_one({'_id' : current_user.id})
+
+    session['community_id'] = data['community_id']
 
 # Logout Route
 @auth.route('/api/logout', methods=['POST'])
