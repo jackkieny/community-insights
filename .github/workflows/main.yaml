@@ -30,9 +30,3 @@ jobs:
         echo "${{ secrets.KUBECONFIG }}" | base64 --decode > kubeconfig.yaml
         export KUBECONFIG=kubeconfig.yaml
         kubectl apply -f deployment.yaml
-
-    - name: Update Deployment image
-      run: |
-        echo "${{ secrets.KUBECONFIG }}" | base64 --decode > kubeconfig.yaml
-        export KUBECONFIG=kubeconfig.yaml
-        kubectl set image deployment/community-insights-deployment community-insights=jackkieny/community-insights:latest

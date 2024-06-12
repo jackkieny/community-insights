@@ -5,9 +5,9 @@ from pymongo import MongoClient
 from flask_login import LoginManager
 
 # Import the modules from the other files
-from .database.database_init import mongo
-from .models.models import User
-from .auth import auth
+from database.database_init import mongo
+from models.models import User
+from auth import auth
 
 # Load the environment variables
 import os

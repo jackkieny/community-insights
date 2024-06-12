@@ -5,11 +5,11 @@ from werkzeug.security import check_password_hash
 from bson.json_util import dumps
 
 # Import local modules
-from .database.database_init import mongo
-from .models.models import User
+from database.database_init import mongo
+from models.models import User
 
-from .scripts.login_to_skool import login_to_skool
-from .scripts.get_communities import skool_communities
+from scripts.login_to_skool import login_to_skool
+from scripts.get_communities import skool_communities
 
 
 auth = Blueprint('auth', __name__, static_folder='../build', static_url_path='/')
