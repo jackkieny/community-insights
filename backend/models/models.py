@@ -3,7 +3,7 @@ from flask_login import UserMixin
 from bson.objectid import ObjectId
 
 # Import local modules
-from ..database.database_init import mongo
+from database.database_init import mongo
 
 
 ### User Class ###
