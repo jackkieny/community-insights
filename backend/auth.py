@@ -26,7 +26,7 @@ def login():
     # print(user_data)
 
     if data and user_data is not None and check_password_hash(user_data['password'], data['password']):
-        user_obj = User(id=user_data['_id'], email=user_data['email'], password=user_data['password'])
+        user_obj = User(id=user_data['_id'], email=user_data['email'], password=user_data['password'], communityId=None)
         login_user(user_obj)
         session['user_id'] = dumps(user_data['_id'])
         return {'success': 'success'}
@@ -85,9 +85,13 @@ def get_communities():
 @login_required
 def select_community():
     data = request.get_json()
-    user_data = mongo.db.users.find_one({'_id' : current_user.id})
 
-    session['community_id'] = data['community_id']
+    try:
+        session['community_id'] = data['communityId']
+        return {'success': 'success'}
+    except:
+        return {'error': 'Invalid community ID'}, 401
+
 
 # Logout Route
 @auth.route('/api/logout', methods=['POST'])

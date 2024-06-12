@@ -41,6 +41,20 @@ function ChooseCommunity() {
         fetchCommunities();
     }, []);
 
+    const handleSelectCommunity = async (communityId) => {
+        const response = await fetch('/api/selectcommunity', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ communityId })
+        });
+        const data = await response.json();
+        if (data.success) {
+            navigate('/dashboard');
+        }
+    }
+
 
   return (
     <div className='choosecommunity-container'>
@@ -57,6 +71,7 @@ function ChooseCommunity() {
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                     }}
+                    onClick={() => handleSelectCommunity(community.id)}
                 >
                     <div className='choosecommunity-active-card-text'>
                         {community.display_name}
@@ -75,6 +90,7 @@ function ChooseCommunity() {
                     style={{
                         borderColor: community.color,
                         backgroundImage: `url(${community.logo_url})`,
+                        filter: 'grayscale(100%)',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
 
