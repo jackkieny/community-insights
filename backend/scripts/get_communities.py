@@ -15,7 +15,6 @@ def skool_communities(auth_token):
     try:
         response = session.get(url)
     except:
-        print(f'Error: {response.status_code}')
         return {'error': 'Error fetching communities'}, 500
     
     # Check if response is successful
