@@ -1,0 +1,143 @@
+.loginpage-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 40%;
+    height: 60%;
+
+    border: 3px solid white;
+    border-radius: 15px;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+}
+
+.login-form-header{
+    margin-bottom: 1em;
+
+    font-size: 3em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.login-form-label{
+    margin-bottom: 0.5em;
+
+    font-size: 1.5em;
+}
+
+.login-form-input{
+    margin-bottom: 1em;
+
+    min-width: 50%;
+    height: 2em;
+
+    border: none;
+    border-radius: 5px;
+
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.login-form-password-container{
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+
+    border: none;
+    border-radius: 5px;
+
+}
+
+.login-form-password-eye{
+    position: absolute;
+    right: 3em;
+
+    color: white;
+    z-index: 1;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+.login-form-button{
+    width: 30%;
+    height: 2em;
+
+    background: none;
+    border: 2px solid white;
+    border-radius: 5px;
+
+    color: white;
+    font-size: 1.4em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.loginpage-home-button{
+    position: absolute;
+    top: 1em;
+    left: 1em;
+
+    padding: 5px;
+    
+    background: none;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.loginpage-home-button-link{
+    color: white;
+}
+
+/* Login Page Error Message */
+.loginpage-errormsg{
+    position: relative;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 50%;
+
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid red;
+    border-radius: 50px;
+
+    font-size: 1.25em;
+
+}
+
+
+.loginpage-successmsg{
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 50%;
+
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid green;
+    border-radius: 50px;
+
+    font-size: 1.25em;
+}

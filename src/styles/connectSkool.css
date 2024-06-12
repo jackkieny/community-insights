@@ -1,0 +1,74 @@
+.connectskool-container{
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    height: 50%;
+    width: 50%;
+    
+    border: 3px solid white;
+    border-radius: 10px;
+}
+
+.connectskool-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 100%;
+    
+    font-size: 2rem;
+}
+
+.connectskool-form-input{
+    padding: 10px;
+    margin: 10px;
+
+    width: 50%;
+
+    border: 2px solid white;
+    border-radius: 5px;
+
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.connectskool-form-password{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+}
+
+.connectskool-form-password-eye{
+    position: absolute;
+    right: 4em;
+
+    cursor: pointer;
+}
+
+.connectskool-form-button{
+    margin-top: 20px;
+    padding: 10px 20px;
+
+    background: none;
+    border: 2px solid white;
+    border-radius: 5px;
+
+    color: white;
+
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}

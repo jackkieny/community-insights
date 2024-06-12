@@ -1,10 +1,39 @@
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('../../public/fonts/SFPRODISPLAYREGULAR.OTF') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('../../public/fonts/SFPRODISPLAYMEDIUM.OTF') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('../../public/fonts/SFPRODISPLAYBOLD.OTF') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+:root{
+  --skool-S-color: #262f9d;
+  --skool-K-color: #e24333;
+  --skool-O1-color: #e7b358;
+  --skool-O2-color: #4eb8f3;
+  --skool-L-color: #d1513e;
+}
+
 body {
   margin: 0;
 
   background: black;
   color: white;
 
-  font-family: 'San Francisco Pro', sans-serif;
+  font-family: 'SF Pro Display', sans-serif;
 }
 
 
