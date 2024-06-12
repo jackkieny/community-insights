@@ -2,12 +2,19 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/connectSkool.css'
 
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 function ConnectSkool() {
     const navigate = useNavigate()
 
     const [skoolEmail, setSkoolEmail] = useState('') 
     const [skoolPassword, setSkoolPassword] = useState('')
+
+    const [showPassword, setShowPassword] = useState(false)
+
+    const viewPassword = () => {
+        setShowPassword(!showPassword)
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -66,12 +73,17 @@ function ConnectSkool() {
                 onChange={(e) => setSkoolEmail(e.target.value)}
             />
             <label>Skool Password</label>
-            <input
-                type='password'
-                className='connectskool-form-input'
-                value={skoolPassword}
-                onChange={(e) => setSkoolPassword(e.target.value)}
-            />
+            <div className='connectskool-form-password'>
+                <input
+                    type={showPassword ? 'text' : 'password'}
+                    className='connectskool-form-input'
+                    value={skoolPassword}
+                    onChange={(e) => setSkoolPassword(e.target.value)}
+                />
+                <div className='connectskool-form-password-eye'>
+                    {showPassword ? <FiEyeOff onClick={() => viewPassword()} /> : <FiEye onClick={() => viewPassword()} />}
+                </div>
+            </div>
             <button className='connectskool-form-button'>Connect to Skool</button>
         </form>
     </div>
