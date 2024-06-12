@@ -19,6 +19,13 @@ jobs:
         sudo mv ./kubectl /usr/local/bin/kubectl
     
     - name: Deploy to Kubernetes
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        MONGO_URI: ${{ secrets.MONGO_URI }}
+        MONGO_DBNAME: ${{ secrets.MONGO_DBNAME }}
+        MONGO_COLLECTION: ${{ secrets.MONGO_COLLECTION }}
+        SKOOL_LOGIN_URL: ${{ secrets.SKOOL_LOGIN_URL }}
+        SKOOL_COMMUNITIES_URL: ${{ secrets.SKOOL_COMMUNITIES_URL }}
       run: |
         echo "${{ secrets.KUBECONFIG }}" | base64 --decode > kubeconfig.yaml
         export KUBECONFIG=kubeconfig.yaml
