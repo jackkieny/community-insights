@@ -18,7 +18,7 @@ load_dotenv()
 
 # app = Flask(__name__, static_folder='../build', static_url_path='/')
 app = Flask(__name__)
-# CORS(app)
+CORS(app)
 app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 app.config['SESSION_TYPE'] = 'mongodb'
 app.config['SESSION_MONGODB'] = MongoClient(os.getenv('MONGO_URI'))
