@@ -18,6 +18,36 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 80
+        env:
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: env-secrets
+              key: SECRET_KEY
+        - name: MONGO_URI
+          valueFrom:
+            secretKeyRef:
+              name: env-secrets
+              key: MONGO_URI
+        - name: MONGO_DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: env-secrets
+              key: MONGO_DBNAME
+        - name: MONGO_COLLECTION
+          valueFrom:
+            secretKeyRef:
+              name: env-secrets
+              key: MONGO_COLLECTION
+        - name: SKOOL_LOGIN_URL
+          valueFrom:
+            secretKeyRef:
+              name: env-secrets
+              key: SKOOL_LOGIN_URL
+        - name: SKOOL_COMMUNITIES_URL
+          valueFrom:
+            secretKeyRef:
+              name: env-secrets
+              key: SKOOL_COMMUNITIES_URL
       imagePullSecrets:
       - name: regcred
-
