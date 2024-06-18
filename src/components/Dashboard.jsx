@@ -57,12 +57,19 @@ function Dashboard() {
         }
     }
 
+    const handleTabChange = (e) => {
+        setCurrentTab(e.target.id)
+    }
+
     return (
         <div className='dashboard-container'>
+            
+            {/* SIDEBAR */}
             <div className="dashboard-sidebar">
                 <button
                     id='home'
                     className="dashboard-sidebar-top"
+                    onClick={handleTabChange.bind(this)}
                 >
                     <PiMonitorLight className="dashboard-sidebar-icon" />
                     <span>Home</span>
@@ -70,6 +77,7 @@ function Dashboard() {
                 <button
                     id='planner'
                     className="dashboard-sidebar-top"
+                    onClick={handleTabChange.bind(this)}
                 >
                     <PiCalendarBlank className="dashboard-sidebar-icon" />
                     <span>Planner</span>
@@ -77,11 +85,13 @@ function Dashboard() {
                 <button
                     id='settings'
                     className="dashboard-sidebar-top"
+                    onClick={handleTabChange.bind(this)}
                 >
                     <BsGear className="dashboard-sidebar-icon" />
                     <span>Settings</span>
                 </button>
 
+                {/* Log Out Button */}
                 <button
                     className="dashboard-sidebar-bottom"
                     onClick={handleLogOut}
@@ -91,8 +101,27 @@ function Dashboard() {
 
                 </button>
             </div>
+
+            {/* MAIN CONTENT */}
             <div className="dashboard-main">
-                <h1>Dashboard</h1>
+                {currentTab === 'home' && (
+                    <div className="dashboard-main-content">
+                        <h1>Home</h1>
+                        <p>Welcome to the dashboard!</p>
+                    </div>
+                )}
+                {currentTab === 'planner' && (
+                    <div className="dashboard-main-content">
+                        <h1>Planner</h1>
+                        <p>Planner content goes here.</p>
+                    </div>
+                )}
+                {currentTab === 'settings' && (
+                    <div className="dashboard-main-content">
+                        <h1>Settings</h1>
+                        <p>Settings content goes here.</p>
+                    </div>
+                )}
             </div>
         </div>
     )
