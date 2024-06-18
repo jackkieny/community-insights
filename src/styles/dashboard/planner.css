@@ -1,7 +1,9 @@
 .dshbd-planner-container{
     border: 1px solid red;
 
-    display: block;
+    display: grid;
+    grid-template-rows: 1fr 4fr;
+
 
     width: 100%;
     height: 100%;

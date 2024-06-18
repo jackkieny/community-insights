@@ -8,7 +8,11 @@ function Planner() {
         <div
             className="dshbd-planner-container"
         >
-            Hello
+            <div>Hello</div>
+            <Calendar
+
+            />
+
         </div>
     );
 }
