@@ -1,7 +1,7 @@
 .dashboard-container {
     display: grid;
     grid-template-columns: minmax(300px, .5fr) 3fr;
-    height: 100vh;
+    height: 100vh; 
     width: 100%;
 }
 
@@ -48,7 +48,6 @@
     position: relative;
     margin-top: auto;
     margin-bottom: 1rem;
-    padding: 1.5rem;
 
     display: flex;
     align-items: center;
@@ -63,17 +62,30 @@
     background: none;
     color: white;
     font-size: 1rem;
+    font-weight: bold;
     text-transform: uppercase;
 }
 
-.dashboard-sidebar-bottom:hover, .dashboard-sidebar-top:hover {
+.dashboard-sidebar-top:hover {
     background: rgba(255, 255, 255, 0.4);
     cursor: pointer;
 }
 
+.dashboard-sidebar-bottom:hover{
+    border-color: rgba(255, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+    cursor: pointer;
+}
 
 /*** Main ***/
 
 .dashboard-main {
+    border: 1px solid yellow;
+    margin: 0;
     padding: 1rem;
+
+    display: grid;
+    place-content: center;
+
 }

@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/dashboard.css'
 
+// Import Dashboard Components
+import DashboardHome from './Dashboard/DashboardHome';
+import Planner from './Dashboard/Planner';
+import Settings from './Dashboard/Settings';
+
 // Import React Icons
 import { PiMonitorLight, PiCalendarBlank } from "react-icons/pi";
 import { BsGear } from "react-icons/bs";
@@ -41,7 +46,7 @@ function Dashboard() {
 
         fetchData();
         fetchUser();
-    }, []);
+    }, [currentTab, navigate]);
 
     const handleLogOut = async () => {
         const response = await fetch('/api/logout', {
@@ -57,10 +62,10 @@ function Dashboard() {
         }
     }
 
-    const handleTabChange = (e) => {
-        setCurrentTab(e.target.id)
+    function handleTabChange(event) {
+        setCurrentTab(event.currentTarget.id);
     }
-
+    
     return (
         <div className='dashboard-container'>
             
@@ -105,22 +110,13 @@ function Dashboard() {
             {/* MAIN CONTENT */}
             <div className="dashboard-main">
                 {currentTab === 'home' && (
-                    <div className="dashboard-main-content">
-                        <h1>Home</h1>
-                        <p>Welcome to the dashboard!</p>
-                    </div>
+                    <DashboardHome />
                 )}
                 {currentTab === 'planner' && (
-                    <div className="dashboard-main-content">
-                        <h1>Planner</h1>
-                        <p>Planner content goes here.</p>
-                    </div>
+                    <Planner />
                 )}
                 {currentTab === 'settings' && (
-                    <div className="dashboard-main-content">
-                        <h1>Settings</h1>
-                        <p>Settings content goes here.</p>
-                    </div>
+                    <Settings />
                 )}
             </div>
         </div>
