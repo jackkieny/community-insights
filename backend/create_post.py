@@ -1,6 +1,6 @@
 # Import Flask and security modules
 from flask import Flask, request, Blueprint, session 
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_required, current_user
 
 # Import local modules
 from database.database_init import mongo
@@ -22,5 +22,9 @@ def post():
     skool_email = mongo.db.users.find_one({'_id': current_user.id})['skool_email']
     skool_pass = mongo.db.users.find_one({'_id': current_user.id})['skool_password']
 
-    create_new_post(data, auth_token, communityId, skool_email, skool_pass)
-    return {'success': 'success'}
+    create_post_status_code = create_new_post(data, auth_token, communityId, skool_email, skool_pass)
+
+    if create_post_status_code == 200:
+        return {'success': 'success'}
+    else:
+        return {'error': 'Error creating post'}, 500

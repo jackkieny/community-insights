@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 
@@ -79,6 +79,11 @@ function CreatePostForm({ closeForm }) {
             time: time,
         }
 
+        if (title === "" || content === "" || date === "" || time === "") {
+            alert("Please fill out all fields");
+            return;
+        }
+
         // Send Post Data to Server
         try {
             const response = await fetch('/api/post', {
@@ -99,6 +104,9 @@ function CreatePostForm({ closeForm }) {
             // Alert User if Post Created Successfully
             if (result.success){
                 alert("Post Created Successfully");
+                closeForm();
+            } else {
+                alert("Error Creating Post");
             }
 
         // Catch Error
@@ -119,6 +127,7 @@ function CreatePostForm({ closeForm }) {
         // Close Form
         closeForm();
     }
+
 
     return (
         <div className="createpost-form-container">

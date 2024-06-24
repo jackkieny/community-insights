@@ -27,7 +27,4 @@ def create_new_post(post_data, auth_token, group_id, skool_email, skool_pass):
 
     post_response = session.post(os.getenv('SKOOL_POST_URL'), data=json.dumps(request_payload))
 
-    print(f'Login response: {login_response.status_code}\n{login_response.text}')
-    print(f'Post response: {post_response.status_code}\n{post_response.text}')
-
-    return
+    return post_response.status_code
