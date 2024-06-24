@@ -1,31 +1,33 @@
-import requests
-import json
+import os, requests, json
 
 
-def create_new_post(post_data, auth_token, group_id):
-    url = "https://api.skool.com/posts?follow=true"
+def create_new_post(post_data, auth_token, group_id, skool_email, skool_pass):
 
     session = requests.Session()
-    session.headers.update({
-        'content-type': 'application/json',
-    })
-    session.cookies.set('auth_token', auth_token)
+    session.get('https://skool.com')
 
+    login_payload = {
+        'email': skool_email,
+        'password': skool_pass
+    }
+
+    login_response = session.post(os.getenv('SKOOL_LOGIN_URL'), data=json.dumps(login_payload)) 
 
     request_payload = {
+        'post_type': 'generic',
         'group_id': group_id,
         'metadata': {
             'title': post_data['title'],
             'content': post_data['content'],
             'action': 0,
             'attachments': "",
-            'label': 'd774b807986c4ee586127019e778f305'
+            'labels': 'd774b807986c4ee586127019e778f305'
         }
     }
 
-    response = session.post(url, data=json.dumps(request_payload))
+    post_response = session.post(os.getenv('SKOOL_POST_URL'), data=json.dumps(request_payload))
 
-    if response.status_code != 200:
-        print(f"Failed {response.status_code}\n{response.text}")
+    print(f'Login response: {login_response.status_code}\n{login_response.text}')
+    print(f'Post response: {post_response.status_code}\n{post_response.text}')
 
     return

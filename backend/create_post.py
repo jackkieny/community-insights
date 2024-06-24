@@ -16,13 +16,11 @@ create_post = Blueprint('create_post', __name__)
 @login_required
 def post():
     data = request.get_json()
-    # print(data)
 
     auth_token = mongo.db.users.find_one({'_id': current_user.id})['auth_token']
     communityId = mongo.db.users.find_one({'_id': current_user.id})['communityId']
-    # print(auth_token)
-    # print(current_user.communityId)
+    skool_email = mongo.db.users.find_one({'_id': current_user.id})['skool_email']
+    skool_pass = mongo.db.users.find_one({'_id': current_user.id})['skool_password']
 
-    print("Creating new post...")
-    create_new_post(data, auth_token, communityId)
+    create_new_post(data, auth_token, communityId, skool_email, skool_pass)
     return {'success': 'success'}
