@@ -127,7 +127,31 @@
     cursor: pointer;
 }
 
+.createpost-form-form-content-button-warning{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 .createpost-form-form-content-input:hover,
 .createpost-form-form-content-button:hover{
     background: rgba(255, 255, 255, 0.2);
+}
+
+
+/* Date Time Warning */
+.createpost-form-form-datetime-warning{
+    position: absolute;
+    bottom: -2em;
+
+
+    width: 100%;
+
+    outline: 2px solid white;
+    border: none;
+    border-radius: 10px;
+
+    background-color: rgba(255, 255, 255, 0.8);
+    color: red;
+    text-shadow: 1px 0 1px rgba(0, 0, 0, 0.5);
+    font-size: 1.5em;
+    text-align: center;
 }

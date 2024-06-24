@@ -36,10 +36,12 @@ function CreatePostForm({ closeForm }) {
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
 
+    const [dateTimeWarning, setDateTimeWarning] = useState(false);
+
     // Handle Form Changes
     const handleTitleChange = (e) => { setTitle(e.target.value); }
     const handleContentChange = (e) => { setContent(e.target.value); }
-    const handleDateChange = (e) => { setDate(e.target.value); checkDateTimeIsValid(e.target.value, time)}
+    const handleDateChange = (e) => { setDate(e.target.value); checkDateTimeIsValid(e.target.value, time); }
     const handleTimeChange = (e) => { setTime(e.target.value); checkDateTimeIsValid(date, e.target.value)}
 
     // Check Date & Time
@@ -49,8 +51,10 @@ function CreatePostForm({ closeForm }) {
         futureDateTime.setMinutes(futureDateTime.getMinutes() + 15);
 
         if (selectedDateTime < futureDateTime) {
-            console.log("Time should be atleast 15 minutes from now");
+            setDateTimeWarning(true);
             return false;
+        } else{
+            setDateTimeWarning(false);
         }
         return true;
     }
@@ -61,8 +65,10 @@ function CreatePostForm({ closeForm }) {
 
         // Check if Date & Time is valid
         if (!checkDateTimeIsValid(date, time)) {
-            console.log("Invalid Date & Time");
+            setDateTimeWarning(true);
             return;
+        } else{
+            setDateTimeWarning(false);
         }
     
         // Create Post
@@ -166,8 +172,9 @@ function CreatePostForm({ closeForm }) {
                             onChange={handleTimeChange}
                         />
                         <button 
-                            className="createpost-form-form-content-button"
+                            className={dateTimeWarning ? "createpost-form-form-content-button createpost-form-form-content-button-warning" : "createpost-form-form-content-button"}
                             onClick={handleSubmit}
+                            disabled={dateTimeWarning}
                         >
                             Create Post
                         </button>
@@ -191,6 +198,9 @@ function CreatePostForm({ closeForm }) {
                     /> */}
                 </div>
             </div>
+            {dateTimeWarning && 
+                <div className="createpost-form-form-datetime-warning">Date should be at least 15 minutes from now</div>
+            }
         </div>
     )
 }
