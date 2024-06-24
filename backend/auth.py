@@ -37,8 +37,6 @@ def login():
 # Session Check
 @auth.route('/api/session', methods=['GET'])
 def session_check():
-    # print(current_user)
-    # print(current_user.is_authenticated)
     if current_user.is_authenticated:
         return {'session': 'active'}
     else:
@@ -64,7 +62,14 @@ def connect_skool():
     auth_token = login_to_skool(data['skoolEmail'], data['skoolPassword'])
 
     if auth_token is not None:
-        mongo.db.users.update_one({'_id': current_user.id}, {'$set': {'auth_token': auth_token}})
+        mongo.db.users.update_one(
+            {'_id': current_user.id},
+            {'$set': {
+                'auth_token': auth_token,
+                'skool_email': data['skoolEmail'],
+                'skool_password': data['skoolPassword']
+            }}
+        )
         return {'success': 'success'}
 
     else:
@@ -82,6 +87,7 @@ def get_communities():
     else:
         return {'error': 'Not found'}, 401
 
+# Select Community
 @auth.route('/api/selectcommunity', methods=['POST'])
 @login_required
 def select_community():
