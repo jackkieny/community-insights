@@ -1,0 +1,36 @@
+.createpost-button-container {
+    display: block;
+    position: absolute;
+
+    z-index: 1;
+
+    top: 12px;
+    right: 20em;
+
+}
+
+.createpost-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 2em;
+
+    border: none;
+    border-radius: 5px;
+    background: #0171e2;
+
+    color: white;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.createpost-button:hover{
+    background: #01579b;
+    outline: 2px solid white;
+}
+
+.createpost-button-icon{
+    font-size: 1.15em;
+}

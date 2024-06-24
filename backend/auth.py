@@ -12,8 +12,9 @@ from scripts.login_to_skool import login_to_skool
 from scripts.get_communities import skool_communities
 
 
-auth = Blueprint('auth', __name__, static_folder='../build', static_url_path='/')
-# auth = Blueprint('auth', __name__)
+### CHANGE ME BEFORE DEPLOYING ###
+# auth = Blueprint('auth', __name__, static_folder='../build', static_url_path='/')
+auth = Blueprint('auth', __name__)
 
 # Login Route
 @auth.route('/api/login', methods=['POST'])
@@ -88,6 +89,7 @@ def select_community():
 
     try:
         session['community_id'] = data['communityId']
+        mongo.db.users.update_one({'_id': current_user.id}, {'$set': {'communityId': data['communityId']}})
         return {'success': 'success'}
     except:
         return {'error': 'Invalid community ID'}, 401
