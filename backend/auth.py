@@ -83,6 +83,14 @@ def get_communities():
 
     if user_data and 'auth_token' in user_data:
         communities = skool_communities(user_data['auth_token'])
+
+        mongo.db.users.update_one(
+            {'_id': current_user.id},
+            {'$set': {
+                'communities': communities
+            }}
+        )
+
         return communities
     else:
         return {'error': 'Not found'}, 401
