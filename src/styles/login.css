@@ -89,6 +89,8 @@
     font-size: 1.4em;
     font-weight: bold;
     text-transform: uppercase;
+
+    cursor: pointer;
 }
 
 .loginpage-home-button{
@@ -105,6 +107,7 @@
 
 .loginpage-home-button-link{
     color: white;
+    cursor: pointer;
 }
 
 /* Login Page Error Message */
