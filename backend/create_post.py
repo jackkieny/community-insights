@@ -4,7 +4,6 @@ from flask_login import login_required, current_user
 
 # Import local modules
 from database.database_init import mongo
-from models.models import User
 
 from scripts.create_new_post import create_new_post
 

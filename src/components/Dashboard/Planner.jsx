@@ -42,7 +42,7 @@ function CreatePostForm({ closeForm }) {
     const handleTitleChange = (e) => { setTitle(e.target.value); }
     const handleContentChange = (e) => { setContent(e.target.value); }
     const handleDateChange = (e) => { setDate(e.target.value); checkDateTimeIsValid(e.target.value, time); }
-    const handleTimeChange = (e) => { setTime(e.target.value); checkDateTimeIsValid(date, e.target.value)}
+    const handleTimeChange = (e) => { setTime(e.target.value); checkDateTimeIsValid(date, e.target.value) }
 
     // Check Date & Time
     const checkDateTimeIsValid = (date, time) => {
@@ -53,7 +53,7 @@ function CreatePostForm({ closeForm }) {
         if (selectedDateTime < futureDateTime) {
             setDateTimeWarning(true);
             return false;
-        } else{
+        } else {
             setDateTimeWarning(false);
         }
         return true;
@@ -67,10 +67,10 @@ function CreatePostForm({ closeForm }) {
         if (!checkDateTimeIsValid(date, time)) {
             setDateTimeWarning(true);
             return;
-        } else{
+        } else {
             setDateTimeWarning(false);
         }
-    
+
         // Create Post
         const postData = {
             title: title,
@@ -102,14 +102,14 @@ function CreatePostForm({ closeForm }) {
             const result = await response.json();
 
             // Alert User if Post Created Successfully
-            if (result.success){
+            if (result.success) {
                 alert("Post Created Successfully");
                 closeForm();
             } else {
                 alert("Error Creating Post");
             }
 
-        // Catch Error
+            // Catch Error
         } catch (error) {
             console.error("Error Creating Post: ", error);
         }
@@ -117,7 +117,7 @@ function CreatePostForm({ closeForm }) {
     }
 
     // Close Form
-    const handleClose = (e) => { 
+    const handleClose = (e) => {
         // Reset Form
         setTitle("");
         setContent("");
@@ -154,6 +154,7 @@ function CreatePostForm({ closeForm }) {
                         onChange={handleTitleChange}
 
                     />
+
                     {/* Content */}
                     <textarea
                         className="createpost-form-form-content-textarea"
@@ -164,6 +165,7 @@ function CreatePostForm({ closeForm }) {
                         value={content}
                         onChange={handleContentChange}
                     />
+
                     {/* Date, Time & Submit*/}
                     <div className="createpost-form-form-datetime-container">
                         <input
@@ -180,7 +182,7 @@ function CreatePostForm({ closeForm }) {
                             value={time}
                             onChange={handleTimeChange}
                         />
-                        <button 
+                        <button
                             className={dateTimeWarning ? "createpost-form-form-content-button createpost-form-form-content-button-warning" : "createpost-form-form-content-button"}
                             onClick={handleSubmit}
                             disabled={dateTimeWarning}
@@ -189,25 +191,16 @@ function CreatePostForm({ closeForm }) {
                         </button>
 
                     </div>
-
-                    {/* <div className="createpost-form-form-content-title">
-                        Link
+                    <div className="createpost-form-form-attachments-container">
+                        <p>Link</p>
+                        <p>Link</p>
+                        <p>Link</p>
+                        <p>Link</p>
+                        <p>Link</p>
                     </div>
-                    <input
-                        className="createpost-form-form-content-input"
-                        type="text"
-                        placeholder="Link"
-                    />
-                    <div className="createpost-form-form-content-title">
-                        Image
-                    </div>
-                    <input
-                        className="createpost-form-form-content-input"
-                        type="file"
-                    /> */}
                 </div>
             </div>
-            {dateTimeWarning && 
+            {dateTimeWarning &&
                 <div className="createpost-form-form-datetime-warning">Date should be at least 15 minutes from now</div>
             }
         </div>

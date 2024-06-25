@@ -9,7 +9,7 @@
     width: 50%;
     height: 50%;
     
-    background: rgba(0, 0, 0, 0.8);
+    background: black;
     border: 3px solid white;
     border-radius: 25px;
 }
@@ -92,7 +92,7 @@
     border-radius: 10px;
     background: none;
     color: white;
-    font-size: 1.5em;
+    font-size: 1em;
     font-family: 'SF Pro Display', sans-serif;
 }
 
@@ -142,7 +142,6 @@
     position: absolute;
     bottom: -2em;
 
-
     width: 100%;
 
     outline: 2px solid white;
@@ -154,4 +153,18 @@
     text-shadow: 1px 0 1px rgba(0, 0, 0, 0.5);
     font-size: 1.5em;
     text-align: center;
+}
+
+.createpost-form-form-attachments-container{
+    position: absolute;
+    border: 1px solid red;
+    bottom: 1em;
+    left: 0.5em;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 40%;
 }

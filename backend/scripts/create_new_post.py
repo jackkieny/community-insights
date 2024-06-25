@@ -1,4 +1,6 @@
 import os, requests, json
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def create_new_post(post_data, auth_token, group_id, skool_email, skool_pass):
@@ -11,7 +13,7 @@ def create_new_post(post_data, auth_token, group_id, skool_email, skool_pass):
         'password': skool_pass
     }
 
-    login_response = session.post(os.getenv('SKOOL_LOGIN_URL'), data=json.dumps(login_payload)) 
+    session.post(os.getenv('SKOOL_LOGIN_URL'), data=json.dumps(login_payload)) 
 
     request_payload = {
         'post_type': 'generic',
