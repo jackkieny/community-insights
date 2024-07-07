@@ -1,0 +1,146 @@
+/*** Header ***/
+
+.homepage-header-container {
+    margin-top: 1em;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-areas: "logo navbar login";
+    align-items: center;
+
+    width: 85%;
+    height: 3em;
+}
+
+/* Logo */
+.homepage-header-logo {
+    grid-area: logo;
+    position: relative;
+    display: flex;
+    height: 100%;
+}
+
+.homepage-header-logo:hover {
+    cursor: pointer;
+}
+
+.homepage-header-logo-image {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+
+    height: 300px;
+}
+
+/* Nav Bar */
+.homepage-header-nav-container {
+    grid-area: navbar;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    font-size: 1em;
+}
+
+.homepage-header-nav-links-container { 
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    height: 100%;
+    width: 80%;
+}
+
+.homepage-header-link {
+    color: white;
+    text-decoration: none;
+}
+
+.homepage-header-link:hover {
+    text-decoration: underline;
+}
+
+/* Login */
+.homepage-header-login-container {
+    grid-area: login;
+    margin-left: 2em;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.homepage-header-login-button {
+    margin: 0 1.5em;
+    padding: 0.5em 1em;
+    background: none;
+    border: none;
+
+    font-size: 1em;
+}
+
+.homepage-header-login-button-link{
+    color: white;
+    text-decoration: none;
+
+}
+
+.homepage-header-login-button-link:hover {
+    text-decoration: underline;
+}
+
+.homepage-header-request-button{
+    padding: 1em 1em;
+
+    display: flex;
+    align-items: center;
+
+    background: -webkit-linear-gradient(0deg, #3091fd, #5157fc);
+    border: none;
+    border-radius: 50px;
+
+}
+
+.homepage-header-request-button:hover{
+    outline: 2px solid white;
+}
+
+.homepage-header-request-button-link{
+    font-size: 1.25em;
+    color: white;
+    text-decoration: none;
+}
+
+.homepage-header-request-button-link-arrow{
+    margin-left: 0.5em;
+
+    color: white;
+    font-size: 1.5em;
+}
+
+/*** Media Queries ***/
+@media (max-width: 1200px) {
+    .homepage-header-container {
+        grid-template-columns: 1fr 2fr 1fr;
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 800px) {
+    .homepage-header-container {
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: "logo login" "navbar navbar";
+        width: 100%;
+    }
+
+    .homepage-header-nav-container {
+        display: none;
+    }
+    
+}
