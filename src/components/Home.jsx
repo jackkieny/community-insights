@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../styles/home/header.css";
 import "../styles/home/content1.css";
 import "../styles/home/content2.css";
+import "../styles/home/content3.css";
 
 // Import Content
 import fullLogo from "../assets/logo+text+white.png";
@@ -146,12 +147,23 @@ function Home() {
                     <h1>5.6X</h1>
                   </div>
                   <div className="homepage-content2-item-subtitle">
-                    <p>Increase In Member</p>
-                    <p>Retention</p>
+                    <p>Increase In <span>Member</span></p>
+                    <p><span>Retention</span></p>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* Content 3 */}
+            <div className="homepage-content3-container">
+                <div className="homepage-content3-title">
+                    <h1>Attract more members, server them better and keep them longer</h1>
+                </div>
+                <div className="homepage-content3-subtitle">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium deserunt et perferendis dolore libero inventore enim iure id, fugiat, iusto necessitatibus voluptatem repellat omnis architecto?</p>
+                </div>
+            </div>
+
         </>
     );
 }
