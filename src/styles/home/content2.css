@@ -33,7 +33,7 @@
 }
 
 .homepage-content2-item-title{
-    font-size: 200%;
+    font-size: 150%;
     line-height: 50%;
 }
 
@@ -49,7 +49,7 @@
 }
 
 .homepage-content2-item-subtitle span{
-    background: -webkit-linear-gradient(45deg, #3093FF, #5256FE);
+    background: var(--purple-blue-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }

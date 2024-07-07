@@ -26,12 +26,12 @@
 }
 
 .homepage-content1-left-title{
-    font-size: 200%;
+    font-size: 150%;
     line-height: 100%;
 }
 
 .homepage-content1-left-title-skcmmty{
-    background: -webkit-linear-gradient(45deg, #3093FF, #5256FE);
+    background: var(--blue-purplue-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
@@ -51,7 +51,7 @@
 
 .homepage-content1-left-button-button{
     width: 80%;
-    height: 75px;
+    height: 65px;
 
     display: flex;
     justify-content: space-around;
@@ -60,7 +60,7 @@
     border: none;
     border-radius: 50px;
 
-    background: -webkit-linear-gradient(45deg, #3093FF, #5256FE 95%);
+    background: var(--blue-purplue-gradient);
 
     color: white;
     font-size: 125%;
