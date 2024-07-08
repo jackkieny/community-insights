@@ -8,7 +8,7 @@ from database.database_init import mongo
 from scripts.create_new_post import create_new_post
 
 ### CHANGE ME BEFORE DEPLOYING ###
-post = Blueprint('post', __name__, static_folder='../build', static_url_path='/')
+create_post = Blueprint('create_post', __name__, static_folder='../build', static_url_path='/')
 # create_post = Blueprint('create_post', __name__)
 
 @create_post.route('/api/post', methods=['POST'])
