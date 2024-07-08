@@ -19,26 +19,30 @@
 
 /* Login Page Logo */
 
-.loginpage-logo{
+.loginpage-logo {
     position: absolute;
     top: 1em;
     width: 50%;
 
 }
 
-/* Home Button */
+/* Back Button */
 
-.loginpage-home-button {
+.loginpage-back-button {
     position: absolute;
     top: 0.5em;
     left: 0.5em;
 
     background: none;
-    border-radius: 5px;
+    border-radius: 100%;
 
     font-size: 2em;
 
     cursor: pointer;
+}
+
+.loginpage-back-button:hover {
+    outline: 1px solid #007aff;
 }
 
 /* Login Form */
@@ -54,7 +58,7 @@
     height: 100%;
 }
 
-.loginpage-input-container{
+.loginpage-input-container {
     position: relative;
 
     margin-bottom: 1em;
@@ -74,12 +78,12 @@
     flex-grow: 0;
     margin-left: 0.5em;
     margin-right: auto;
-    
+
     font-size: 1.5em;
 }
 
 /* Email Label */
-.loginpage-input{
+.loginpage-input {
     margin: 0.5em 0;
     padding: 0.25em;
 
@@ -95,11 +99,11 @@
 }
 
 .loginpage-input:focus {
-    background:#6e6e73;
+    background: #6e6e73;
 }
 
 /* Password Label */
-.loginpage-password-container{
+.loginpage-password-container {
     position: relative;
     display: flex;
     align-items: center;
@@ -114,21 +118,21 @@
     right: 0.5em;
 
     font-size: 1.5em;
-
-    cursor: pointer;
 }
 
-/* Login Button */
-
-.loginpage-button{
+.loginpage-button {
     padding: 0.25em;
 
     width: 75%;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     border: none;
     border-radius: 10px;
 
-    background: #007aff;
+    background: var(--blue-purplue-gradient);
     color: white;
     font-size: 1.5em;
     cursor: pointer;
@@ -136,7 +140,10 @@
 
 .loginpage-button:hover {
     outline: 1px solid white;
-    background: #0056b3;
+}
+
+.loginpage-button-arrow {
+    margin-left: 0.5em;
 }
 
 

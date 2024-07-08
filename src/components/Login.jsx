@@ -7,7 +7,8 @@ import '../styles/login.css'
 // Import Assets
 import fullLogo from '../assets/logo+text+white+cropped.png'
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { IoIosHome } from "react-icons/io";
+import { IoArrowBackCircle } from "react-icons/io5";
+import { BsArrowRight } from "react-icons/bs";
 
 function Login() {
     const [email, setEmail] = useState('')
@@ -47,7 +48,7 @@ function Login() {
 
     return (
         <div className='loginpage-container'>
-            <IoIosHome className='loginpage-home-button' onClick={() => navigate('/')} />
+            <IoArrowBackCircle className='loginpage-back-button' onClick={() => navigate('/')} />
             <img src={fullLogo} className='loginpage-logo' />
 
             <form className='login-form'>
@@ -76,7 +77,7 @@ function Login() {
                     </div>
                 </div>
 
-                <button className='loginpage-button' onClick={handleSubmit}>Login</button>
+                <button className='loginpage-button' onClick={handleSubmit}>LOG IN <BsArrowRight className='loginpage-button-arrow'/></button>
             </form>
 
             { response && response.error ? errorMessage() : null }
