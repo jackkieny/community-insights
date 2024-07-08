@@ -55,6 +55,8 @@
 }
 
 .loginpage-input-container{
+    position: relative;
+
     margin-bottom: 1em;
     padding: 0.2em;
     display: flex;
@@ -108,9 +110,12 @@
 
 .loginpage-eye-icon {
     position: absolute;
+    bottom: 0.5em;
     right: 0.5em;
-    cursor: pointer;
 
+    font-size: 1.5em;
+
+    cursor: pointer;
 }
 
 /* Login Button */
