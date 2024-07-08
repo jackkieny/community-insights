@@ -13,8 +13,8 @@ from scripts.get_communities import skool_communities
 
 
 ### CHANGE ME BEFORE DEPLOYING ###
-# auth = Blueprint('auth', __name__, static_folder='../build', static_url_path='/')
-auth = Blueprint('auth', __name__)
+auth = Blueprint('auth', __name__, static_folder='../build', static_url_path='/')
+# auth = Blueprint('auth', __name__)
 
 # Login Route
 @auth.route('/api/login', methods=['POST'])

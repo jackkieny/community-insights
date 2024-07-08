@@ -49,5 +49,29 @@ spec:
             secretKeyRef:
               name: env-secrets
               key: SKOOL_COMMUNITIES_URL
+        - name: SKOOL_LABELS_URL
+          valueFrom:
+            secretKeyRef:
+              name: env-secrets
+              key: SKOOL_LABELS_URL
+        - name: SKOOL_POST_URL 
+          valueFrom:
+            secretKeyRef:
+              name: env-secrets
+              key: SKOOL_POST_URL 
       imagePullSecrets:
       - name: regcred
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: community-insights-loadbalancer
+spec:
+  selector:
+    app: community-insights
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
