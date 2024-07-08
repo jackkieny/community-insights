@@ -37,6 +37,14 @@ function Login() {
         }
     }
 
+    function errorMessage() {
+        return (
+            <div className='loginpage-errormsg'>
+                {response.error}
+            </div>
+        )
+    }
+
     return (
         <div className='loginpage-container'>
             <IoIosHome className='loginpage-home-button' onClick={() => navigate('/')} />
@@ -71,18 +79,7 @@ function Login() {
                 <button className='loginpage-button' onClick={handleSubmit}>Login</button>
             </form>
 
-            {response && response.error ?
-                <div className="loginpage-errormsg">
-                    <p>Email or password is incorrect.</p>
-                </div>
-                : null}
-
-            {response && response.success ?
-                <div className="loginpage-successmsg">
-                    <p>Login successful!</p>
-                </div>
-                : null
-            }
+            { response && response.error ? errorMessage() : null }
         </div>
     )
 }
