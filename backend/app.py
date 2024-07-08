@@ -18,8 +18,8 @@ load_dotenv()
 ### Initialize the Flask App ###
 
 ### CHANGE ME BEFORE DEPLOYING ###
-# app = Flask(__name__, static_folder='../build', static_url_path='/')
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='/')
+# app = Flask(__name__)
 CORS(app)
 app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 app.config['SESSION_TYPE'] = 'mongodb'
