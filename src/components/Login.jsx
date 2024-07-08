@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom' 
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+
+// Import styles
 import '../styles/login.css'
 
+// Import Assets
+import fullLogo from '../assets/logo+text+white+cropped.png'
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { IoIosHome } from "react-icons/io";
 
 function Login() {
     const [email, setEmail] = useState('')
@@ -34,49 +39,49 @@ function Login() {
 
     return (
         <div className='loginpage-container'>
-            <div className='loginpage-home-button'>
-                <Link to='/' className='loginpage-home-button-link'>Home</Link>
-            </div>
+            <IoIosHome className='loginpage-home-button' onClick={() => navigate('/')} />
+            <img src={fullLogo} className='loginpage-logo' />
 
-            <form className='login-form' onSubmit={handleSubmit}>
-                <div className='login-form-header'>Login to<br/>Community Insights</div>
-
-                <label className='login-form-label'>Email</label>
-                <input 
-                    type='text' 
-                    className='login-form-input' 
-                    value={email} 
-                    onChange={(e) => setEmail(e.target.value)} 
-                />
-
-                <label className='login-form-label'>Password</label>
-                <div className='login-form-password-container'>
-                    <input 
-                        type={showPassword ? 'text' : 'password'}
-                        className='login-form-input' 
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)} 
+            <form className='login-form'>
+                <div className='loginpage-input-container'>
+                    <label className='loginpage-label'>Email</label>
+                    <input className='loginpage-input'
+                        type='text'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder='mail@example.com'
                     />
-                    <div className="login-form-password-eye">
-                        {showPassword ? <FiEyeOff onClick={viewPassword} /> : <FiEye onClick={viewPassword} />}
-                    </div>
-
                 </div>
 
-                <button className='login-form-button'>Login</button>
+                <div className='loginpage-input-container'>
+                    <label className='loginpage-label'>Password</label>
+                    <div className='loginpage-password-container'>
+                        <input className='loginpage-input'
+                            type={showPassword ? 'text' : 'password'}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder={'\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022'}
+                        />
+                    </div>
+                    <div className='loginpage-eye-icon'>
+                        {showPassword ? <FiEyeOff onClick={viewPassword} /> : <FiEye onClick={viewPassword} />}
+                    </div>
+                </div>
+
+                <button className='loginpage-button' onClick={handleSubmit}>Login</button>
             </form>
 
-            {response && response.error ? 
+            {response && response.error ?
                 <div className="loginpage-errormsg">
                     <p>Email or password is incorrect.</p>
                 </div>
-              : null}
-            
+                : null}
+
             {response && response.success ?
                 <div className="loginpage-successmsg">
                     <p>Login successful!</p>
                 </div>
-              : null
+                : null
             }
         </div>
     )

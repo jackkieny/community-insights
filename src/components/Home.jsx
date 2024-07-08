@@ -12,7 +12,8 @@ import fullLogo from "../assets/logo+text+white.png";
 import tempImg from "../assets/logo+white.png";
 
 //Import Icons
-import { GoArrowUpRight, GoArrowRight } from "react-icons/go";
+import { GoArrowUpRight} from "react-icons/go";
+import { BsArrowRight } from "react-icons/bs";
 
 function Home() {
     const navigate = useNavigate();
@@ -67,7 +68,7 @@ function Home() {
                         >
                             Request Access{" "}
                         </Link>
-                        <GoArrowRight className="homepage-header-request-button-link-arrow" />
+                        <BsArrowRight className="homepage-header-request-button-link-arrow" />
                     </button>
                 </div>
             </div>

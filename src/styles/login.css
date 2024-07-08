@@ -7,16 +7,44 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 
-    width: 40%;
-    height: 60%;
+    width: 50%;
+    height: 40%;
 
-    border: 3px solid white;
+    border: 1px solid white;
     border-radius: 15px;
+
+    background: #1d1d1f;
 }
 
-.login-form{
+/* Login Page Logo */
+
+.loginpage-logo{
+    position: absolute;
+    top: 1em;
+    width: 50%;
+
+}
+
+/* Home Button */
+
+.loginpage-home-button {
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+
+    background: none;
+    border-radius: 5px;
+
+    font-size: 2em;
+
+    cursor: pointer;
+}
+
+/* Login Form */
+
+.login-form {
+    margin-top: 1em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,94 +54,90 @@
     height: 100%;
 }
 
-.login-form-header{
+.loginpage-input-container{
     margin-bottom: 1em;
+    padding: 0.2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    font-size: 3em;
-    font-weight: bold;
-    text-transform: uppercase;
+    width: 80%;
+
+    outline: 1px solid white;
+    border-radius: 10px;
 }
 
-.login-form-label{
-    margin-bottom: 0.5em;
-
+.loginpage-label {
+    flex-grow: 0;
+    margin-left: 0.5em;
+    margin-right: auto;
+    
     font-size: 1.5em;
 }
 
-.login-form-input{
-    margin-bottom: 1em;
-
-    min-width: 50%;
-    height: 2em;
+/* Email Label */
+.loginpage-input{
+    margin: 0.5em 0;
+    padding: 0.25em;
 
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
 
-    font-size: 1.2em;
-    text-align: center;
+    background: none;
+    outline: 1px solid white;
+
+    color: white;
+    font-size: 1.25em;
+    width: calc(100% - 5em);
 }
 
-.login-form-password-container{
-    position: relative;
+.loginpage-input:focus {
+    background:#6e6e73;
+}
 
+/* Password Label */
+.loginpage-password-container{
+    position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
     width: 100%;
+}
+
+.loginpage-eye-icon {
+    position: absolute;
+    right: 0.5em;
+    cursor: pointer;
+
+}
+
+/* Login Button */
+
+.loginpage-button{
+    padding: 0.25em;
+
+    width: 75%;
 
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
 
-}
-
-.login-form-password-eye{
-    position: absolute;
-    right: 3em;
-
+    background: #007aff;
     color: white;
-    z-index: 1;
-    font-size: 2em;
+    font-size: 1.5em;
     cursor: pointer;
 }
 
-.login-form-button{
-    width: 30%;
-    height: 2em;
-
-    background: none;
-    border: 2px solid white;
-    border-radius: 5px;
-
-    color: white;
-    font-size: 1.4em;
-    font-weight: bold;
-    text-transform: uppercase;
-
-    cursor: pointer;
+.loginpage-button:hover {
+    background: #0056b3;
 }
 
-.loginpage-home-button{
-    position: absolute;
-    top: 1em;
-    left: 1em;
-
-    padding: 5px;
-    
-    background: none;
-    border: 1px solid white;
-    border-radius: 5px;
-}
-
-.loginpage-home-button-link{
-    color: white;
-    cursor: pointer;
-}
 
 /* Login Page Error Message */
-.loginpage-errormsg{
+.loginpage-errormsg {
     position: relative;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -129,7 +153,7 @@
 }
 
 
-.loginpage-successmsg{
+.loginpage-successmsg {
     position: relative;
 
     display: flex;
