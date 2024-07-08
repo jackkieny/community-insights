@@ -25,6 +25,10 @@
   --skool-O1-color: #e7b358;
   --skool-O2-color: #4eb8f3;
   --skool-L-color: #d1513e;
+
+  --blue-purplue-gradient: -webkit-linear-gradient(45deg, #3093FF, #5256FE 95%);
+  --purple-blue-gradient: -webkit-linear-gradient(45deg,#5256FE, #3093FF 95%);
+
 }
 
 body {
@@ -33,6 +37,10 @@ body {
   background: black;
   color: white;
 
+  font-family: 'SF Pro Display', sans-serif;
+}
+
+button{
   font-family: 'SF Pro Display', sans-serif;
 }
 

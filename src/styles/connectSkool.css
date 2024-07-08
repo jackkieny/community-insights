@@ -6,44 +6,94 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     
-    height: 50%;
-    width: 50%;
+    width: 750px;
+    height: 400px;
     
-    border: 3px solid white;
-    border-radius: 10px;
+    border: 1px solid white;
+    border-radius: 15px;
+
+    background: #1d1d1f;
 }
 
+/* Back Button */
+
+.connectskool-back-button {
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+
+    background: none;
+    border-radius: 100%;
+
+    font-size: 2em;
+
+    cursor: pointer;
+}
+
+.connectskool-back-button:hover{
+    outline: 1px solid #007aff;
+}
+
+/* Login Form */
 .connectskool-form{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     align-items: center;
 
     width: 100%;
-    
-    font-size: 2rem;
+    height: 100%;
 }
 
-.connectskool-form-input{
-    padding: 10px;
-    margin: 10px;
+.connectskool-input-container{
+    position: relative;
 
-    width: 50%;
+    margin-bottom: 1em;
+    padding: 0.2em;
 
-    border: 2px solid white;
-    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    background: rgba(255, 255, 255, 0.1);
+    width: 80%;
+
+    outline: 1px solid white;
+    border-radius: 10px;
+}
+
+.connectskool-label{
+    flex-grow: 0;
+    margin-left: 0.5em;
+    margin-right: auto;
+
+    font-size: 1.5em;
+}
+
+.connectskool-input{
+    margin: 0.5em 0;
+    padding: 0.25em;
+
+    border: none;
+    border-radius: 10px;
+
+    background: none;
+    outline: 1px solid white;
+
     color: white;
-
-    font-size: 1.5rem;
-    text-align: center;
+    font-size: 1.25rem;
+    width: calc(100% - 5em);
 }
 
-.connectskool-form-password{
+.connectskool-input:focus{
+    background: #6e6e73;
+}
+
+.connectskool-password-container{
+    position: relative;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,24 +101,112 @@
     width: 100%;
 }
 
-.connectskool-form-password-eye{
+.connectskool-eye-icon{
     position: absolute;
-    right: 4em;
+    bottom: 0.5em;
+    right: 0.5em;
+
+    font-size: 1.5em;
 
     cursor: pointer;
 }
 
-.connectskool-form-button{
-    margin-top: 20px;
-    padding: 10px 20px;
+.connectskool-button{
+    padding: 0.25em;
 
-    background: none;
-    border: 2px solid white;
-    border-radius: 5px;
+    width: 75%;
+
+    outline: 1px solid lightgrey;
+    border: none;
+    border-radius: 10px;
+
+    background: linear-gradient(to right,
+        var(--skool-S-color)  0%, var(--skool-S-color)  2%,
+        var(--skool-K-color)  2%, var(--skool-K-color)  4%,
+        var(--skool-O1-color) 4%, var(--skool-O1-color) 6%,
+        var(--skool-O2-color) 6%, var(--skool-O2-color) 8%,
+        var(--skool-L-color)  8%, var(--skool-L-color)  10%,
+
+        var(--skool-S-color)  10%, var(--skool-S-color)  12%,
+        var(--skool-K-color)  12%, var(--skool-K-color)  14%,
+        var(--skool-O1-color) 14%, var(--skool-O1-color) 16%,
+        var(--skool-O2-color) 16%, var(--skool-O2-color) 18%,
+        var(--skool-L-color)  18%, var(--skool-L-color)  20%,
+
+        var(--skool-S-color)  20%, var(--skool-S-color)  22%,
+        var(--skool-K-color)  22%, var(--skool-K-color)  24%,
+        var(--skool-O1-color) 24%, var(--skool-O1-color) 26%,
+        var(--skool-O2-color) 26%, var(--skool-O2-color) 28%,
+        var(--skool-L-color)  28%, var(--skool-L-color)  30%,
+
+        var(--skool-S-color)  30%, var(--skool-S-color)  32%,
+        var(--skool-K-color)  32%, var(--skool-K-color)  34%,
+        var(--skool-O1-color) 34%, var(--skool-O1-color) 36%,
+        var(--skool-O2-color) 36%, var(--skool-O2-color) 38%,
+        var(--skool-L-color)  38%, var(--skool-L-color)  40%,
+
+        var(--skool-S-color)  40%, var(--skool-S-color)  42%,
+        var(--skool-K-color)  42%, var(--skool-K-color)  44%,
+        var(--skool-O1-color) 44%, var(--skool-O1-color) 46%,
+        var(--skool-O2-color) 46%, var(--skool-O2-color) 48%,
+        var(--skool-L-color)  48%, var(--skool-L-color)  50%,
+
+        var(--skool-S-color)  50%, var(--skool-S-color)  52%,
+        var(--skool-K-color)  52%, var(--skool-K-color)  54%,
+        var(--skool-O1-color) 54%, var(--skool-O1-color) 56%,
+        var(--skool-O2-color) 56%, var(--skool-O2-color) 58%,
+        var(--skool-L-color)  58%, var(--skool-L-color)  60%,
+
+        var(--skool-S-color)  60%, var(--skool-S-color)  62%,
+        var(--skool-K-color)  62%, var(--skool-K-color)  64%,
+        var(--skool-O1-color) 64%, var(--skool-O1-color) 66%,
+        var(--skool-O2-color) 66%, var(--skool-O2-color) 68%,
+        var(--skool-L-color)  68%, var(--skool-L-color)  70%,
+
+        var(--skool-S-color)  70%, var(--skool-S-color)  72%,
+        var(--skool-K-color)  72%, var(--skool-K-color)  74%,
+        var(--skool-O1-color) 74%, var(--skool-O1-color) 76%,
+        var(--skool-O2-color) 76%, var(--skool-O2-color) 78%,
+        var(--skool-L-color)  78%, var(--skool-L-color)  80%,
+
+        var(--skool-S-color)  80%, var(--skool-S-color)  82%,
+        var(--skool-K-color)  82%, var(--skool-K-color)  84%,
+        var(--skool-O1-color) 84%, var(--skool-O1-color) 86%,
+        var(--skool-O2-color) 86%, var(--skool-O2-color) 88%,
+        var(--skool-L-color)  88%, var(--skool-L-color)  90%,
+
+        var(--skool-S-color)  90%, var(--skool-S-color)  92%,
+        var(--skool-K-color)  92%, var(--skool-K-color)  94%,
+        var(--skool-O1-color) 94%, var(--skool-O1-color) 96%,
+        var(--skool-O2-color) 96%, var(--skool-O2-color) 98%,
+        var(--skool-L-color)  98%, var(--skool-L-color)  100%
+    );
+    background-size: 500% 100%;
+    opacity: 0.5;
 
     color: white;
+    font-size: 1.5em;
+    text-shadow: 2px 2px 2px black;
 
-    font-size: 1.5rem;
-    font-weight: bold;
     cursor: pointer;
+
+    transition: background-position 5s ease;
+    animation: scrollGradient 120s linear infinite;
+}
+
+.connectskool-button:hover{
+    opacity: 1;
+    outline: 2px solid white;
+    background-position: 100% 0%;
+    animation-play-state: paused;
+}
+
+@keyframes scrollGradient {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: -100% 0%;
+    }
 }

@@ -8,6 +8,7 @@ from flask_login import LoginManager
 from database.database_init import mongo
 from models.models import User
 from auth import auth
+from create_post import create_post
 
 # Load the environment variables
 import os
@@ -16,8 +17,9 @@ load_dotenv()
 
 ### Initialize the Flask App ###
 
-app = Flask(__name__, static_folder='../build', static_url_path='/')
-# app = Flask(__name__)
+### CHANGE ME BEFORE DEPLOYING ###
+# app = Flask(__name__, static_folder='../build', static_url_path='/')
+app = Flask(__name__)
 CORS(app)
 app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 app.config['SESSION_TYPE'] = 'mongodb'
@@ -34,6 +36,7 @@ def load_user(user_id):
 
 # Register the Blueprints
 app.register_blueprint(auth)
+app.register_blueprint(create_post)
 
 ### Routes ###
 

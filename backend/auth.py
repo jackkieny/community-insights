@@ -12,8 +12,9 @@ from scripts.login_to_skool import login_to_skool
 from scripts.get_communities import skool_communities
 
 
-auth = Blueprint('auth', __name__, static_folder='../build', static_url_path='/')
-# auth = Blueprint('auth', __name__)
+### CHANGE ME BEFORE DEPLOYING ###
+# auth = Blueprint('auth', __name__, static_folder='../build', static_url_path='/')
+auth = Blueprint('auth', __name__)
 
 # Login Route
 @auth.route('/api/login', methods=['POST'])
@@ -36,8 +37,6 @@ def login():
 # Session Check
 @auth.route('/api/session', methods=['GET'])
 def session_check():
-    # print(current_user)
-    # print(current_user.is_authenticated)
     if current_user.is_authenticated:
         return {'session': 'active'}
     else:
@@ -63,7 +62,14 @@ def connect_skool():
     auth_token = login_to_skool(data['skoolEmail'], data['skoolPassword'])
 
     if auth_token is not None:
-        mongo.db.users.update_one({'_id': current_user.id}, {'$set': {'auth_token': auth_token}})
+        mongo.db.users.update_one(
+            {'_id': current_user.id},
+            {'$set': {
+                'auth_token': auth_token,
+                'skool_email': data['skoolEmail'],
+                'skool_password': data['skoolPassword']
+            }}
+        )
         return {'success': 'success'}
 
     else:
@@ -77,10 +83,19 @@ def get_communities():
 
     if user_data and 'auth_token' in user_data:
         communities = skool_communities(user_data['auth_token'])
+
+        mongo.db.users.update_one(
+            {'_id': current_user.id},
+            {'$set': {
+                'communities': communities
+            }}
+        )
+
         return communities
     else:
         return {'error': 'Not found'}, 401
 
+# Select Community
 @auth.route('/api/selectcommunity', methods=['POST'])
 @login_required
 def select_community():
@@ -88,6 +103,7 @@ def select_community():
 
     try:
         session['community_id'] = data['communityId']
+        mongo.db.users.update_one({'_id': current_user.id}, {'$set': {'communityId': data['communityId']}})
         return {'success': 'success'}
     except:
         return {'error': 'Invalid community ID'}, 401

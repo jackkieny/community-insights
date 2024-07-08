@@ -1,0 +1,170 @@
+.createpost-form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+
+    
+    width: 50%;
+    height: 50%;
+    
+    background: black;
+    border: 3px solid white;
+    border-radius: 25px;
+}
+    /* border-radius: 10px; */
+
+.createpost-form-content{
+    position: relative;
+
+    display: flex;
+
+    height: 100%;
+    width: 100%;
+}
+
+.createpost-form-closebutton-container{
+    position: absolute;
+
+    top: 1em;
+    right: 1em;
+}
+
+.createpost-form-closebutton-button{
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.createpost-form-formcontainer{
+    position: absolute;
+    top: 3em;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 90%;
+}
+
+.createpost-form-form-title,
+.createpost-form-form-content-textarea,
+.createpost-form-form-content-input {
+    outline: 1px solid #333;
+}
+
+.createpost-form-form-title:focus,
+.createpost-form-form-content-textarea:focus,
+.createpost-form-form-content-input:focus {
+    outline: 2px solid white;
+}
+
+.createpost-form-form-title{
+    margin: 0 0.5em 1em 0.5em;
+    padding: 0.5em;
+
+    outline: 1px solid #333;
+    border: none;
+    border-radius: 10px;
+    background: none;
+    color: white;
+    font-family: 'SF Pro Display', sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+
+}
+
+.createpost-form-form-content-textarea{
+    margin: 0 0.5em;
+    padding: 1em;
+
+    resize: vertical;
+    min-height: 100px;
+    max-height: 200px;
+    max-width: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
+    
+    border: none;
+    border-radius: 10px;
+    background: none;
+    color: white;
+    font-size: 1em;
+    font-family: 'SF Pro Display', sans-serif;
+}
+
+.createpost-form-form-datetime-container{
+    position: absolute;
+    bottom: 1em;
+    right: 0.5em;
+}
+
+.createpost-form-form-content-input{
+    margin: 0 0.5em;
+    padding: 0.5em;
+    
+    border: none;
+    border-radius: 10px;
+    background: none;
+    color: white;
+    font-size: 1.25em;
+
+}
+
+.createpost-form-form-content-button{
+    margin: 0 0.5em;
+    padding: 0.5em;
+
+    outline: 2px solid white;
+    border: none;
+    border-radius: 10px;
+    background: none;
+    color: white;
+    font-size: 1.25em;
+    cursor: pointer;
+}
+
+.createpost-form-form-content-button-warning{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.createpost-form-form-content-input:hover,
+.createpost-form-form-content-button:hover{
+    background: rgba(255, 255, 255, 0.2);
+}
+
+
+/* Date Time Warning */
+.createpost-form-form-datetime-warning{
+    position: absolute;
+    bottom: -2em;
+
+    width: 100%;
+
+    outline: 2px solid white;
+    border: none;
+    border-radius: 10px;
+
+    background-color: rgba(255, 255, 255, 0.8);
+    color: red;
+    text-shadow: 1px 0 1px rgba(0, 0, 0, 0.5);
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.createpost-form-form-attachments-container{
+    position: absolute;
+    border: 1px solid red;
+    bottom: 1em;
+    left: 0.5em;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 40%;
+}
