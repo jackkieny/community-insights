@@ -162,3 +162,36 @@
     border: 2px solid red;
     border-radius: 5px;
 }
+
+@media (max-width: 800px) {
+    .loginpage-container {
+        width: 90%;
+        height: 75%;
+    }
+
+    .loginpage-logo {
+        width: 60%;
+    }
+
+    .loginpage-label {
+        font-size: 1em;
+    }
+
+    .loginpage-input {
+        width: calc(100% - 5em);
+        font-size: 1em;
+    }
+
+    .loginpage-eye-icon{
+        font-size: 1.25em;
+    }
+
+    .loginpage-button {
+        font-size: 1.25em;
+        width: 80%;
+    }
+
+    .loginpage-errormsg {
+        width: 80%;
+    }
+}
