@@ -116,3 +116,22 @@
         grid-template-areas: "left left" "right right";
     }
 }
+
+@media (max-width: 800px) {
+    .homepage-content1-container {
+        margin-top: 0;
+    }
+
+    .homepage-content1-left-title {
+        text-align: center;
+        font-size: 1em;
+    }
+
+    .homepage-content1-left-subtitle {
+        text-align: center;
+    }
+
+    .homepage-content1-right {
+        display: none;
+    }
+}
