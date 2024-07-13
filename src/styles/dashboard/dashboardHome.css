@@ -1,0 +1,68 @@
+/* To Be Deleted Later */
+.dbdhome-coming-soon{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: grid;
+    place-items: center;
+    padding: 1em;
+    border: 2px solid #86868B;
+    border-radius: 15px;
+}
+/* To Be Deleted Later */
+
+.dbdhome-container {
+    position: relative;
+    user-select: none;
+}
+
+.temp-blur{
+    filter: blur(10px);
+}
+
+.dbdhome-metrics-container {
+    filter: blur(10px);
+
+    display: grid;
+    place-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 3fr;
+    grid-template-areas: "metric1 metric2 metric3" "metric4 metric5 metric6" "metric7 metric7 metric7";
+    gap: 1em;
+
+    width: 100%;
+    height: 85%
+}
+
+.dbdhome-metric {
+    position: relative;
+
+    outline: 1px solid #86868B;
+    border-radius: 15px;
+
+    display: grid;
+    place-items: center;
+    justify-content: flex-start;
+
+    height: 100%;
+    width: 100%;
+
+    background: #202938;
+}
+
+.dbdhome-metric-last {
+    grid-area: metric7;
+}
+
+.dbdhome-metric-title {
+    position: absolute;
+    top: 0;
+    left: 1em;
+}
+
+.dbdhome-metric-value {
+    position: absolute;
+    left: 0.5em;
+}
