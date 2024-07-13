@@ -16,6 +16,11 @@
     align-items: center;
 }
 
+.dashboard-sidebar-logo{
+    width: 100%;
+    margin-bottom: 2em;
+}
+
 .dashboard-sidebar-icon {
     margin: 0 0.5rem;
 
