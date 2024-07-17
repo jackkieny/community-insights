@@ -46,10 +46,16 @@ function Planner() {
 
     return (
         <div className="dshbd-planner-container">
-            <div style={{ textAlign: "center", fontSize: "3em" }}>Planner</div>
-            <div className="dshbd-planner-cal-container">
+            {/* Title */}
+            <h1 className="dshbd-planner-title-container">Planner</h1>
+
+            {/* Calendar */}
+            <>
                 <div className="cal-container">
+                    {/* Post Button */}
                     <CreateNewPostButton openForm={OpenCreatePostForm} />
+
+                    {/* Post Form */}
                     {showCreatePostForm && <CreatePostForm closeForm={CloseCreatePostFrom} />}
 
                     <Calendar
@@ -67,9 +73,7 @@ function Planner() {
                         ]}
                     />
                 </div>
-            </div>
-
-
+            </>
         </div >
     );
 }
