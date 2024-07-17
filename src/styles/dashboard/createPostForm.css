@@ -5,17 +5,15 @@
     transform: translate(-50%, -50%);
     z-index: 10;
 
-    padding: 10px;
-    
     width: 90%;
     height: 90%;
-    
+
     background: #333;
     border: 3px solid white;
     border-radius: 25px;
 }
 
-.createpost-form-content{
+.createpost-form-content {
     position: relative;
 
     display: flex;
@@ -24,14 +22,14 @@
     width: 100%;
 }
 
-.createpost-form-closebutton-container{
+.createpost-form-closebutton-container {
     position: absolute;
 
     top: 1em;
     right: 1em;
 }
 
-.createpost-form-closebutton-button{
+.createpost-form-closebutton-button {
     background: none;
     border: none;
     color: white;
@@ -39,38 +37,37 @@
     cursor: pointer;
 }
 
-.createpost-form-formcontainer{
+.createpost-form-formcontainer {
     position: absolute;
-    top: 3em;
 
     display: flex;
     flex-direction: column;
 
     width: 100%;
-    height: 90%;
+    height: 100%;
 }
 
 .createpost-form-form-title,
 .createpost-form-form-content-textarea,
-.createpost-form-form-content-input{
+.createpost-form-form-content-input {
     outline: 1px solid white;
 }
 
 
 .createpost-form-form-title:focus,
 .createpost-form-form-content-textarea:focus,
-.createpost-form-form-content-input:focus{
+.createpost-form-form-content-input:focus {
     outline: 3px solid white;
 }
 
 .createpost-form-form-title:focus::placeholder,
-.createpost-form-form-content-textarea:focus::placeholder{
+.createpost-form-form-content-textarea:focus::placeholder {
     color: transparent;
 }
 
 /* Form Title */
-.createpost-form-form-title{
-    margin: 0 0.5em 1em 0.5em;
+.createpost-form-form-title {
+    margin: 3em 1em 1em 1em;
     padding: 0.5em;
 
     border: none;
@@ -83,8 +80,8 @@
 }
 
 /* Form Text Area */
-.createpost-form-form-content-textarea{
-    margin: 0 0.5em;
+.createpost-form-form-content-textarea {
+    margin: 0 1em;
     padding: 1em;
 
     resize: vertical;
@@ -95,7 +92,7 @@
     overflow-x: hidden;
     scrollbar-width: thin;
     scroll-behavior: smooth;
-    
+
     border: none;
     border-radius: 10px;
     background: none;
@@ -105,17 +102,21 @@
 }
 
 /* Container Area for Date, Time, and Create Post button */
-.createpost-form-form-datetime-container{
+.createpost-form-form-datetime-container {
     position: absolute;
-    bottom: 0;
+    bottom: 1em;
     right: 0.5em;
+
+    display: flex;
+    align-items: center;
+    height: 3em;
 }
 
 /* Date and Time Elements */
-.createpost-form-form-content-input{
+.createpost-form-form-content-input {
     margin: 0 0.5em;
     padding: 0.5em;
-    
+
     border: none;
     border-radius: 10px;
     background: none;
@@ -125,7 +126,7 @@
 }
 
 /* Create Post Button */
-.createpost-form-form-content-button{
+.createpost-form-form-content-button {
     margin: 0 0.5em;
     padding: 0.5em;
 
@@ -140,18 +141,18 @@
 
 /* Hover Effects */
 .createpost-form-form-content-input:hover,
-.createpost-form-form-content-button:hover{
+.createpost-form-form-content-button:hover {
     background: rgba(255, 255, 255, 0.2);
 }
 
 /* Create Post Date/Time Warning */
-.createpost-form-form-content-button-warning{
+.createpost-form-form-content-button-warning {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
 /* Date Time Warning */
-.createpost-form-form-datetime-warning{
+.createpost-form-form-datetime-warning {
     position: absolute;
     bottom: -2em;
 
@@ -169,19 +170,73 @@
 }
 
 /* Attachments Container */
-.createpost-form-form-attachments-container{
+.createpost-form-form-attachments-container {
     position: absolute;
-    bottom: 0;
-    left: 0.5em;
+    bottom: 1em;
+    left: 1em;
     padding: 0.5em;
 
-    width: 40%;
+    height: 3em;
 
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 
-    outline: 1px solid white;
+    outline: 2px solid white;
     border-radius: 10px;
+}
+
+.createpost-form-attachment-icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+
+    padding: 0.25em;
+    border-radius: 100%;
+
+    color: white;
+    font-size: 2em;
+
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.createpost-form-attachment-icon:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.25);
+    cursor: pointer;
+}
+
+.createpost-form-attachment-icon::after {
+    content: attr(data-tooltip);
+    /* Use the data-tooltip attribute for the tooltip text */
+    position: absolute;
+    bottom: 100%;
+    /* Position the tooltip above the icon */
+    left: 50%;
+    /* Center the tooltip */
+    transform: translateX(-50%) scaleY(0);
+    /* Initially hide the tooltip */
+    white-space: nowrap;
+    /* Prevent the tooltip text from wrapping */
+    padding: 5px;
+
+    border-radius: 5px;
+
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 0.4em;
+
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    /* Initially hide the tooltip */
+    z-index: 1;
+    /* Ensure the tooltip is above other content */
+}
+
+.createpost-form-attachment-icon:hover::after {
+    opacity: 1;
+    /* Show the tooltip */
+    transform: translateX(-50%) scaleY(1);
+    /* Move the tooltip into position */
 }

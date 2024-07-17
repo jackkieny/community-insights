@@ -4,7 +4,11 @@ import React, { useState } from "react";
 import "../../styles/dashboard/createPostForm.css";
 
 // Import Icons
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaPoll } from "react-icons/fa";  // Trash Icon, Poll Icon
+import { TfiClip } from "react-icons/tfi"; // Paperclip Icon
+import { IoMdLink } from "react-icons/io"; // Link Icon
+import { FaYoutube, FaFaceSmileWink, FaBolt } from "react-icons/fa6"; // YouTube Icon, Emoji Icon, Bolt Icon
+import { PiGifBold } from "react-icons/pi"; // GIF Icon
 
 function CreatePostForm({ closeForm }) {
     const [title, setTitle] = useState("");
@@ -181,12 +185,58 @@ function CreatePostForm({ closeForm }) {
                             Create Post
                         </button>
                     </div>
+
+                    {/* Attachments */}
                     <div className="createpost-form-form-attachments-container">
-                        <p>Link</p>
-                        <p>Link</p>
-                        <p>Link</p>
-                        <p>Link</p>
-                        <p>Link</p>
+                        {/* File Attachment */}
+                        <div
+                            className="createpost-form-attachment-icon"
+                            data-tooltip="File"
+                        >
+                            <TfiClip />
+                        </div>
+                        {/* General Link */}
+                        <div
+                            className="createpost-form-attachment-icon"
+                            data-tooltip="Link"
+                        >
+                            <IoMdLink />
+                        </div>
+                        {/* YouTube/Vimeo/Loom */}
+                        <div
+                            className="createpost-form-attachment-icon"
+                            data-tooltip="YouTube/Vimeo/Loom"
+                        >
+                            <FaYoutube />
+                        </div>
+                        {/* Poll */}
+                        <div
+                            className="createpost-form-attachment-icon"
+                            data-tooltip="Poll"
+                        >
+                            <FaPoll />
+                        </div>
+                        {/* Complete Action */}
+                        <div
+                            className="createpost-form-attachment-icon"
+                            data-tooltip="Action"
+                        >
+                            <FaBolt />
+                        </div>
+                        {/* Emoji */}
+                        <div
+                            className="createpost-form-attachment-icon"
+                            data-tooltip="Emoji"
+                        >
+                            <FaFaceSmileWink />
+                        </div>
+                        {/* GIFs */}
+                        <div
+                            className="createpost-form-attachment-icon"
+                            data-tooltip="GIFs"
+                        >
+                            <PiGifBold />
+                        </div>
                     </div>
                 </div>
             </div>
