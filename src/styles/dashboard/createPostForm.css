@@ -5,15 +5,15 @@
     transform: translate(-50%, -50%);
     z-index: 10;
 
+    padding: 10px;
     
-    width: 50%;
-    height: 50%;
+    width: 90%;
+    height: 90%;
     
-    background: black;
+    background: #333;
     border: 3px solid white;
     border-radius: 25px;
 }
-    /* border-radius: 10px; */
 
 .createpost-form-content{
     position: relative;
@@ -52,21 +52,27 @@
 
 .createpost-form-form-title,
 .createpost-form-form-content-textarea,
-.createpost-form-form-content-input {
-    outline: 1px solid #333;
+.createpost-form-form-content-input{
+    outline: 1px solid white;
 }
+
 
 .createpost-form-form-title:focus,
 .createpost-form-form-content-textarea:focus,
-.createpost-form-form-content-input:focus {
-    outline: 2px solid white;
+.createpost-form-form-content-input:focus{
+    outline: 3px solid white;
 }
 
+.createpost-form-form-title:focus::placeholder,
+.createpost-form-form-content-textarea:focus::placeholder{
+    color: transparent;
+}
+
+/* Form Title */
 .createpost-form-form-title{
     margin: 0 0.5em 1em 0.5em;
     padding: 0.5em;
 
-    outline: 1px solid #333;
     border: none;
     border-radius: 10px;
     background: none;
@@ -74,19 +80,21 @@
     font-family: 'SF Pro Display', sans-serif;
     font-size: 1.5em;
     font-weight: bold;
-
 }
 
+/* Form Text Area */
 .createpost-form-form-content-textarea{
     margin: 0 0.5em;
     padding: 1em;
 
     resize: vertical;
-    min-height: 100px;
-    max-height: 200px;
+    min-height: 250px;
+    max-height: 300px;
     max-width: 100%;
     overflow: scroll;
     overflow-x: hidden;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
     
     border: none;
     border-radius: 10px;
@@ -96,12 +104,14 @@
     font-family: 'SF Pro Display', sans-serif;
 }
 
+/* Container Area for Date, Time, and Create Post button */
 .createpost-form-form-datetime-container{
     position: absolute;
-    bottom: 1em;
+    bottom: 0;
     right: 0.5em;
 }
 
+/* Date and Time Elements */
 .createpost-form-form-content-input{
     margin: 0 0.5em;
     padding: 0.5em;
@@ -114,6 +124,7 @@
 
 }
 
+/* Create Post Button */
 .createpost-form-form-content-button{
     margin: 0 0.5em;
     padding: 0.5em;
@@ -127,15 +138,17 @@
     cursor: pointer;
 }
 
-.createpost-form-form-content-button-warning{
-    opacity: 0.5;
-    cursor: not-allowed;
-}
+/* Hover Effects */
 .createpost-form-form-content-input:hover,
 .createpost-form-form-content-button:hover{
     background: rgba(255, 255, 255, 0.2);
 }
 
+/* Create Post Date/Time Warning */
+.createpost-form-form-content-button-warning{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 /* Date Time Warning */
 .createpost-form-form-datetime-warning{
@@ -155,16 +168,20 @@
     text-align: center;
 }
 
+/* Attachments Container */
 .createpost-form-form-attachments-container{
     position: absolute;
-    border: 1px solid red;
-    bottom: 1em;
+    bottom: 0;
     left: 0.5em;
+    padding: 0.5em;
+
+    width: 40%;
 
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
 
-    width: 40%;
+    outline: 1px solid white;
+    border-radius: 10px;
 }
