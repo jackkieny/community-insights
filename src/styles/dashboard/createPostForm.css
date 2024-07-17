@@ -24,9 +24,9 @@
 
 .createpost-form-closebutton-container {
     position: absolute;
-
     top: 1em;
     right: 1em;
+    z-index: 2;
 }
 
 .createpost-form-closebutton-button {
@@ -239,4 +239,8 @@
     /* Show the tooltip */
     transform: translateX(-50%) scaleY(1);
     /* Move the tooltip into position */
+}
+
+.createpost-form-action-icon-selected {
+    color: red;
 }

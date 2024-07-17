@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+// Import Actions Functions
+import { handleActionButtonSelected } from "./CreatePostFormActions";
+
 // Import Styles
 import "../../styles/dashboard/createPostForm.css";
 
@@ -17,6 +20,7 @@ function CreatePostForm({ closeForm }) {
     const [time, setTime] = useState("");
 
     const [dateTimeWarning, setDateTimeWarning] = useState(false);
+    const [actionButtonSelected, setActionButtonSelected] = useState(false);
 
     // Handle Form Changes
     const handleTitleChange = (e) => {
@@ -34,7 +38,7 @@ function CreatePostForm({ closeForm }) {
         checkDateTimeIsValid(date, e.target.value);
     };
 
-    // Check Emtpty Fields
+    // Check Empty Fields
     const checkEmptyFields = () => {
         if (title === "" || content === "" || date === "" || time === "") {
             return true;
@@ -218,7 +222,8 @@ function CreatePostForm({ closeForm }) {
                         </div>
                         {/* Complete Action */}
                         <div
-                            className="createpost-form-attachment-icon"
+                            className={actionButtonSelected ? "createpost-form-attachment-icon createpost-form-action-icon-selected" : "createpost-form-attachment-icon"}
+                            onClick={() => handleActionButtonSelected(actionButtonSelected, setActionButtonSelected)}
                             data-tooltip="Action"
                         >
                             <FaBolt />
