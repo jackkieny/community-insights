@@ -209,16 +209,11 @@
 
 .createpost-form-attachment-icon::after {
     content: attr(data-tooltip);
-    /* Use the data-tooltip attribute for the tooltip text */
     position: absolute;
     bottom: 100%;
-    /* Position the tooltip above the icon */
     left: 50%;
-    /* Center the tooltip */
     transform: translateX(-50%) scaleY(0);
-    /* Initially hide the tooltip */
     white-space: nowrap;
-    /* Prevent the tooltip text from wrapping */
     padding: 5px;
 
     border-radius: 5px;
@@ -229,9 +224,7 @@
 
     transition: transform 0.3s ease, opacity 0.3s ease;
     opacity: 0;
-    /* Initially hide the tooltip */
     z-index: 1;
-    /* Ensure the tooltip is above other content */
 }
 
 .createpost-form-attachment-icon:hover::after {
