@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 
 // Import Actions Functions
-import { handleActionButtonSelected } from "./CreatePostFormActions";
+import {
+    checkEmptyFields,
+    checkDateTimeIsValid,
+    handleActionButtonSelected,
+    handleGeneralLinkSelected,
+    insertGeneralLink,
+} from "./CreatePostFormUtils";
+
+// Import Components
+import GeneralLinks from "./PostFormComponents/GeneralLinks";
 
 // Import Styles
 import "../../styles/dashboard/createPostForm.css";
@@ -19,46 +28,31 @@ function CreatePostForm({ closeForm }) {
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
 
+    const [GLDisplayText, setGLDisplayText] = useState("");
+    const [GLLinkAddress, setGLLinkAddress] = useState("");
+
     const [dateTimeWarning, setDateTimeWarning] = useState(false);
     const [actionButtonSelected, setActionButtonSelected] = useState(false);
+    const [generalLinkSelected, setGeneralLinkSelected] = useState(false);
 
     // Handle Form Changes
     const handleTitleChange = (e) => {
         setTitle(e.target.value);
+        checkEmptyFields(title, content, date, time);
     };
     const handleContentChange = (e) => {
         setContent(e.target.value);
+        checkEmptyFields(title, content, date, time);
     };
     const handleDateChange = (e) => {
         setDate(e.target.value);
-        checkDateTimeIsValid(e.target.value, time);
+        setDateTimeWarning(checkDateTimeIsValid(e.target.value, time));
+        checkEmptyFields(title, content, date, time);
     };
     const handleTimeChange = (e) => {
         setTime(e.target.value);
-        checkDateTimeIsValid(date, e.target.value);
-    };
-
-    // Check Empty Fields
-    const checkEmptyFields = () => {
-        if (title === "" || content === "" || date === "" || time === "") {
-            return true;
-        }
-        return false;
-    };
-
-    // Check Date & Time
-    const checkDateTimeIsValid = (date, time) => {
-        const selectedDateTime = new Date(`${date}T${time}`);
-        const futureDateTime = new Date();
-        futureDateTime.setMinutes(futureDateTime.getMinutes() + 15);
-
-        if (selectedDateTime < futureDateTime) {
-            setDateTimeWarning(true);
-            return false;
-        } else {
-            setDateTimeWarning(false);
-        }
-        return true;
+        setDateTimeWarning(checkDateTimeIsValid(date, e.target.value));
+        checkEmptyFields(title, content, date, time);
     };
 
     // Submit Form
@@ -80,11 +74,6 @@ function CreatePostForm({ closeForm }) {
             date: date,
             time: time,
         };
-
-        if (title === "" || content === "" || date === "" || time === "") {
-            alert("Please fill out all fields");
-            return;
-        }
 
         // Send Post Data to Server
         try {
@@ -179,12 +168,12 @@ function CreatePostForm({ closeForm }) {
                         />
                         <button
                             className={
-                                dateTimeWarning || checkEmptyFields
+                                dateTimeWarning || checkEmptyFields(title, content, date, time)
                                     ? "createpost-form-form-content-button createpost-form-form-content-button-warning"
                                     : "createpost-form-form-content-button"
                             }
                             onClick={handleSubmit}
-                            disabled={dateTimeWarning || checkEmptyFields}
+                            disabled={dateTimeWarning || checkEmptyFields(title, content, date, time)}
                         >
                             Create Post
                         </button>
@@ -203,6 +192,7 @@ function CreatePostForm({ closeForm }) {
                         <div
                             className="createpost-form-attachment-icon"
                             data-tooltip="Link"
+                            onClick={() => handleGeneralLinkSelected(generalLinkSelected, setGeneralLinkSelected)}
                         >
                             <IoMdLink />
                         </div>
@@ -223,8 +213,8 @@ function CreatePostForm({ closeForm }) {
                         {/* Complete Action */}
                         <div
                             className={actionButtonSelected ? "createpost-form-attachment-icon createpost-form-action-icon-selected" : "createpost-form-attachment-icon"}
-                            onClick={() => handleActionButtonSelected(actionButtonSelected, setActionButtonSelected)}
                             data-tooltip="Action"
+                            onClick={() => handleActionButtonSelected(actionButtonSelected, setActionButtonSelected)}
                         >
                             <FaBolt />
                         </div>
@@ -243,6 +233,21 @@ function CreatePostForm({ closeForm }) {
                             <PiGifBold />
                         </div>
                     </div>
+
+                    {/*** Forms ***/}
+                    {/* General Forms */}
+                    {generalLinkSelected &&
+                        <GeneralLinks
+                            setGLDisplayText={setGLDisplayText}
+                            setGLLinkAddress={setGLLinkAddress}
+                            onSubmit={() => {
+                                const newContent = insertGeneralLink(GLDisplayText, GLLinkAddress);
+                                setContent(content + newContent);
+                                handleGeneralLinkSelected(generalLinkSelected, setGeneralLinkSelected);
+                                setGLDisplayText("");
+                                setGLLinkAddress("");
+                            }}
+                        />}
                 </div>
             </div>
             {dateTimeWarning && (

@@ -1,0 +1,78 @@
+.generallink-container {
+    position: absolute;
+    bottom: 6em;
+    left: 1em;
+    margin-right: auto;
+
+    display: grid;
+    place-items: center;
+
+    padding: 0.5em;
+
+    height: 13em;
+
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+.generallink-title{
+    font-size: 1.5em;
+}
+
+.generallink-input-container {
+    display: grid;
+    place-items: center;
+
+    width: 20em;
+}
+
+.generallink-input {
+    margin: 0.5em 1em;
+    padding: 0.5em 0.25em;
+
+    width: 95%;
+
+    border: none;
+    outline: 1px solid white;
+    border-radius: 10px;
+    background: none;
+
+    color: white;
+    font-size: 1em;
+}
+
+.generallink-input::placeholder {
+    color: white;
+}
+
+.generallink-input:focus {
+    outline: 2px solid white;
+}
+
+.generallink-submit-button{
+    margin: 0.5em 0 0 0;
+    padding: 0.5em;
+
+    width: 95%;
+
+    border: 1px solid white;
+    border-radius: 10px;
+    background: none;
+
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.generallink-submit-button:hover {
+    background: white;
+    color: black;
+}
+
+.generallink-hint {
+    margin-top: 0.25em;
+    text-align: center;
+    width: 100%;
+    word-wrap: wrap;
+    user-select: none;
+}
