@@ -1,0 +1,6 @@
+.emojikeyboard-container {
+    position: absolute;
+    bottom: 4em;
+    left: -3em;
+    transform: scale(0.75);
+}

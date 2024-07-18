@@ -33,3 +33,7 @@ export const handleGeneralLinkSelected = (generalLinkSelected, setGeneralLinkSel
 export const insertGeneralLink = (GLDispayText, GLLinkAddress) => {
     return `[${GLDispayText}](${GLLinkAddress})`;
 };
+
+export const handleEmojiKeyboardSelected = (emojiKeyboardSelected, setEmojiKeyboardSelected) => {
+    setEmojiKeyboardSelected(!emojiKeyboardSelected);
+};

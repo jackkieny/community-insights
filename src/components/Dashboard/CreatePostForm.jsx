@@ -7,10 +7,12 @@ import {
     handleActionButtonSelected,
     handleGeneralLinkSelected,
     insertGeneralLink,
+    handleEmojiKeyboardSelected,
 } from "./CreatePostFormUtils";
 
 // Import Components
 import GeneralLinks from "./PostFormComponents/GeneralLinks";
+import EmojiKeyboard from "./PostFormComponents/EmojiKeyboard";
 
 // Import Styles
 import "../../styles/dashboard/createPostForm.css";
@@ -34,6 +36,7 @@ function CreatePostForm({ closeForm }) {
     const [dateTimeWarning, setDateTimeWarning] = useState(false);
     const [actionButtonSelected, setActionButtonSelected] = useState(false);
     const [generalLinkSelected, setGeneralLinkSelected] = useState(false);
+    const [emojiKeyboardSelected, setEmojiKeyboardSelected] = useState(false);
 
     // Handle Form Changes
     const handleTitleChange = (e) => {
@@ -222,6 +225,9 @@ function CreatePostForm({ closeForm }) {
                         <div
                             className="createpost-form-attachment-icon"
                             data-tooltip="Emoji"
+                            onClick={() => {
+                                handleEmojiKeyboardSelected(emojiKeyboardSelected, setEmojiKeyboardSelected);
+                            }}
                         >
                             <FaFaceSmileWink />
                         </div>
@@ -248,6 +254,14 @@ function CreatePostForm({ closeForm }) {
                                 setGLLinkAddress("");
                             }}
                         />}
+                    {/* Emoji Form */}
+                    {emojiKeyboardSelected &&
+                        <EmojiKeyboard
+                            setEmojiKeyboardSelected={setEmojiKeyboardSelected}
+                            content={content}
+                            setContent={setContent}
+                        />
+                    }
                 </div>
             </div>
             {dateTimeWarning && (
