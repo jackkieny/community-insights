@@ -15,10 +15,6 @@
     border-radius: 10px;
 }
 
-.generallink-title{
-    font-size: 1.5em;
-}
-
 .generallink-input-container {
     display: grid;
     place-items: center;
