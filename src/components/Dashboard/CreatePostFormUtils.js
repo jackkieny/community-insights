@@ -25,15 +25,16 @@ export const handleActionButtonSelected = (actionButtonSelected, setActionButton
     setActionButtonSelected(!actionButtonSelected);
 };
 
-// General Link
-export const handleGeneralLinkSelected = (generalLinkSelected, setGeneralLinkSelected) => {
-    setGeneralLinkSelected(!generalLinkSelected);
+// Form Toggle
+export const handleFormToggle = (formName, openForm, setOpenForm) => {
+    if (openForm === formName) {
+        setOpenForm(null);
+    } else {
+        setOpenForm(formName);
+    }
 };
 
-export const insertGeneralLink = (GLDispayText, GLLinkAddress) => {
+// Format General Link
+export const formatGeneralLink = (GLDispayText, GLLinkAddress) => {
     return `[${GLDispayText}](${GLLinkAddress})`;
-};
-
-export const handleEmojiKeyboardSelected = (emojiKeyboardSelected, setEmojiKeyboardSelected) => {
-    setEmojiKeyboardSelected(!emojiKeyboardSelected);
 };

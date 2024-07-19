@@ -3,10 +3,10 @@ import EmojiPicker from 'emoji-picker-react'
 
 import '../../../styles/dashboard/postFormComponentsStyles/emojiKeyboard.css'
 
-function EmojiKeyboard({setEmojiKeyboardSelected, content, setContent}) {
+function EmojiKeyboard({setOpenForm, content, setContent}) {
 
     const handleEmojiClick = (emojiObject) => {
-        setEmojiKeyboardSelected(false);
+        setOpenForm(null);
         setContent(content + emojiObject.emoji);
     }
 

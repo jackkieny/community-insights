@@ -5,9 +5,8 @@ import {
     checkEmptyFields,
     checkDateTimeIsValid,
     handleActionButtonSelected,
-    handleGeneralLinkSelected,
-    insertGeneralLink,
-    handleEmojiKeyboardSelected,
+    formatGeneralLink,
+    handleFormToggle,
 } from "./CreatePostFormUtils";
 
 // Import Components
@@ -25,18 +24,18 @@ import { FaYoutube, FaFaceSmileWink, FaBolt } from "react-icons/fa6"; // YouTube
 import { PiGifBold } from "react-icons/pi"; // GIF Icon
 
 function CreatePostForm({ closeForm }) {
+    // Content States
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
-
+    // General Link States
     const [GLDisplayText, setGLDisplayText] = useState("");
     const [GLLinkAddress, setGLLinkAddress] = useState("");
-
+    // Form States
     const [dateTimeWarning, setDateTimeWarning] = useState(false);
     const [actionButtonSelected, setActionButtonSelected] = useState(false);
-    const [generalLinkSelected, setGeneralLinkSelected] = useState(false);
-    const [emojiKeyboardSelected, setEmojiKeyboardSelected] = useState(false);
+    const [openForm, setOpenForm] = useState(null);
 
     // Handle Form Changes
     const handleTitleChange = (e) => {
@@ -195,7 +194,7 @@ function CreatePostForm({ closeForm }) {
                         <div
                             className="createpost-form-attachment-icon"
                             data-tooltip="Link"
-                            onClick={() => handleGeneralLinkSelected(generalLinkSelected, setGeneralLinkSelected)}
+                            onClick={() => handleFormToggle("generalLink", openForm, setOpenForm)}
                         >
                             <IoMdLink />
                         </div>
@@ -225,9 +224,7 @@ function CreatePostForm({ closeForm }) {
                         <div
                             className="createpost-form-attachment-icon"
                             data-tooltip="Emoji"
-                            onClick={() => {
-                                handleEmojiKeyboardSelected(emojiKeyboardSelected, setEmojiKeyboardSelected);
-                            }}
+                            onClick={() => handleFormToggle("emojiKeyboard", openForm, setOpenForm)}
                         >
                             <FaFaceSmileWink />
                         </div>
@@ -242,22 +239,22 @@ function CreatePostForm({ closeForm }) {
 
                     {/*** Forms ***/}
                     {/* General Forms */}
-                    {generalLinkSelected &&
+                    {openForm === "generalLink" &&
                         <GeneralLinks
                             setGLDisplayText={setGLDisplayText}
                             setGLLinkAddress={setGLLinkAddress}
                             onSubmit={() => {
-                                const newContent = insertGeneralLink(GLDisplayText, GLLinkAddress);
+                                const newContent = formatGeneralLink(GLDisplayText, GLLinkAddress);
                                 setContent(content + newContent);
-                                handleGeneralLinkSelected(generalLinkSelected, setGeneralLinkSelected);
+                                handleFormToggle(null, openForm, setOpenForm);
                                 setGLDisplayText("");
                                 setGLLinkAddress("");
                             }}
                         />}
                     {/* Emoji Form */}
-                    {emojiKeyboardSelected &&
+                    {openForm === "emojiKeyboard" &&
                         <EmojiKeyboard
-                            setEmojiKeyboardSelected={setEmojiKeyboardSelected}
+                            setOpenForm={setOpenForm}
                             content={content}
                             setContent={setContent}
                         />
