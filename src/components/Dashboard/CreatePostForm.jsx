@@ -11,10 +11,12 @@ import {
 
 // Import Components
 import GeneralLinks from "./PostFormComponents/GeneralLinks";
+import EmbeddedLinks from "./PostFormComponents/EmbeddedLinks";
 import EmojiKeyboard from "./PostFormComponents/EmojiKeyboard";
 
 // Import Styles
 import "../../styles/dashboard/createPostForm.css";
+import "../../styles/dashboard/postFormComponentsStyles/attachmentPreview.css";
 
 // Import Icons
 import { FaTrash, FaPoll } from "react-icons/fa";  // Trash Icon, Poll Icon
@@ -29,6 +31,7 @@ function CreatePostForm({ closeForm }) {
     const [content, setContent] = useState("");
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
+    const [attachments, setAttachments] = useState([]);
     // General Link States
     const [GLDisplayText, setGLDisplayText] = useState("");
     const [GLLinkAddress, setGLLinkAddress] = useState("");
@@ -202,6 +205,7 @@ function CreatePostForm({ closeForm }) {
                         <div
                             className="createpost-form-attachment-icon"
                             data-tooltip="YouTube/Vimeo/Loom"
+                            onClick={() => handleFormToggle("embeddedLink", openForm, setOpenForm)}
                         >
                             <FaYoutube />
                         </div>
@@ -251,6 +255,16 @@ function CreatePostForm({ closeForm }) {
                                 setGLLinkAddress("");
                             }}
                         />}
+                    {/* Embedded Links */}
+                    {openForm === "embeddedLink" &&
+                        <EmbeddedLinks
+                            attachments={attachments}
+                            setAttachments={setAttachments}
+                            onSubmit={() => {
+                                handleFormToggle(null, openForm, setOpenForm);
+                            }}
+                        />
+                    }
                     {/* Emoji Form */}
                     {openForm === "emojiKeyboard" &&
                         <EmojiKeyboard
@@ -258,6 +272,34 @@ function CreatePostForm({ closeForm }) {
                             content={content}
                             setContent={setContent}
                         />
+                    }
+
+                    {/* Attachement Previews */}
+                    {openForm === null && attachments.length > 0 &&
+                        <div className="createpost-attachmentpreview-container">
+                            {/* Map Attachment Preview */}
+                            {attachments.map((attachment, index) => (
+                                <div key={index} className="createpost-attachment-preview">
+                                    {attachment.includes("iframe") ? (
+                                        <div className="createpost-attachment-iframe-container">
+                                            <div dangerouslySetInnerHTML={{ __html: attachment }}></div>
+                                        </div>
+                                    ) : (
+                                        <div>no iframe</div>
+                                    )}
+                                    {/* Close Button */}
+                                    <button
+                                        className="createpost-attachment-preview-remove"
+                                        onClick={() => {
+                                            const newAttachments = attachments.filter((_, i) => i !== index);
+                                            setAttachments(newAttachments);
+                                        }}
+                                    >
+                                        Remove
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
                     }
                 </div>
             </div>
