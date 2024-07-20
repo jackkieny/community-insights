@@ -36,11 +36,6 @@ function GeneralLinks({setGLDisplayText, setGLLinkAddress, onSubmit}) {
             >
                 Submit
             </button>
-            <p className="generallink-hint">
-                <i>Hint:</i> You can insert links manually <br/>
-                by using the markdown format: <br/>
-                <b>[Display Text]</b><i style={{color: '#4DA6FF'}}><ins>(Link Address)</ins></i>
-            </p>
         </div>
     )
 }
