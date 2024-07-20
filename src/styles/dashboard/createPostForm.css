@@ -79,15 +79,31 @@
     font-weight: bold;
 }
 
-/* Form Text Area */
-.createpost-form-form-content-textarea {
+/* From Content and Polls */
+.createpost-form-form-content {
+    position: relative;
     margin: 0 1em;
     padding: 1em;
 
-    resize: vertical;
-    min-height: 250px;
-    max-height: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 250px;
     max-width: 100%;
+
+    background: none;
+}
+
+/* Form Text Area */
+.createpost-form-form-content-textarea {
+    /* margin: 0 1em; */
+    padding: 1em;
+
+    min-height: 250px;
+    width: 100%;
+
     overflow: scroll;
     overflow-x: hidden;
     scrollbar-width: thin;
@@ -101,6 +117,43 @@
     font-family: 'SF Pro Display', sans-serif;
 }
 
+.createpost-form-form-content-polls {
+    position: relative;
+    margin-left: 1em;
+    padding: 1em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    min-height: 250px;
+    width: 30%;
+    
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.createpost-form-form-polls-remove{
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    padding: 0.25em;
+
+    outline: 1px solid white;
+    border: none;
+    border-radius: 5px;
+
+    background: none;
+
+    color: white;
+}
+
+.createpost-form-form-polls-remove:hover {
+    color: black;
+    background: white;
+    cursor: pointer;
+}
 /* Container Area for Date, Time, and Create Post button */
 .createpost-form-form-datetime-container {
     position: absolute;

@@ -39,6 +39,7 @@ function CreatePostForm({ closeForm }) {
     const [dateTimeWarning, setDateTimeWarning] = useState(false);
     const [actionButtonSelected, setActionButtonSelected] = useState(false);
     const [openForm, setOpenForm] = useState(null);
+    const [openPollForm, setOpenPollForm] = useState(false);
 
     // Handle Form Changes
     const handleTitleChange = (e) => {
@@ -147,15 +148,29 @@ function CreatePostForm({ closeForm }) {
                         onChange={handleTitleChange}
                     />
 
-                    {/* Content */}
-                    <textarea
-                        className="createpost-form-form-content-textarea"
-                        type="text"
-                        encoding="UTF-8"
-                        placeholder="Write something..."
-                        value={content}
-                        onChange={handleContentChange}
-                    />
+                    {/* Content & Polls */}
+                    <div className="createpost-form-form-content">
+                        {/* Post Content */}
+                        <textarea
+                            className="createpost-form-form-content-textarea"
+                            type="text"
+                            encoding="UTF-8"
+                            placeholder="Write something..."
+                            value={content}
+                            onChange={handleContentChange}
+                        />
+                        {/* Polls */}
+                        {openPollForm && (
+                            <div className="createpost-form-form-content-polls">
+                                <button
+                                    className="createpost-form-form-polls-remove"
+                                    onClick={() => setOpenPollForm(false)}
+                                >Remove</button>
+
+                            </div>
+                        )}
+
+                    </div>
 
                     {/* Date, Time & Submit*/}
                     <div className="createpost-form-form-datetime-container">
@@ -197,6 +212,7 @@ function CreatePostForm({ closeForm }) {
                         <div
                             className="createpost-form-attachment-icon"
                             data-tooltip="Link"
+                            style={openForm === "generalLink" ? {color: "#669bbc"} : {}}
                             onClick={() => handleFormToggle("generalLink", openForm, setOpenForm)}
                         >
                             <IoMdLink />
@@ -205,6 +221,7 @@ function CreatePostForm({ closeForm }) {
                         <div
                             className="createpost-form-attachment-icon"
                             data-tooltip="YouTube/Vimeo/Loom"
+                            style={openForm === "embeddedLink" ? {color: "#FF0000"} : {}}
                             onClick={() => handleFormToggle("embeddedLink", openForm, setOpenForm)}
                         >
                             <FaYoutube />
@@ -213,13 +230,16 @@ function CreatePostForm({ closeForm }) {
                         <div
                             className="createpost-form-attachment-icon"
                             data-tooltip="Poll"
+                            style={openPollForm ? {color: "#29a1d3"} : {} }
+                            onClick={() => setOpenPollForm(true)}
                         >
                             <FaPoll />
                         </div>
                         {/* Complete Action */}
                         <div
-                            className={actionButtonSelected ? "createpost-form-attachment-icon createpost-form-action-icon-selected" : "createpost-form-attachment-icon"}
+                            className="createpost-form-attachment-icon"
                             data-tooltip="Action"
+                            style={actionButtonSelected ? {color: "#ef233c"} : {}}
                             onClick={() => handleActionButtonSelected(actionButtonSelected, setActionButtonSelected)}
                         >
                             <FaBolt />
@@ -228,6 +248,7 @@ function CreatePostForm({ closeForm }) {
                         <div
                             className="createpost-form-attachment-icon"
                             data-tooltip="Emoji"
+                            style={openForm === "emojiKeyboard" ? {color: "#ffde34"} : {}}
                             onClick={() => handleFormToggle("emojiKeyboard", openForm, setOpenForm)}
                         >
                             <FaFaceSmileWink />
