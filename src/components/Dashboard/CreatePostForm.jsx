@@ -24,6 +24,7 @@ import { TfiClip } from "react-icons/tfi"; // Paperclip Icon
 import { IoMdLink } from "react-icons/io"; // Link Icon
 import { FaYoutube, FaFaceSmileWink, FaBolt } from "react-icons/fa6"; // YouTube Icon, Emoji Icon, Bolt Icon
 import { PiGifBold } from "react-icons/pi"; // GIF Icon
+import { IoCloseCircle } from "react-icons/io5"; // Close "X" Icon
 
 function CreatePostForm({ closeForm }) {
     // Content States
@@ -39,7 +40,10 @@ function CreatePostForm({ closeForm }) {
     const [dateTimeWarning, setDateTimeWarning] = useState(false);
     const [actionButtonSelected, setActionButtonSelected] = useState(false);
     const [openForm, setOpenForm] = useState(null);
+    // Polls
     const [openPollForm, setOpenPollForm] = useState(false);
+    const [pollOptionCount, setPollOptionCount] = useState(3);
+    const [pollOptions, setPollOptions] = useState(["", "", ""]);
 
     // Handle Form Changes
     const handleTitleChange = (e) => {
@@ -59,6 +63,28 @@ function CreatePostForm({ closeForm }) {
         setTime(e.target.value);
         setDateTimeWarning(checkDateTimeIsValid(date, e.target.value));
         checkEmptyFields(title, content, date, time);
+    };
+
+    // Handle Poll Changes
+    const handlePollOptionsChange = (index, value) => {
+        const updatedOptions = [...pollOptions];
+        updatedOptions[index] = value;
+        setPollOptions(updatedOptions);
+    };
+
+    const addPollOption = () => {
+        if (pollOptionCount < 10) {
+            setPollOptions([...pollOptions, ""]);
+            setPollOptionCount(pollOptionCount + 1);
+        }
+    };
+
+    const removePollOption = (index) => {
+        if (pollOptionCount > 2) {
+            const updatedPollOptions = pollOptions.filter((_, i) => i !== index);
+            setPollOptions(updatedPollOptions);
+            setPollOptionCount(pollOptionCount - 1);
+        }
     };
 
     // Submit Form
@@ -162,11 +188,24 @@ function CreatePostForm({ closeForm }) {
                         {/* Polls */}
                         {openPollForm && (
                             <div className="createpost-form-form-content-polls">
-                                <button
-                                    className="createpost-form-form-polls-remove"
-                                    onClick={() => setOpenPollForm(false)}
-                                >Remove</button>
-
+                                <div className="createpost-form-form-content-poll-container">
+                                    {pollOptions.map((option, index) =>
+                                        <div key={index} className="createpost-form-form-poll-item">
+                                            <input
+                                                className="createpost-form-poll-input"
+                                                type="text"
+                                                placeholder={`Option ${index + 1}`}
+                                                value={option}
+                                                onChange={(e) => handlePollOptionsChange(index, e.target.value)}
+                                            />
+                                            {pollOptionCount > 2 && (
+                                                <button className="createpost-form-poll-removeoption-button" onClick={() => removePollOption(index)}><IoCloseCircle /></button>
+                                            )}
+                                        </div>
+                                    )}
+                                    <button className="createpost-form-form-polls-remove-button" onClick={() => setOpenPollForm(false)}>Remove</button>
+                                    {pollOptionCount < 10 && <button className="createpost-form-form-poll-addoption-button" onClick={addPollOption}>Add Option</button>}
+                                </div>
                             </div>
                         )}
 
@@ -212,7 +251,7 @@ function CreatePostForm({ closeForm }) {
                         <div
                             className="createpost-form-attachment-icon"
                             data-tooltip="Link"
-                            style={openForm === "generalLink" ? {color: "#669bbc"} : {}}
+                            style={openForm === "generalLink" ? { color: "#669bbc" } : {}}
                             onClick={() => handleFormToggle("generalLink", openForm, setOpenForm)}
                         >
                             <IoMdLink />
@@ -221,7 +260,7 @@ function CreatePostForm({ closeForm }) {
                         <div
                             className="createpost-form-attachment-icon"
                             data-tooltip="YouTube/Vimeo/Loom"
-                            style={openForm === "embeddedLink" ? {color: "#FF0000"} : {}}
+                            style={openForm === "embeddedLink" ? { color: "#FF0000" } : {}}
                             onClick={() => handleFormToggle("embeddedLink", openForm, setOpenForm)}
                         >
                             <FaYoutube />
@@ -230,7 +269,7 @@ function CreatePostForm({ closeForm }) {
                         <div
                             className="createpost-form-attachment-icon"
                             data-tooltip="Poll"
-                            style={openPollForm ? {color: "#29a1d3"} : {} }
+                            style={openPollForm ? { color: "#29a1d3" } : {}}
                             onClick={() => setOpenPollForm(true)}
                         >
                             <FaPoll />
@@ -239,7 +278,7 @@ function CreatePostForm({ closeForm }) {
                         <div
                             className="createpost-form-attachment-icon"
                             data-tooltip="Action"
-                            style={actionButtonSelected ? {color: "#ef233c"} : {}}
+                            style={actionButtonSelected ? { color: "#ef233c" } : {}}
                             onClick={() => handleActionButtonSelected(actionButtonSelected, setActionButtonSelected)}
                         >
                             <FaBolt />
@@ -248,7 +287,7 @@ function CreatePostForm({ closeForm }) {
                         <div
                             className="createpost-form-attachment-icon"
                             data-tooltip="Emoji"
-                            style={openForm === "emojiKeyboard" ? {color: "#ffde34"} : {}}
+                            style={openForm === "emojiKeyboard" ? { color: "#ffde34" } : {}}
                             onClick={() => handleFormToggle("emojiKeyboard", openForm, setOpenForm)}
                         >
                             <FaFaceSmileWink />

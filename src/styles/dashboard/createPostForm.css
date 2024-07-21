@@ -98,8 +98,7 @@
 
 /* Form Text Area */
 .createpost-form-form-content-textarea {
-    /* margin: 0 1em; */
-    padding: 1em;
+    padding: 0.5em;
 
     min-height: 250px;
     width: 100%;
@@ -120,21 +119,36 @@
 .createpost-form-form-content-polls {
     position: relative;
     margin-left: 1em;
-    padding: 1em;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 0.5em;
     
-    min-height: 250px;
-    width: 30%;
+    height: 250px;
+    width: 50%;
     
     border: 1px solid white;
     border-radius: 10px;
 }
 
-.createpost-form-form-polls-remove{
+.createpost-form-form-content-poll-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr; 
+    grid-auto-flow: column;
+
+    width: 100%;
+    height: 80%;
+}
+
+.createpost-form-form-poll-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+    height: 25px;
+}
+
+.createpost-form-form-polls-remove-button{
     position: absolute;
     bottom: 1em;
     right: 1em;
@@ -147,6 +161,58 @@
     background: none;
 
     color: white;
+}
+
+.createpost-form-form-poll-addoption-button{
+    position: absolute;
+    bottom: 1em;
+    left: 1em;
+    padding: 0.25em;
+
+    outline: 1px solid white;
+    border: none;
+    border-radius: 5px;
+
+    background: none;
+
+    color: white;
+}
+
+
+.createpost-form-form-polls-remove-button:hover,
+.createpost-form-form-poll-addoption-button:hover{
+    color: black;
+    background: white;
+    cursor: pointer;
+}
+
+.createpost-form-poll-input {
+    margin: 0.5em;
+    padding: 0.25em;
+
+    border: none;
+    outline: 1px solid white;
+    border-radius: 5px;
+
+    background: none;
+    color: white;
+}
+
+.createpost-form-poll-input:focus {
+    outline: 2px solid white;
+}
+
+.createpost-form-poll-removeoption-button {
+    /* border: 1px solid red; */
+    display: grid;
+    place-items: center;
+
+    background: none;
+    border: none;
+
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
 }
 
 .createpost-form-form-polls-remove:hover {
