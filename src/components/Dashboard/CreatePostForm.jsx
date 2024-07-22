@@ -13,6 +13,7 @@ import {
 import GeneralLinks from "./PostFormComponents/GeneralLinks";
 import EmbeddedLinks from "./PostFormComponents/EmbeddedLinks";
 import EmojiKeyboard from "./PostFormComponents/EmojiKeyboard";
+import GiphyGrid from "./PostFormComponents/GiphyGrid";
 
 // Import Styles
 import "../../styles/dashboard/createPostForm.css";
@@ -243,7 +244,9 @@ function CreatePostForm({ closeForm }) {
                         {/* File Attachment */}
                         <div
                             className="createpost-form-attachment-icon"
+                            style={{cursor: "not-allowed"}}
                             data-tooltip="File"
+                            // DISABLED
                         >
                             <TfiClip />
                         </div>
@@ -296,6 +299,9 @@ function CreatePostForm({ closeForm }) {
                         <div
                             className="createpost-form-attachment-icon"
                             data-tooltip="GIFs"
+                            // DISABLED
+                            style={{cursor: "not-allowed"}}
+                            // onClick={() => handleFormToggle("gifs", openForm, setOpenForm)}
                         >
                             <PiGifBold />
                         </div>
@@ -332,6 +338,10 @@ function CreatePostForm({ closeForm }) {
                             content={content}
                             setContent={setContent}
                         />
+                    }
+                    {/* GIFs Form */}
+                    {openForm === "gifs" &&
+                        <GiphyGrid />
                     }
 
                     {/* Attachement Previews */}
