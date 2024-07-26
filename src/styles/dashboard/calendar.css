@@ -166,7 +166,7 @@ button.rbc-input::-moz-focus-inner {
 
 /* Today's Date COLOR */
 .rbc-today {
-    background-color: #0171e2;
+    /* background-color: #0171e2; */
 }
 
 /* Toolbar */
@@ -200,6 +200,7 @@ button.rbc-input::-moz-focus-inner {
 }
 
 
+/* Toolbar Button */
 .rbc-toolbar button {
     color: white;
     display: inline-block;
@@ -215,6 +216,7 @@ button.rbc-input::-moz-focus-inner {
     white-space: nowrap;
 }
 
+/* Toolbar Button: Active */
 .rbc-toolbar button:active,
 .rbc-toolbar button.rbc-active {
     background-image: none;
@@ -309,7 +311,7 @@ button.rbc-input::-moz-focus-inner {
     box-shadow: none;
     margin: 0;
     padding: 2px 5px;
-    background-color: #3174ad;
+    background-color: #265985;
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
@@ -327,6 +329,7 @@ button.rbc-input::-moz-focus-inner {
 .rbc-event.rbc-selected,
 .rbc-day-slot .rbc-selected.rbc-background-event {
     background-color: #265985;
+    /* outline: 1px solid white; */
 }
 
 .rbc-event:focus,
@@ -396,6 +399,7 @@ button.rbc-input::-moz-focus-inner {
     color: #265985;
 }
 
+/* Monthy Calendar View */
 .rbc-month-view {
     position: relative;
     border: 1px solid #ddd;
@@ -417,6 +421,7 @@ button.rbc-input::-moz-focus-inner {
     height: 100%;
 }
 
+/* Monthly Calendar Weekday */
 .rbc-month-header {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -427,6 +432,7 @@ button.rbc-input::-moz-focus-inner {
     flex-direction: row;
 }
 
+/* Monthly Calendar Week - Row */
 .rbc-month-row {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -449,6 +455,7 @@ button.rbc-input::-moz-focus-inner {
     border-top: 1px solid #ddd;
 }
 
+/* Monthly Calendar Date Number Box */
 .rbc-date-cell {
     -webkit-box-flex: 1;
     -ms-flex: 1 1 0px;
@@ -458,7 +465,9 @@ button.rbc-input::-moz-focus-inner {
     text-align: right;
 }
 
+/* Monthly Calendar Date Today Number Box */
 .rbc-date-cell.rbc-now {
+    background: #3b99fc;
     font-weight: bold;
 }
 

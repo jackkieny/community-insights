@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
     checkEmptyFields,
@@ -7,8 +7,8 @@ import {
     formatGeneralLink,
     handleFormToggle,
 } from "../../utils/generalHandlers";
-
 import { handlePollOptionsChange, addPollOption, removePollOption } from "../../utils/pollStateHandlers";
+import { handleCreatePost } from "../../utils/createPostHandler";
 
 import GeneralLinks from "./PostFormComponents/GeneralLinks";
 import EmbeddedLinks from "./PostFormComponents/EmbeddedLinks";
@@ -26,6 +26,7 @@ import { PiGifBold } from "react-icons/pi"; // GIF Icon
 import { IoCloseCircle } from "react-icons/io5"; // Close "X" Icon
 
 function CreatePostForm({ closeForm }) {
+    const [communities, setCommunities] = useState([]);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [date, setDate] = useState("");
@@ -59,11 +60,15 @@ function CreatePostForm({ closeForm }) {
         checkEmptyFields(title, content, date, time);
     };
 
+    useEffect(() => {
+
+    })
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Button Clicked');
 
-        // handleCreatePost(date, time, title, content, pollOptions, actionButtonSelected);
+        handleCreatePost(date, time, title, content, pollOptions, actionButtonSelected);
     };
 
     const handleClose = (e) => {
@@ -147,6 +152,13 @@ function CreatePostForm({ closeForm }) {
                     </div>
 
                     <div className="createpost-form-form-datetime-container">
+                        <select>
+                            {communities.map((community, index) => {
+                                <option key={index}>
+
+                                </option>
+                            })}
+                        </select>
                         <input
                             className="createpost-form-form-content-input"
                             type="date"
