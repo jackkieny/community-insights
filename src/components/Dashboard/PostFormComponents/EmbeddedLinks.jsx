@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../../../styles/dashboard/postFormComponentsStyles/embeddedLinks.css'
 
-function EmbeddedLinks({attachments, setAttachments, onSubmit}) {
+function EmbeddedLinks({videoLinks, setVideoLinks, videoIFrames, setVideoIFrames, onSubmit}) {
 
     const [embeddedLink, setEmbeddedLink] = useState('')
     const [errorMessageDisplayed, setErrorMessageDisplayed] = useState(false)
@@ -61,7 +61,8 @@ function EmbeddedLinks({attachments, setAttachments, onSubmit}) {
                 setErrorMessage(data.error);
                 return;
             } else {
-                setAttachments([...attachments, data.html]);
+                setVideoLinks([...videoLinks, embeddedLink]);
+                setVideoIFrames([...videoIFrames, data.html]);
                 onSubmit();
                 setErrorMessageDisplayed(false);
                 setErrorMessage('');
