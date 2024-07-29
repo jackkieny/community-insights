@@ -140,7 +140,20 @@
         width: 100%;
     }
 
+    .homepage-header-logo-image {
+        height: 225px;
+    }
+
     .homepage-header-nav-container {
+        display: none;
+    }
+
+    .homepage-header-login-button {
+        border: 1px solid white;
+        border-radius: 5px;
+    }
+
+    .homepage-header-request-button{
         display: none;
     }
     

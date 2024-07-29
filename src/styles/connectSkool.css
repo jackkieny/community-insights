@@ -210,3 +210,29 @@
         background-position: -100% 0%;
     }
 }
+
+/* Media Queries */
+@media (max-width: 800px) {
+    .connectskool-container {
+        width: 90%;
+        height: 50%;
+    }
+
+    .connectskool-label {
+        font-size: 1em;
+    }
+
+    .connectskool-input {
+        width: calc(100% - 5em);
+        font-size: 1em;
+    }
+
+    .connectskool-eye-icon {
+        font-size: 1.25em;
+    }
+
+    .connectskool-button {
+        font-size: 1.25em;
+        width: 80%;
+    }
+}

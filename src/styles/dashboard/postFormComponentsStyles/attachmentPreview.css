@@ -1,0 +1,73 @@
+.createpost-attachmentpreview-container {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 1em;
+    scrollbar-width: none;
+    overflow-x: scroll;
+
+    margin: 1em 0;
+
+    height: 200px;
+    width: 95%;
+
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.createpost-attachment-preview {
+    position: relative;
+    margin: 0 0.5em;
+
+    display: grid;
+    place-items: center;
+    
+    height: 200px;
+    width: 300px;
+
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.createpost-attachment-iframe-container {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: grid;
+    place-items: center;
+
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.createpost-attachment-iframe-container iframe {
+    height: 100%;
+    width: 100%;
+    border: none;
+}
+
+.createpost-attachment-preview-remove {
+    padding: 0.2em;
+
+    background: none;
+    outline: 1px solid white;
+    border: none;
+    border-radius: 5px;
+
+    color: white;
+}
+
+.createpost-attachment-preview-remove:hover {
+    background: white;
+    color: black;
+    cursor: pointer;
+}

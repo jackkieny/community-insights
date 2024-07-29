@@ -30,7 +30,6 @@ function ChooseCommunity() {
                 }
             });
             const data = await response.json();
-            console.log(data);
             setCommunities(data);
             if (data.error === 'Not found') {
                 navigate('/connect-skool');

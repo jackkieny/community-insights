@@ -20,7 +20,7 @@ auth = Blueprint('auth', __name__, static_folder='../build', static_url_path='/'
 @auth.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
-    email = data['email']
+    email = data['email'].lower()
 
     # Check if the user exists in the database
     user_data = mongo.db.users.find_one({'email' : email})
@@ -108,6 +108,18 @@ def select_community():
     except:
         return {'error': 'Invalid community ID'}, 401
 
+# Get Lables
+@auth.route('/api/get-labels', methods=["GET"])
+@login_required
+def get_labels():
+    user_data = mongo.db.users.find_one({'_id' : current_user.id})
+
+    try:
+        for community in user_data['communities']:
+            if community['id'] == user_data['communityId']:
+                return {'labels': community['labels']}
+    except:
+        return {'error': 'Could not find labels'}, 401
 
 # Logout Route
 @auth.route('/api/logout', methods=['POST'])

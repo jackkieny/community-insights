@@ -7,10 +7,13 @@ import DashboardHome from './Dashboard/DashboardHome';
 import Planner from './Dashboard/Planner';
 import Settings from './Dashboard/Settings';
 
-// Import React Icons
+// Import Assets
+import CILogo from '../assets/logo+text+white+cropped.png'
 import { PiMonitorLight, PiCalendarBlank } from "react-icons/pi";
 import { BsGear } from "react-icons/bs";
 import { MdLogout } from "react-icons/md";
+
+
 
 function Dashboard() {
     const navigate = useNavigate()
@@ -71,6 +74,7 @@ function Dashboard() {
             
             {/* SIDEBAR */}
             <div className="dashboard-sidebar">
+                <img src={CILogo} alt="CI Logo" className="dashboard-sidebar-logo" />
                 <button
                     id='home'
                     className="dashboard-sidebar-top"

@@ -31,7 +31,7 @@
 }
 
 .homepage-content1-left-title-skcmmty {
-    background: var(--blue-purplue-gradient);
+    background: var(--blue-purple-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
@@ -60,7 +60,7 @@
     border: none;
     border-radius: 50px;
 
-    background: var(--blue-purplue-gradient);
+    background: var(--blue-purple-gradient);
 
     color: white;
     font-size: 125%;
@@ -114,5 +114,24 @@
         grid-template-columns: 2fr;
         grid-template-rows: 1fr 1fr;
         grid-template-areas: "left left" "right right";
+    }
+}
+
+@media (max-width: 800px) {
+    .homepage-content1-container {
+        margin-top: 0;
+    }
+
+    .homepage-content1-left-title {
+        text-align: center;
+        font-size: 1em;
+    }
+
+    .homepage-content1-left-subtitle {
+        text-align: center;
+    }
+
+    .homepage-content1-right {
+        display: none;
     }
 }

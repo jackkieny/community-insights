@@ -54,3 +54,34 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+@media (max-width: 800px) {
+    .homepage-content2-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        margin: 0;
+    }
+
+    .homepage-content2-item-one,
+    .homepage-content2-item-two {
+        margin-bottom: 1em;
+        border-right: none;
+        border-bottom: 1px solid white;
+    }
+
+    .homepage-content2-item-one,
+    .homepage-content2-item-two,
+    .homepage-content2-item-three {
+        width: 60%;
+        height: 100%;
+    }
+
+    .homepage-content2-item-title {
+        font-size: 1.5em; 
+    }
+
+    .homepage-content2-item-subtitle {
+        font-size: 1.5em;
+    }
+
+}

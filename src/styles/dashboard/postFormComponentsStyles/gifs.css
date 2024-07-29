@@ -1,0 +1,57 @@
+.gifs-container {
+    position: absolute;
+    bottom: 6em;
+    left: 1em;
+    margin-right: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid white;
+    border-radius: 5px;
+
+    height: 12em;
+    width: 25em;
+}
+
+.gifs-searchbar {
+    position: absolute;
+    top: 0.5em;
+    left: 1em;
+    padding: 0.25em;
+
+    outline: 1px solid white;
+    border: none;
+    border-radius: 5px;
+    background: none;
+    color: white;
+}
+
+.gifs-gifs-container {
+    margin-top: 2em;
+    padding: 1em;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    height: calc(100% - 1em);
+    width: calc(100% - 1em);
+
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.gifs-gif {
+    border-radius: 10px;
+}
+
+.gifs-gif:hover{
+    outline: 2px solid white;
+    cursor: pointer;
+}

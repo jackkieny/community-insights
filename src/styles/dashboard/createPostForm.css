@@ -5,17 +5,15 @@
     transform: translate(-50%, -50%);
     z-index: 10;
 
-    
-    width: 50%;
-    height: 50%;
-    
-    background: black;
-    border: 3px solid white;
-    border-radius: 25px;
-}
-    /* border-radius: 10px; */
+    width: 90%;
+    height: 90%;
 
-.createpost-form-content{
+    background: #333;
+    border: 3px solid white;
+    border-radius: 10px;
+}
+
+.createpost-form-content {
     position: relative;
 
     display: flex;
@@ -24,14 +22,14 @@
     width: 100%;
 }
 
-.createpost-form-closebutton-container{
+.createpost-form-closebutton-container {
     position: absolute;
-
     top: 1em;
     right: 1em;
+    z-index: 2;
 }
 
-.createpost-form-closebutton-button{
+.createpost-form-closebutton-button {
     background: none;
     border: none;
     color: white;
@@ -39,34 +37,39 @@
     cursor: pointer;
 }
 
-.createpost-form-formcontainer{
+.createpost-form-formcontainer {
     position: absolute;
-    top: 3em;
 
     display: flex;
     flex-direction: column;
 
     width: 100%;
-    height: 90%;
+    height: 100%;
 }
 
 .createpost-form-form-title,
 .createpost-form-form-content-textarea,
 .createpost-form-form-content-input {
-    outline: 1px solid #333;
+    outline: 1px solid white;
 }
+
 
 .createpost-form-form-title:focus,
 .createpost-form-form-content-textarea:focus,
 .createpost-form-form-content-input:focus {
-    outline: 2px solid white;
+    outline: 3px solid white;
 }
 
-.createpost-form-form-title{
-    margin: 0 0.5em 1em 0.5em;
+.createpost-form-form-title:focus::placeholder,
+.createpost-form-form-content-textarea:focus::placeholder {
+    color: transparent;
+}
+
+/* Form Title */
+.createpost-form-form-title {
+    margin: 2em 1em 1em 1em;
     padding: 0.5em;
 
-    outline: 1px solid #333;
     border: none;
     border-radius: 10px;
     background: none;
@@ -74,20 +77,37 @@
     font-family: 'SF Pro Display', sans-serif;
     font-size: 1.5em;
     font-weight: bold;
-
 }
 
-.createpost-form-form-content-textarea{
-    margin: 0 0.5em;
+/* Form Content and Polls */
+.createpost-form-form-content {
+    position: relative;
+    margin: 0 1em;
     padding: 1em;
 
-    resize: vertical;
-    min-height: 100px;
-    max-height: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 250px;
     max-width: 100%;
+
+    background: none;
+}
+
+/* Form Text Area */
+.createpost-form-form-content-textarea {
+    padding: 0.5em;
+
+    min-height: 250px;
+    width: 100%;
+
     overflow: scroll;
     overflow-x: hidden;
-    
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+
     border: none;
     border-radius: 10px;
     background: none;
@@ -96,16 +116,126 @@
     font-family: 'SF Pro Display', sans-serif;
 }
 
-.createpost-form-form-datetime-container{
+.createpost-form-form-content-polls {
+    position: relative;
+    margin-left: 1em;
+    padding: 0.5em;
+    
+    height: 250px;
+    width: 50%;
+    
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.createpost-form-form-content-poll-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr; 
+    grid-auto-flow: column;
+
+    width: 100%;
+    height: 80%;
+}
+
+.createpost-form-form-poll-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+    height: 25px;
+}
+
+.createpost-form-form-polls-remove-button{
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    padding: 0.25em;
+
+    outline: 1px solid white;
+    border: none;
+    border-radius: 5px;
+
+    background: none;
+
+    color: white;
+}
+
+.createpost-form-form-poll-addoption-button{
+    position: absolute;
+    bottom: 1em;
+    left: 1em;
+    padding: 0.25em;
+
+    outline: 1px solid white;
+    border: none;
+    border-radius: 5px;
+
+    background: none;
+
+    color: white;
+}
+
+
+.createpost-form-form-polls-remove-button:hover,
+.createpost-form-form-poll-addoption-button:hover{
+    color: black;
+    background: white;
+    cursor: pointer;
+}
+
+.createpost-form-poll-input {
+    margin: 0.5em;
+    padding: 0.25em;
+
+    border: none;
+    outline: 1px solid white;
+    border-radius: 5px;
+
+    background: none;
+    color: white;
+}
+
+.createpost-form-poll-input:focus {
+    outline: 2px solid white;
+}
+
+.createpost-form-poll-removeoption-button {
+    /* border: 1px solid red; */
+    display: grid;
+    place-items: center;
+
+    background: none;
+    border: none;
+
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.createpost-form-form-polls-remove:hover {
+    color: black;
+    background: white;
+    cursor: pointer;
+}
+/* Container Area for Date, Time, and Create Post button */
+.createpost-form-form-datetime-container {
     position: absolute;
     bottom: 1em;
     right: 0.5em;
+
+    display: flex;
+    align-items: center;
+    height: 3em;
 }
 
-.createpost-form-form-content-input{
+/* Date and Time Elements */
+.createpost-form-form-content-input {
     margin: 0 0.5em;
     padding: 0.5em;
-    
+
     border: none;
     border-radius: 10px;
     background: none;
@@ -114,7 +244,26 @@
 
 }
 
-.createpost-form-form-content-button{
+.createpost-form-form-content-labels {
+    margin: 0 0.5em;
+    padding: 0.5em;
+
+    outline: 1px solid white;
+    border: none;
+    border-radius: 10px;
+    background: none;
+    color: white;
+
+    font-size: 1em;
+}
+
+.createpost-form-form-content-labels:focus {
+    background: rgba(255, 255, 255, 0.2);
+    color: black;
+}
+
+/* Create Post Button */
+.createpost-form-form-content-button {
     margin: 0 0.5em;
     padding: 0.5em;
 
@@ -127,18 +276,20 @@
     cursor: pointer;
 }
 
-.createpost-form-form-content-button-warning{
-    opacity: 0.5;
-    cursor: not-allowed;
-}
+/* Hover Effects */
 .createpost-form-form-content-input:hover,
-.createpost-form-form-content-button:hover{
+.createpost-form-form-content-button:hover {
     background: rgba(255, 255, 255, 0.2);
 }
 
+/* Create Post Date/Time Warning */
+.createpost-form-form-content-button-warning {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 /* Date Time Warning */
-.createpost-form-form-datetime-warning{
+.createpost-form-form-datetime-warning {
     position: absolute;
     bottom: -2em;
 
@@ -155,16 +306,71 @@
     text-align: center;
 }
 
-.createpost-form-form-attachments-container{
+/* Attachments Container */
+.createpost-form-form-attachments-container {
     position: absolute;
-    border: 1px solid red;
     bottom: 1em;
-    left: 0.5em;
+    left: 1em;
+    padding: 0.5em;
+
+    height: 3em;
 
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 
-    width: 40%;
+    outline: 2px solid white;
+    border-radius: 10px;
+}
+
+.createpost-form-attachment-icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+
+    padding: 0.25em;
+    border-radius: 100%;
+
+    color: white;
+    font-size: 2em;
+
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.createpost-form-attachment-icon:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.25);
+    cursor: pointer;
+}
+
+.createpost-form-attachment-icon::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) scaleY(0);
+    white-space: nowrap;
+    padding: 5px;
+
+    border-radius: 5px;
+
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 0.4em;
+
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    z-index: 1;
+}
+
+.createpost-form-attachment-icon:hover::after {
+    opacity: 1;
+    /* Show the tooltip */
+    transform: translateX(-50%) scaleY(1);
+    /* Move the tooltip into position */
+}
+
+.createpost-form-action-icon-selected {
+    color: red;
 }

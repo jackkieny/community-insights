@@ -1,22 +1,19 @@
-.dshbd-planner-container{
-    /* border: 1px solid red; */
-
+.dshbd-planner-container {
     display: grid;
     grid-template-rows: 0.5fr 4fr;
-
 
     width: 100%;
     height: 100%;
 }
 
 
-/* .dshbd-planner-title-container{
+.dshbd-planner-title-container {
+    text-align: center;
 }
 
-.dshbd-planner-cal-container{
-} */
+.dshbd-planner-cal-container {}
 
-.cal-container{
+.cal-container {
     position: relative;
     height: 100%;
     width: 100%;

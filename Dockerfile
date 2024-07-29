@@ -23,4 +23,4 @@ ENV FLASK_APP=production
 
 EXPOSE 80
 WORKDIR /app/backend
-CMD ["gunicorn", "-b", ":80", "app:app"]
+CMD ["gunicorn", "-w", "4", "-b", ":80", "--timeout", "120", "app:app"]

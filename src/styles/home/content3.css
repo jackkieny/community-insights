@@ -20,3 +20,13 @@
   font-size: 150%;
   line-height: 150%;
 }
+
+@media (max-width: 800px) {
+  .homepage-content3-container{
+    border-top: 2px solid white;
+    margin-top: 15em;
+  }
+  .homepage-content3-title{
+    text-align: center;
+  }
+}
