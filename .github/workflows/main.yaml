@@ -20,6 +20,7 @@ jobs:
     
     - name: Deploy to Kubernetes
       env:
+        IMAGE_TAG: ${{ github.sha }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         MONGO_URI: ${{ secrets.MONGO_URI }}
         MONGO_DBNAME: ${{ secrets.MONGO_DBNAME }}
@@ -29,4 +30,4 @@ jobs:
       run: |
         echo "${{ secrets.KUBECONFIG }}" | base64 --decode > kubeconfig.yaml
         export KUBECONFIG=kubeconfig.yaml
-        kubectl apply -f deployment.yaml
+        envsubst < deployment.yaml | kubectl apply -f -
