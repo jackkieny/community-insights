@@ -6,10 +6,15 @@ import "../styles/home/header.css";
 import "../styles/home/content1.css";
 import "../styles/home/content2.css";
 import "../styles/home/content3.css";
+import "../styles/home/content4.css";
+
+// Imporrt Components
+import Footer from "../components/Home/Footer"
 
 // Import Content
 import fullLogo from "../assets/logo+text+white.png";
 import tempImg from "../assets/logo+white.png";
+import macbook from "../assets/macbook.png"
 
 //Import Icons
 import { GoArrowUpRight} from "react-icons/go";
@@ -164,6 +169,29 @@ function Home() {
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium deserunt et perferendis dolore libero inventore enim iure id, fugiat, iusto necessitatibus voluptatem repellat omnis architecto?</p>
                 </div>
             </div>
+
+            {/* Content 4 */}
+            <div className="homepage-content4-container">
+                <div className="homepage-content4-left-container">
+                    <h1 className="homepage-content4-title">Use Community Insights to</h1>
+                    <div className="homepage-content4-left-item">
+                        <h3>View Actionable Insights</h3>
+                        <p>With our comprehensive analytics dashboard, make informed decisions quickly. No guesswork, just clear inisights guiding your strategy.</p>
+                    </div>
+                    <div className="homepage-content4-left-item">
+                        <h4>Plan & Schedule Posts</h4>
+                        <p>Plan and schedule your posts so that you can spend more time on other valuable tasks within your community.</p>
+                    </div>
+                </div>
+                <div className="homepage-content4-right-container">
+                    <img src={macbook} alt="Macbook Image"/> 
+                </div>
+            </div>
+
+
+            <div style={{margin: "5em"}}>Padding</div>
+
+            <Footer />
 
         </>
     );

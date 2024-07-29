@@ -1,0 +1,32 @@
+.homepage-content4-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 85%;
+    /* border: 1px solid red; */
+}
+
+.homepage-content4-left-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.homepage-content4-title{
+    background: var(--blue-purple-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.homepage-content4-left-item{
+    border-left: 2px solid blue;
+    padding-left: 1em;
+    width: 60%;
+}
+
+
+.homepage-content4-right-container{
+    display: grid;
+    place-items: center;
+    height: 100%;
+    width: 100%;
+}

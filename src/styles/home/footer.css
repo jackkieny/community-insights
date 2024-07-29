@@ -1,0 +1,17 @@
+.footer-container {
+    position: relative;
+    width: 100%;
+    background-color: #263171;
+}
+
+.footer-logo-container{
+    width: 100%;
+    background-color: #333d7a;
+    padding: 1em;
+}
+
+.footer-logo {
+    height: 50px;
+    position: absolute;
+
+}
