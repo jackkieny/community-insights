@@ -26,12 +26,12 @@ import { PiGifBold } from "react-icons/pi"; // GIF Icon
 import { IoCloseCircle } from "react-icons/io5"; // Close "X" Icon
 
 function CreatePostForm({ closeForm }) {
-    const [communities, setCommunities] = useState([]);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
-    const [attachments, setAttachments] = useState([]);
+    const [videoLinks, setVideoLinks] = useState([]);
+    const [videoIFrames, setVideoIFrames] = useState([]);
     const [GLDisplayText, setGLDisplayText] = useState("");
     const [GLLinkAddress, setGLLinkAddress] = useState("");
     const [dateTimeWarning, setDateTimeWarning] = useState(false);
@@ -40,6 +40,8 @@ function CreatePostForm({ closeForm }) {
     const [openPollForm, setOpenPollForm] = useState(false);
     const [pollOptionCount, setPollOptionCount] = useState(3);
     const [pollOptions, setPollOptions] = useState([]);
+    const [labels, setLabels] = useState([]);
+    const [selectedLabel, setSelectedLabel] = useState("");
 
     const handleTitleChange = (e) => {
         setTitle(e.target.value);
@@ -61,21 +63,45 @@ function CreatePostForm({ closeForm }) {
     };
 
     useEffect(() => {
+        const fetchLabels = async () => {
+            const response = await fetch("/api/get-labels", {
+                method: "GET",
+                headers: {"Content-Type": "application/json"}
+            }); 
+            const data = await response.json();
+            setLabels(data.labels);
 
-    })
+        };
+        fetchLabels();
+    }, [openForm]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Button Clicked');
 
-        handleCreatePost(date, time, title, content, pollOptions, actionButtonSelected);
+        // Temporary solution to handle the action button
+        const attachments = "";
+
+        handleCreatePost(date, time, actionButtonSelected, attachments, content, selectedLabel, title, videoLinks);
+        handleClose();
     };
 
     const handleClose = (e) => {
         setTitle("");
         setContent("");
         setDate("");
-        setTitle("");
+        setTime("");
+        setVideoLinks([]);
+        setVideoIFrames([]);
+        setGLDisplayText("");
+        setGLLinkAddress("");
+        setDateTimeWarning(false);
+        setActionButtonSelected(false);
+        setOpenForm(null);
+        setOpenPollForm(false);
+        setPollOptions([]);
+        setPollOptionCount(3);
+        setLabels([]);
+        setSelectedLabel("");
 
         closeForm();
     };
@@ -139,7 +165,7 @@ function CreatePostForm({ closeForm }) {
                                             setPollOptionCount(3);
                                         }}
                                     >Remove</button>
-                                    {pollOptionCount < 10 && 
+                                    {pollOptionCount < 10 &&
                                         <button
                                             className="createpost-form-form-poll-addoption-button"
                                             onClick={() => addPollOption(pollOptions, setPollOptions, pollOptionCount, setPollOptionCount)}
@@ -152,13 +178,21 @@ function CreatePostForm({ closeForm }) {
                     </div>
 
                     <div className="createpost-form-form-datetime-container">
-                        <select>
-                            {communities.map((community, index) => {
-                                <option key={index}>
-
-                                </option>
-                            })}
-                        </select>
+                        {labels &&
+                            <select
+                                className="createpost-form-form-content-labels"
+                                value={selectedLabel}
+                                onChange={(e) => setSelectedLabel(e.target.value)}
+                            >
+                                <option value="" disabled>Select a label</option>
+                                {labels.map((label) => (
+                                    <option
+                                        key={label.id}
+                                        value={label.id}
+                                    >{label.display_name}</option>
+                                ))}
+                            </select>
+                        }
                         <input
                             className="createpost-form-form-content-input"
                             type="date"
@@ -178,7 +212,7 @@ function CreatePostForm({ closeForm }) {
                                     : "createpost-form-form-content-button"
                             }
                             onClick={handleSubmit}
-                            disabled={dateTimeWarning || checkEmptyFields(title, content, date, time)}
+                            disabled={dateTimeWarning || checkEmptyFields(title, content, date, time) || selectedLabel === ""}
                         >
                             Create Post
                         </button>
@@ -187,9 +221,9 @@ function CreatePostForm({ closeForm }) {
                     <div className="createpost-form-form-attachments-container">
                         <div
                             className="createpost-form-attachment-icon"
-                            style={{cursor: "not-allowed"}}
+                            style={{ cursor: "not-allowed" }}
                             data-tooltip="File"
-                            // DISABLED
+                        // DISABLED
                         >
                             <TfiClip />
                         </div>
@@ -240,8 +274,8 @@ function CreatePostForm({ closeForm }) {
                             className="createpost-form-attachment-icon"
                             data-tooltip="GIFs"
                             // DISABLED
-                            style={{cursor: "not-allowed"}}
-                            // onClick={() => handleFormToggle("gifs", openForm, setOpenForm)}
+                            style={{ cursor: "not-allowed" }}
+                        // onClick={() => handleFormToggle("gifs", openForm, setOpenForm)}
                         >
                             <PiGifBold />
                         </div>
@@ -261,8 +295,10 @@ function CreatePostForm({ closeForm }) {
                         />}
                     {openForm === "embeddedLink" &&
                         <EmbeddedLinks
-                            attachments={attachments}
-                            setAttachments={setAttachments}
+                            videoLinks={videoLinks}
+                            setVideoLinks={setVideoLinks}
+                            videoIFrames={videoIFrames}
+                            setVideoIFrames={setVideoIFrames}
                             onSubmit={() => {
                                 handleFormToggle(null, openForm, setOpenForm);
                             }}
@@ -279,13 +315,13 @@ function CreatePostForm({ closeForm }) {
                         <GiphyGrid />
                     }
 
-                    {openForm === null && attachments.length > 0 &&
+                    {openForm === null && videoLinks.length > 0 &&
                         <div className="createpost-attachmentpreview-container">
-                            {attachments.map((attachment, index) => (
+                            {videoIFrames.map((videoIFrame, index) => (
                                 <div key={index} className="createpost-attachment-preview">
-                                    {attachment.includes("iframe") ? (
+                                    {videoIFrame.includes("iframe") ? (
                                         <div className="createpost-attachment-iframe-container">
-                                            <div dangerouslySetInnerHTML={{ __html: attachment }}></div>
+                                            <div dangerouslySetInnerHTML={{ __html: videoIFrame }}></div>
                                         </div>
                                     ) : (
                                         <div>no iframe</div>
@@ -293,8 +329,10 @@ function CreatePostForm({ closeForm }) {
                                     <button
                                         className="createpost-attachment-preview-remove"
                                         onClick={() => {
-                                            const newAttachments = attachments.filter((_, i) => i !== index);
-                                            setAttachments(newAttachments);
+                                            const newVideoIFrames = videoIFrames.filter((_, i) => i !== index);
+                                            setVideoIFrames(newVideoIFrames);
+                                            const newVideoLinks = videoLinks.filter((_, i) => i !== index);
+                                            setVideoLinks(newVideoLinks);
                                         }}
                                     >
                                         Remove
