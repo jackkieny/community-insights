@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
+import { loadScheduledPosts } from "../../utils/loadPlannerEventsUtils";
 
 import CreatePostForm from "./CreatePostForm";
+
 
 // Import Styles
 import "../../styles/dashboard/planner.css";
@@ -35,14 +37,19 @@ function CreateNewPostButton({ openForm }) {
 function Planner() {
 
     const [showCreatePostForm, setShowCreatePostForm] = useState(false);
+    const [posts, setPosts] = useState([]);
 
-    const OpenCreatePostForm = () => {
-        setShowCreatePostForm(true);
-    }
+    const OpenCreatePostForm = () => setShowCreatePostForm(true);
+    const CloseCreatePostFrom = () => setShowCreatePostForm(false);
 
-    const CloseCreatePostFrom = () => {
-        setShowCreatePostForm(false);
-    }
+    useEffect(() => {
+        setTimeout(() => {
+            const fetchPosts = async () => {
+                await loadScheduledPosts(setPosts);
+            }
+            fetchPosts();
+        }, 2000);
+    }, [showCreatePostForm === false]);
 
     return (
         <div className="dshbd-planner-container">
@@ -64,13 +71,13 @@ function Planner() {
                         endAccessor="end"
                         defaultView="month"
 
-                        events={[
-                            {
-                                title: "My event",
-                                start: new Date(),
-                                end: new Date(),
-                            },
-                        ]}
+                        events={posts.map(post => ({
+                            id: post._id,
+                            title: post.data.title,
+                            start: new Date(post.data.date + "T" + post.data.time),
+                            end: new Date(post.data.date + "T" + post.data.time),
+                            allDay: false
+                        }))}
                     />
                 </div>
             </>
