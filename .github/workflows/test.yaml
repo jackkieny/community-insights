@@ -28,3 +28,11 @@ jobs:
         docker tag community-insights:latest jackkieny/community-insights:latest
         docker push jackkieny/community-insights:${{ github.sha }}
         docker push jackkieny/community-insights:latest
+
+    - name: Save SHA as artifact
+      run: echo ${{ github.sha }} > sha.txt
+    - name: Upload SHA artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: sha
+        path: sha.txt
