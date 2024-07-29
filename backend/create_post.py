@@ -1,12 +1,15 @@
 # Import Flask and security modules
-from flask import Flask, request, Blueprint, session 
+from flask import request, Blueprint
 from flask_login import login_required, current_user
-import requests, re
+from datetime import datetime
+import requests
+from apscheduler.schedulers.background import BackgroundScheduler
+import atexit
 
 # Import local modules
 from database.database_init import mongo
 
-from scripts.create_new_post import create_new_post
+from utils.job_to_dict import job_to_dict
 
 ### CHANGE ME BEFORE DEPLOYING ###
 create_post = Blueprint('create_post', __name__, static_folder='../build', static_url_path='/')
@@ -17,17 +20,23 @@ create_post = Blueprint('create_post', __name__, static_folder='../build', stati
 def post():
     data = request.get_json()
 
-    auth_token = mongo.db.users.find_one({'_id': current_user.id})['auth_token']
+    scheduled_datetime = datetime.strptime(f"{data['date']} {data['time']}", '%Y-%m-%d %H:%M')
+    print(scheduled_datetime)
+
+    userId = current_user.id
     communityId = mongo.db.users.find_one({'_id': current_user.id})['communityId']
-    skool_email = mongo.db.users.find_one({'_id': current_user.id})['skool_email']
-    skool_pass = mongo.db.users.find_one({'_id': current_user.id})['skool_password']
 
-    create_post_status_code = create_new_post(data, auth_token, communityId, skool_email, skool_pass)
+    mongo.db.posts.insert_one({
+        'userId': userId,
+        'communityId': communityId,
+        'status': 'scheduled',
+        'scheduled_datetime': scheduled_datetime,
+        'data': data
+    })
 
-    if create_post_status_code == 200:
-        return {'success': 'success'}
-    else:
-        return {'error': 'Error creating post'}, 500
+    return {'success': 'success'}, 200
+
+
 
 @create_post.route('/api/checkembedlink', methods=['POST'])
 @login_required
