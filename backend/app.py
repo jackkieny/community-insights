@@ -1,5 +1,5 @@
 # Import the necessary Flask modules
-from flask import Flask 
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pymongo import MongoClient
 from flask_login import LoginManager
@@ -9,13 +9,17 @@ from database.database_init import mongo
 from models.models import User
 from auth import auth
 from create_post import create_post
+from get_posts import get_post
 
 # Load the environment variables
+import logging
 import os
 from dotenv import load_dotenv
 load_dotenv()
 
 ### Initialize the Flask App ###
+logging.basicConfig(level=logging.WARNING)
+
 
 ### CHANGE ME BEFORE DEPLOYING ###
 app = Flask(__name__, static_folder='../build', static_url_path='/')
@@ -27,6 +31,12 @@ app.config['SESSION_MONGODB'] = MongoClient(os.getenv('MONGO_URI'))
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 mongo.init_app(app)
 
+# @app.before_request
+# def log_invalid_requests():
+#     if not request.method in ['GET', 'POST']:
+#         logging.warning(f"Invalid request method: {request.method}")
+#         return jsonify({'error': 'Invalid request method'}), 400
+
 # Initialize the LoginManager
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -37,6 +47,7 @@ def load_user(user_id):
 # Register the Blueprints
 app.register_blueprint(auth)
 app.register_blueprint(create_post)
+app.register_blueprint(get_post)   
 
 ### Routes ###
 
