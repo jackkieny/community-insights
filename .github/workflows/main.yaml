@@ -12,15 +12,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Download SHA artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: sha
-
-    - name: Read SHA
-      id: read_sha
-      run: echo "SHA=$(cat sha.txt)" >> $GITHUB_ENV
-
     - name: Set up kubectl
       run: |
         curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -29,7 +20,7 @@ jobs:
     
     - name: Deploy to Kubernetes
       env:
-        IMAGE_TAG: ${{ env.SHA }}
+        IMAGE_TAG: ${{ secrets.SHA }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         MONGO_URI: ${{ secrets.MONGO_URI }}
         MONGO_DBNAME: ${{ secrets.MONGO_DBNAME }}
@@ -39,4 +30,4 @@ jobs:
       run: |
         echo "${{ secrets.KUBECONFIG }}" | base64 --decode > kubeconfig.yaml
         export KUBECONFIG=kubeconfig.yaml
-        envsubst < deployment.yaml | kubectl apply -f -
+        envsubst < k8s/deployment.yaml | kubectl apply -f -

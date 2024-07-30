@@ -36,3 +36,7 @@ jobs:
       with:
         name: sha
         path: sha.txt
+
+    - name: Save SHA as GitHub secret
+      run: |
+        echo "::set-secret name=SHA::${{ github.sha }}"
