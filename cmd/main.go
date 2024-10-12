@@ -1,20 +1,21 @@
 package main
 
 import (
-    "log"
+	"log"
 
-    "github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2"
+	"github.com/jackkieny/community-insights/db"
+	"github.com/jackkieny/community-insights/routes"
 )
 
-func main(){
-    log.Println("Starting server...")
+func main() {
 
-    app := fiber.New()
+	client := db.Init()
 
-    app.Get("/", func(c *fiber.Ctx) error {
-        return c.SendString("Hello, World!")
-    })
+	app := fiber.New()
 
-    log.Fatal(app.Listen(":3000"))
+	routes.Setup(app)
+	routes.RegisterRoute(app, client)
+
+	log.Fatal(app.Listen(":5000"))
 }
-    
