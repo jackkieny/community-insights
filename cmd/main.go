@@ -15,6 +15,7 @@ func main() {
 	app := fiber.New()
 
 	routes.Setup(app)
+	routes.LoginRoute(app, client)
 	routes.RegisterRoute(app, client)
 
 	log.Fatal(app.Listen(":5000"))
