@@ -20,6 +20,7 @@ func main() {
 	routes.LoginRoute(app, client, store)
 	routes.RegisterRoute(app, client)
     routes.LogoutRoute(app, store)
+    routes.SkoolLoginRoute(app, client, store)
 
 	log.Fatal(app.Listen(":5000"))
 }
