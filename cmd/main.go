@@ -14,13 +14,13 @@ func main() {
 	client := db.Init()
 
 	app := fiber.New()
-    store := session.New()
+	store := session.New()
 
 	routes.Setup(app)
 	routes.LoginRoute(app, client, store)
 	routes.RegisterRoute(app, client)
-  routes.LogoutRoute(app, store)
-  routes.SkoolLoginRoute(app, client, store)
+	routes.LogoutRoute(app, store)
+	routes.SkoolLoginRoute(app, client, store)
 
 	log.Fatal(app.Listen(":5000"))
 }
