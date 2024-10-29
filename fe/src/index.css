@@ -19,6 +19,21 @@
   font-style: normal;
 }
 
+:root{
+  --primary-black: #1d1d1d;
+  --primary-white: #ffffff;
+  --primary-blue: #0171e2;
+  --secondary-purple: #5256fe;
+
+  /* Skool colors */
+  /*  Order: navy, red, yellow, sky, orange */
+  --skool-red:      #e24333;
+  --skool-orange:   #d1513e;
+  --skool-yellow:   #e7b358;
+  --skool-skyblue:  #4eb8f3;
+  --skool-navyblue: #262f9d;
+}
+
 * {
   font-family: "SF Pro Display", sans-serif;
 }
