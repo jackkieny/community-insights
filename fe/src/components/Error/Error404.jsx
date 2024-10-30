@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import './error404.css'
+import '../../styles/error/error404.css'
 
 function Error404() {
   const navigate = useNavigate()
