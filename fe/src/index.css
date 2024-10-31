@@ -1,45 +1,39 @@
 @font-face {
   font-family: 'SF Pro Display';
-  src: url('../public/fonts/SFPRODISPLAYREGULAR.OTF') format('opentype');
+  src: url('/fonts/SFPRODISPLAYREGULAR.OTF') format('opentype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'SF Pro Display';
-  src: url('../public/fonts/SFPRODISPLAYMEDIUM.OTF') format('opentype');
+  src: url('/fonts/SFPRODISPLAYMEDIUM.OTF') format('opentype');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'SF Pro Display';
-  src: url('../public/fonts/SFPRODISPLAYBOLD.OTF') format('opentype');
+  src: url('/fonts/SFPRODISPLAYBOLD.OTF') format('opentype');
   font-weight: 700;
   font-style: normal;
 }
 
 :root{
-  --primary-black: #1d1d1d;
-  --primary-white: #ffffff;
-  --primary-blue: #0171e2;
-  --secondary-purple: #5256fe;
+  --skool-blue:    #262f9d;
+  --skool-red:     #e24333;
+  --skool-yellow:  #e7b358;
+  --skool-skyblue: #4eb8f3;
+  --skool-orange:  #d1513e;
 
-  /* Skool colors */
-  /*  Order: navy, red, yellow, sky, orange */
-  --skool-red:      #e24333;
-  --skool-orange:   #d1513e;
-  --skool-yellow:   #e7b358;
-  --skool-skyblue:  #4eb8f3;
-  --skool-navyblue: #262f9d;
+  --blue-5: #339af0;
+  --purple-5: #845ef7;
 }
 
-* {
-  font-family: "SF Pro Display", sans-serif;
+*{
+  font-family: 'SF Pro Display', sans-serif;
 }
 
 body {
   margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
