@@ -5,7 +5,7 @@ import { GoArrowUpRight } from "react-icons/go";
 
 export function Hero() {
     return (
-        <Container size="lg">
+        <Container size="xl">
             <div className={classes.inner}>
                 <div className={classes.content}>
                     <Title className={classes.title}>
