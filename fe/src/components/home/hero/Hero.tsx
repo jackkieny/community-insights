@@ -1,5 +1,5 @@
 import { Image, Container, Title, Button, Group, Text } from '@mantine/core';
-import image from '../../../assets/unsplash.jpg';
+import image from '../../../assets/hpjSkU2UYSU-unsplash.jpg';
 import classes from './Hero.module.css';
 import { GoArrowUpRight } from "react-icons/go";
 

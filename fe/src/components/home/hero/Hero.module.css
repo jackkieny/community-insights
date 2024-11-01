@@ -37,7 +37,8 @@
 
 .image {
     width: auto;
-    height: rem(350px);
+    height: rem(400px);
+    box-shadow: 0 0 50px var(--blue-5);
 
     @media (max-width: $mantine-breakpoint-md) {
         display: none;
