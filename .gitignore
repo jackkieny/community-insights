@@ -11,5 +11,5 @@
 .air.toml
 
 # production
-/fe/build
+/fe/dist
 
