@@ -99,7 +99,7 @@ export function Testimonies() {
     ));
 
     return (
-        <div className={classes.container}>
+        <div className={mobile ? "" : classes.container}> 
             <Carousel
                 slideSize={{ base: '100%', sm: '50%' }}
                 slideGap={{ base: rem(2), sm: 'xl' }}
