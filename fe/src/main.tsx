@@ -1,7 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createTheme, MantineProvider } from '@mantine/core';
-import './index.css';
+import './index.css'
+import '@mantine/carousel/styles.css';;
 import App from './App';
 
 const theme = createTheme({
