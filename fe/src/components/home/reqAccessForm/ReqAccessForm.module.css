@@ -1,0 +1,120 @@
+.inner {
+    display: flex;
+    justify-content: space-between;
+    padding-top: calc(var(--mantine-spacing-xl) * 4);
+    padding-bottom: calc(var(--mantine-spacing-xl) * 4);
+}
+
+.content {
+    max-width: rem(680px);
+    margin-right: calc(var(--mantine-spacing-xl) * 3);
+
+    @media (max-width: $mantine-breakpoint-md) {
+        max-width: 100%;
+        margin-right: 0;
+    }
+}
+
+.title {
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+    font-size: rem(44px);
+    line-height: 1.2;
+    font-weight: 900;
+
+    @media (max-width: $mantine-breakpoint-xs) {
+        font-size: rem(28px);
+    }
+}
+
+.control {
+    @media (max-width: $mantine-breakpoint-xs) {
+        flex: 1;
+    }
+}
+
+.highlight {
+    position: relative;
+    background: -webkit-linear-gradient(45deg, var(--blue-5), var(--purple-5) 95%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.wrapper {
+    display: flex;
+    background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-8));
+    border-radius: var(--mantine-radius-lg);
+    padding: rem(4px);
+    border: rem(1px) solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-8));
+
+    @media (max-width: $mantine-breakpoint-sm) {
+        flex-direction: column;
+    }
+}
+
+.form {
+    flex: 1;
+    padding: var(--mantine-spacing-xl);
+    padding-left: calc(var(--mantine-spacing-xl) * 2);
+    border-left: 0;
+    border-radius: 5px;
+    background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-8));
+
+    @media (max-width: $mantine-breakpoint-sm) {
+        padding: var(--mantine-spacing-md);
+        padding-left: var(--mantine-spacing-md);
+    }
+}
+
+.fields {
+    margin-top: rem(-12px);
+}
+
+.fieldInput {
+    flex: 1;
+
+    &+& {
+        margin-left: var(--mantine-spacing-md);
+
+        @media (max-width: $mantine-breakpoint-sm) {
+            margin-left: 0;
+            margin-top: var(--mantine-spacing-md);
+        }
+    }
+}
+
+.fieldsGroup {
+    display: flex;
+
+    @media (max-width: $mantine-breakpoint-sm) {
+        flex-direction: column;
+    }
+}
+
+.contacts {
+    box-sizing: border-box;
+    position: relative;
+    border-radius: var(--mantine-radius-lg);
+    background-size: cover;
+    background-position: center;
+    border: rem(1px) solid transparent;
+    padding: var(--mantine-spacing-xl);
+    flex: 0 0 rem(280px);
+
+    @media (max-width: $mantine-breakpoint-sm) {
+        margin-bottom: var(--mantine-spacing-sm);
+        padding-left: var(--mantine-spacing-md);
+    }
+}
+
+.inputTitle {
+    margin-bottom: calc(var(--mantine-spacing-xl) * 1.5);
+    @media (max-width: $mantine-breakpoint-sm) {
+        margin-bottom: var(--mantine-spacing-xl);
+    }
+}
+
+.control {
+    @media (max-width: $mantine-breakpoint-sm) {
+        flex: 1;
+    }
+}

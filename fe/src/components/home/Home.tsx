@@ -3,6 +3,7 @@ import { Hero } from './hero/Hero'
 import { Stats } from './stats/Stats'
 import { FeaturedCards } from './featuredCards/FeaturedCards'
 import { Testimonies } from './testimonies/Testimonies'
+import { ReqAccessForm } from './reqAccessForm/ReqAccessForm'
 import { Footer } from './footer/Footer'
 
 export function Home() {
@@ -13,6 +14,7 @@ export function Home() {
       <Stats />
       <FeaturedCards />
       <Testimonies />
+      <ReqAccessForm />
       <Footer />
     </>
   )
