@@ -201,8 +201,8 @@ export function Header() {
                     <Divider my="sm" />
 
                     <Group justify="center" grow pb="xl" px="md">
-                        <Button variant="default">Log in</Button>
-                        <Button>Sign up</Button>
+                        <Button variant="default" onClick={handleLoginButtonClicked}>Log in</Button>
+                        <Button>Request Access</Button>
                     </Group>
                 </ScrollArea>
             </Drawer>
