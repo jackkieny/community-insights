@@ -30,6 +30,7 @@ import {
     IconChevronDown,
 } from '@tabler/icons-react';
 import classes from './Header.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const mockdata = [
     {
@@ -68,6 +69,11 @@ export function Header() {
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const theme = useMantineTheme();
+    const navigate = useNavigate();
+
+    const handleLoginButtonClicked = () => {
+        navigate('/login')
+    }
 
     const links = mockdata.map((item) => (
         <UnstyledButton className={classes.subLink} key={item.title}>
@@ -150,7 +156,7 @@ export function Header() {
                     </Group>
 
                     <Group visibleFrom="sm">
-                        <Button variant="default">Log in</Button>
+                        <Button variant="default" onClick={handleLoginButtonClicked}>Log in</Button>
                         <Button>Request Access</Button>
                     </Group>
 
@@ -195,8 +201,8 @@ export function Header() {
                     <Divider my="sm" />
 
                     <Group justify="center" grow pb="xl" px="md">
-                        <Button variant="default">Log in</Button>
-                        <Button>Sign up</Button>
+                        <Button variant="default" onClick={handleLoginButtonClicked}>Log in</Button>
+                        <Button>Request Access</Button>
                     </Group>
                 </ScrollArea>
             </Drawer>

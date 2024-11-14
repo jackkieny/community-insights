@@ -1,11 +1,11 @@
 import { Image, Container, Title, Button, Group, Text } from '@mantine/core';
-import image from '../../../assets/unsplash.jpg';
+import image from '../../../assets/hpjSkU2UYSU-unsplash.jpg';
 import classes from './Hero.module.css';
 import { GoArrowUpRight } from "react-icons/go";
 
 export function Hero() {
     return (
-        <Container size="lg">
+        <Container size="xl">
             <div className={classes.inner}>
                 <div className={classes.content}>
                     <Title className={classes.title}>
