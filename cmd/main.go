@@ -17,9 +17,11 @@ func main() {
 	store := session.New()
 
 	routes.Setup(app)
+	routes.SessionRoute(app, store)
 	routes.LoginRoute(app, client, store)
 	routes.RegisterRoute(app, client)
 	routes.LogoutRoute(app, store)
+	routes.RequestAccessRoute(app, client)
 	routes.SkoolLoginRoute(app, client, store)
 
 	log.Fatal(app.Listen(":5000"))

@@ -12,8 +12,48 @@ import {
 import { IconCheck } from '@tabler/icons-react';
 import classes from './ReqAccessForm.module.css';
 import { TextInputs } from './TextInputs';
+import { useState } from 'react';
 
 export function ReqAccessForm() {
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [communityLink, setCommunityLink] = useState('');
+    const [whatsApp, setWhatsApp] = useState('');
+    const [revenue, setRevenue] = useState('');
+
+    const handleSubmit = (event: React.FormEvent<any>) => {
+        event.preventDefault();
+
+        fetch('/api/requestaccess', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                communityLink: communityLink,
+                whatsApp: whatsApp,
+                revenue: revenue,
+            }),
+            credentials: 'include',
+        }).then((response) => {
+            if (response.ok) {
+                alert('Thank you for your interest! Our team will review your information and get back to you shortly.');
+
+                setName('');
+                setWhatsApp('');
+                setEmail('');
+                setCommunityLink('');
+                setRevenue('');
+            } else {
+                response.json().then((data) => {
+                    alert('Failed to submit request: ' + data.error);
+                });
+            }
+        });
+    }
 
     return (
         <Container size="xl">
@@ -53,14 +93,25 @@ export function ReqAccessForm() {
                         </List.Item>
                     </List>
                 </div>
-                <form className={classes.form} onSubmit={(event) => event.preventDefault()}>
+                <form className={classes.form} onSubmit={handleSubmit}>
                     <Text fz="lg" fw={700} className={classes.inputTitle}> 
                         Provide us with some basic information about your community at its current stage.
                     </Text>
 
                     <div className={classes.fields}>
                         <SimpleGrid cols={{ base: 2, sm: 2 }}>
-                            <TextInputs />
+                            <TextInputs 
+                                name={name} 
+                                setName={setName}
+                                whatsApp={whatsApp}
+                                setWhatsApp={setWhatsApp}
+                                email={email}
+                                setEmail={setEmail}
+                                communityLink={communityLink}
+                                setCommunityLink={setCommunityLink}
+                                revenue={revenue}
+                                setRevenue={setRevenue}
+                            />
                         </SimpleGrid>
 
 

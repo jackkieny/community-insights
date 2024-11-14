@@ -11,17 +11,36 @@ import {
 import { IconHome } from '@tabler/icons-react';
 import classes from './LoginForm.module.css';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function LoginForm() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessageVisible, setErrorMessageVisible] = useState(false);
 
     const handleRegisterButtonClicked = () => { navigate('/register'); }
     const handleHomeButtonClicked = () => { navigate('/'); }
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    // TODO: UseEffect to check if the user already has a session -> navigate to dashboard
+    useEffect(() => {
+        fetch('/api/session',
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            }
+        ).then((response) => {
+            if (response.ok) {
+                navigate('/dashboard');
+            }
+        });
+    }, []);
+
+    const handleSubmit = (event: React.FormEvent<any>) => {
         event.preventDefault();
 
         fetch('/api/login', {
@@ -32,16 +51,21 @@ export function LoginForm() {
             body: JSON.stringify({ email, password }),
         }).then((response) => {
             if (response.ok) {
-                console.log('Login successful');
+                navigate('/dashboard');
             } else {
-                console.log('Login unsuccessful');
+                response.json().then((data) => {
+                    const errMsg = data.error;
+                    setErrorMessage(errMsg);
+                    setErrorMessageVisible(true);
+
+                });
             }
         });
     }
 
     return (
         <div className={classes.wrapper}>
-            <Paper className={classes.form} radius={0} p={30} onSubmit={handleSubmit}>
+            <Paper className={classes.form} radius={0} p={30}>
                 <Group justify='left'>
                     <Button size='sm' color='gray' onClick={handleHomeButtonClicked}><IconHome /></Button>
                 </Group>
@@ -50,22 +74,32 @@ export function LoginForm() {
                     <span className={classes.titleHighlight}>Community Insights</span>!
                 </Title>
 
+                <form onSubmit={handleSubmit}>
                 <TextInput
                     label="Email address"
-                    placeholder="hello@gmail.com"
+                    placeholder="hello@mail.com"
                     size="md"
-                    onChange={(e) => setEmail(e.currentTarget.value)}
+                    onChange={(e) => {
+                        setEmail(e.currentTarget.value);
+                        setErrorMessageVisible(false);
+                    }}
+                    {...errorMessageVisible ? { error: " " } : {}}
                 />
                 <PasswordInput
                     label="Password"
                     placeholder="Your password"
                     mt="md"
                     size="md"
-                    onChange={(e) => setPassword(e.currentTarget.value)}
+                    onChange={(e) => {
+                        setPassword(e.currentTarget.value);
+                        setErrorMessageVisible(false);
+                    }}
+                    {...errorMessageVisible ? { error: errorMessage } : {}}
                 />
-                <Button fullWidth mt="xl" size="md" onClick={handleSubmit}>
+                <Button fullWidth mt="xl" size="md" onClick={handleSubmit} type="submit">
                     Login
                 </Button>
+                </form>
 
                 <Text ta="center" mt="md">
                     Don&apos;t have an account?{' '}

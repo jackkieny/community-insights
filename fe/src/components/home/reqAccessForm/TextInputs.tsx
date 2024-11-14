@@ -3,12 +3,20 @@ import { useState } from 'react';
 import classes from './FloatingLabels.module.css';
 
 
-export function TextInputs() {
-    const [name, setName] = useState('');
-    const [whatsApp, setWhatsApp] = useState('');
-    const [email, setEmail] = useState('');
-    const [communityLink, setCommunityLink] = useState('');
-    const [revenue, setRevenue] = useState('');
+interface TextInputsProps {
+    name: string;
+    setName: (value: string) => void;
+    whatsApp: string;
+    setWhatsApp: (value: string) => void;
+    email: string;
+    setEmail: (value: string) => void;
+    communityLink: string;
+    setCommunityLink: (value: string) => void;
+    revenue: string;
+    setRevenue: (value: string) => void;
+}
+
+export function TextInputs({name, setName, whatsApp, setWhatsApp, email, setEmail, communityLink, setCommunityLink, revenue, setRevenue}: TextInputsProps) {
     
     const [nameLabelFocused, setNameLabelFocused] = useState(false);
     const [whatsAppLabelFocused, setWhatsAppLabelFocused] = useState(false);
@@ -39,20 +47,6 @@ export function TextInputs() {
                 labelProps={{ 'data-floating': nameFloating }}
             />
             <TextInput
-                label="Your WhatsApp"
-                placeholder=""
-                required
-                classNames={classes}
-                value={whatsApp}
-                onChange={(event) => setWhatsApp(event.currentTarget.value)}
-                onFocus={() => setWhatsAppLabelFocused(true)}
-                onBlur={() => setWhatsAppLabelFocused(false)}
-                mt="md"
-                autoComplete="nope"
-                data-floating={whatsAppFloating}
-                labelProps={{ 'data-floating': whatsAppFloating }}
-            />
-            <TextInput
                 label="Your email"
                 placeholder="hello@mail.com"
                 required
@@ -68,7 +62,7 @@ export function TextInputs() {
             />
             <TextInput
                 label="Community Link"
-                placeholder="https://www.skool.com/community"
+                placeholder="https://skool.com/community"
                 required
                 classNames={classes}
                 value={communityLink}
@@ -79,6 +73,19 @@ export function TextInputs() {
                 autoComplete="nope"
                 data-floating={communityLinkFloating}
                 labelProps={{ 'data-floating': communityLinkFloating }}
+            />
+            <TextInput
+                label="Your WhatsApp"
+                placeholder=""
+                classNames={classes}
+                value={whatsApp}
+                onChange={(event) => setWhatsApp(event.currentTarget.value)}
+                onFocus={() => setWhatsAppLabelFocused(true)}
+                onBlur={() => setWhatsAppLabelFocused(false)}
+                mt="md"
+                autoComplete="nope"
+                data-floating={whatsAppFloating}
+                labelProps={{ 'data-floating': whatsAppFloating }}
             />
             <TextInput
                 label="Monthly Revenue"

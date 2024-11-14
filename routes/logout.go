@@ -1,27 +1,34 @@
 package routes
 
 import (
+	"log"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
-    "github.com/jackkieny/community-insights/auth"
+	"github.com/jackkieny/community-insights/auth"
 )
 
 func LogoutRoute(app *fiber.App, store *session.Store) {
-    app.Use("/api/logout", auth.Authenticate(store)) 
-    app.Get("/api/logout", func(c *fiber.Ctx) error {
-        sess, err := store.Get(c)
-        if err != nil {
-            return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-                "error": "Cannot get session",
-            })
-        }
+	app.Use("/api/logout", auth.Authenticate(store))
+	app.Post("/api/logout", func(c *fiber.Ctx) error {
+		log.Println("Logout route accessed")
 
-        if err := sess.Destroy(); err != nil {
-            return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-                "error": "Could not delete the session",
-            })
-        }
+		sess, err := store.Get(c)
+		if err != nil {
+			log.Println("Error getting session:", err)
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Cannot get session",
+			})
+		}
 
-        return c.SendString("Logged out")
-    })
+		if err := sess.Destroy(); err != nil {
+			log.Println("Error destroying session:", err)
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Could not delete the session",
+			})
+		}
+
+		log.Println("User logged out successfully")
+		return c.SendString("Logged out")
+	})
 }
