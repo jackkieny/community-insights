@@ -1,15 +1,16 @@
 package routes
 
 import (
+	"log"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/jackkieny/community-insights/auth"
-	"log"
 )
 
 func LogoutRoute(app *fiber.App, store *session.Store) {
 	app.Use("/api/logout", auth.Authenticate(store))
-	app.Get("/api/logout", func(c *fiber.Ctx) error {
+	app.Post("/api/logout", func(c *fiber.Ctx) error {
 		log.Println("Logout route accessed")
 
 		sess, err := store.Get(c)
