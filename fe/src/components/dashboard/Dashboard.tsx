@@ -91,7 +91,14 @@ export function Dashboard() {
                 </div>
 
                 <Stack justify="center" gap={0}>
-                    <NavbarLink icon={IconSwitchHorizontal} label="Change Community" onClick={() => {navigate('community')}}/>
+                    <NavbarLink
+                        icon={IconSwitchHorizontal}
+                        label="Change Community"
+                        onClick={() => {
+                            navigate('community');
+                            setActive(-1);
+                        }}
+                    />
                     <NavbarLink icon={IconLogout} label="Logout" onClick={open}/>
                 </Stack>
             </nav>
