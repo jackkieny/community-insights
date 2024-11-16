@@ -1,15 +1,20 @@
 package main
 
 import (
-	"log"
+	"os"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/jackkieny/community-insights/db"
 	"github.com/jackkieny/community-insights/routes"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 )
 
 func main() {
+
+	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.ANSIC})
 
 	client := db.Init()
 
@@ -25,5 +30,7 @@ func main() {
 	routes.SkoolLoginRoute(app, client, store)
 	routes.SkoolLoginCheckRoute(app, client, store)
 
-	log.Fatal(app.Listen(":5000"))
+	if err := app.Listen(":5000"); err != nil {
+		log.Fatal().Msgf("Error starting server: %s", err)
+	}
 }

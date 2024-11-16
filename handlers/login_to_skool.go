@@ -4,11 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/rs/zerolog/log"
 )
 
 type LoginPayload struct {
@@ -18,7 +18,7 @@ type LoginPayload struct {
 
 func LoginToSkool(email, password string) (string, error) {
 	if err := godotenv.Load(); err != nil {
-		log.Fatalf("Error loading .env file, %v", err)
+        log.Error().Err(err).Str("handler", "LoginToSkool").Msg("Error loading .env file")
 	}
 
 	url := os.Getenv("SKOOL_LOGIN_URL")
