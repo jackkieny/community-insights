@@ -6,6 +6,7 @@ import { Home } from "./components/home/Home"
 import { Login } from "./components/login/Login"
 import { Register } from "./components/register/Register"
 import { Dashboard } from "./components/dashboard/Dashboard"
+import { Community } from "./components/dashboard/community/Community"
 
 function App() {
 
@@ -19,7 +20,7 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />}>
           <Route path='settings' element={<h1>Settings</h1>} />
           <Route path='account' element={<h1>Account</h1>} />
-          <Route path='community' element={<h1>Community</h1>} />
+          <Route path='community' element={<Community />} />
         </Route>
       </Routes>
     </Router>

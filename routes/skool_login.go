@@ -28,8 +28,9 @@ func SkoolLoginRoute(app *fiber.App, client *mongo.Client, store *session.Store)
 		var user SkoolLoginUser
 
 		if err := c.BodyParser(&user); err != nil {
+			log.Println("/api/skoollogin: Error parsing JSON:", err)
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-				"error": "Cannot parse JSON",
+				"serverError": "Cannot parse JSON",
 			})
 		}
 
@@ -41,19 +42,22 @@ func SkoolLoginRoute(app *fiber.App, client *mongo.Client, store *session.Store)
 
 		authToken, err := handlers.LoginToSkool(user.Email, user.Password)
 		if err != nil {
+			log.Println("Error in skool login request:", err)
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-				"error": "Error in skool login request. See logs.",
+				"serverError": "Error in skool login request. See logs.",
+				"error":       "Incorrect email or password",
 			})
 		}
 
 		if authToken == "" {
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-				"error": "No token found",
+				"error": "Incorrect email or password",
 			})
 		}
 
 		sess, err := store.Get(c)
 		if err != nil {
+			log.Println("/api/skoollogin: Error when retrieving the store:", err)
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 				"error": "Error when retrieving the store",
 			})
@@ -66,6 +70,7 @@ func SkoolLoginRoute(app *fiber.App, client *mongo.Client, store *session.Store)
 
 		objectId, err := primitive.ObjectIDFromHex(userId.(string))
 		if err != nil {
+			log.Println("/api/skoollogin: Error when converting userId to ObjectID:", err)
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 				"error": "Error when converting userId to ObjectID",
 			})
@@ -78,9 +83,15 @@ func SkoolLoginRoute(app *fiber.App, client *mongo.Client, store *session.Store)
 		_, err = collection.UpdateOne(
 			ctx,
 			bson.M{"_id": objectId},
-			bson.M{"$set": bson.M{"skool_auth_token": authToken}},
+			bson.M{
+				"$set": bson.M{
+					"skool_email":      user.Email,
+					"skool_password":   user.Password,
+					"skool_auth_token": authToken,
+				}},
 		)
 		if err != nil {
+			log.Println("/api/skoollogin: Error when updating the user's skool auth token:", err)
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 				"error": "Error when updating the user's skool auth token",
 			})
@@ -102,6 +113,7 @@ func SkoolLoginRoute(app *fiber.App, client *mongo.Client, store *session.Store)
 			bson.M{"$set": bson.M{"communities": communities}},
 		)
 		if err != nil {
+			log.Println("/api/skoollogin: Error when inserting communities to db:", err)
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 				"error": "Error when inserting communities to db",
 			})
