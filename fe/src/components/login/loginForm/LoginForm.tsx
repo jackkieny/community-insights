@@ -75,30 +75,30 @@ export function LoginForm() {
                 </Title>
 
                 <form onSubmit={handleSubmit}>
-                <TextInput
-                    label="Email address"
-                    placeholder="hello@mail.com"
-                    size="md"
-                    onChange={(e) => {
-                        setEmail(e.currentTarget.value);
-                        setErrorMessageVisible(false);
-                    }}
-                    {...errorMessageVisible ? { error: " " } : {}}
-                />
-                <PasswordInput
-                    label="Password"
-                    placeholder="Your password"
-                    mt="md"
-                    size="md"
-                    onChange={(e) => {
-                        setPassword(e.currentTarget.value);
-                        setErrorMessageVisible(false);
-                    }}
-                    {...errorMessageVisible ? { error: errorMessage } : {}}
-                />
-                <Button fullWidth mt="xl" size="md" onClick={handleSubmit} type="submit">
-                    Login
-                </Button>
+                    <TextInput
+                        label="Email address"
+                        placeholder="hello@mail.com"
+                        size="md"
+                        onChange={(e) => {
+                            setEmail(e.currentTarget.value);
+                            setErrorMessageVisible(false);
+                        }}
+                        {...errorMessageVisible ? { error: " " } : {}}
+                    />
+                    <PasswordInput
+                        label="Password"
+                        placeholder="Your password"
+                        mt="md"
+                        size="md"
+                        onChange={(e) => {
+                            setPassword(e.currentTarget.value);
+                            setErrorMessageVisible(false);
+                        }}
+                        {...errorMessageVisible ? { error: errorMessage } : {}}
+                    />
+                    <Button fullWidth mt="xl" size="md" onClick={handleSubmit} type="submit">
+                        Login
+                    </Button>
                 </form>
 
                 <Text ta="center" mt="md">
