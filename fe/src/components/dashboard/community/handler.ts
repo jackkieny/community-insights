@@ -40,3 +40,16 @@ export const loginToSkool = async (skoolEmail: string, skoolPassword: string) =>
     return {errorMsg: data.error};
   }
 }
+
+export const getCommunities = async () => {
+    const response = await fetch('/api/getcommunities', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+}

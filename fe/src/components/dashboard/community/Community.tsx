@@ -15,116 +15,14 @@ import {
 } from '@mantine/core';
 import classes from './Community.module.css';
 import { useEffect, useState } from 'react';
-import { checkIfLoggedIn, loginToSkool } from './handler';
-
-const mockdata = [
-  {
-    archived: false,
-    role: "group-admin",
-    id: "fd0a318aff324d5cbdd709e8d6c28927",
-    name: "savvy-savings-7765",
-    display_name: "Savvy Savings",
-    totalmembers: 1,
-    totalposts: 38,
-    logourl: "",
-    color: "#21B8A6"
-  },
-  {
-    archived: false,
-    role: "group-admin",
-    id: "fd0a318aff324d5cbdd709e8d6c28927",
-    name: "savvy-savings-7765",
-    display_name: "Savvy Savings",
-    totalmembers: 1,
-    totalposts: 38,
-    logourl: "",
-    color: "#21B8A6"
-  },
-  {
-    archived: false,
-    role: "group-admin",
-    id: "fd0a318aff324d5cbdd709e8d6c28927",
-    name: "savvy-savings-7765",
-    display_name: "Savvy Savings",
-    totalmembers: 1,
-    totalposts: 38,
-    logourl: "",
-    color: "#21B8A6"
-  },
-  {
-    archived: false,
-    role: "group-admin",
-    id: "fd0a318aff324d5cbdd709e8d6c28927",
-    name: "savvy-savings-7765",
-    display_name: "Savvy Savings",
-    totalmembers: 1,
-    totalposts: 38,
-    logourl: "",
-    color: "#21B8A6"
-  },
-  {
-    archived: false,
-    role: "group-admin",
-    id: "fd0a318aff324d5cbdd709e8d6c28927",
-    name: "savvy-savings-7765",
-    display_name: "Savvy Savings",
-    totalmembers: 1,
-    totalposts: 38,
-    logourl: "",
-    color: "#21B8A6"
-  },
-  {
-    archived: false,
-    role: "group-admin",
-    id: "fd0a318aff324d5cbdd709e8d6c28927",
-    name: "savvy-savings-7765",
-    display_name: "Savvy Savings",
-    totalmembers: 1,
-    totalposts: 38,
-    logourl: "",
-    color: "#21B8A6"
-  },
-  {
-    archived: false,
-    role: "group-admin",
-    id: "fd0a318aff324d5cbdd709e8d6c28927",
-    name: "savvy-savings-7765",
-    display_name: "Savvy Savings",
-    totalmembers: 1,
-    totalposts: 38,
-    logourl: "",
-    color: "#21B8A6"
-  },
-  {
-    archived: false,
-    role: "member",
-    id: "e4452",
-    name: "community",
-    display_name: "Skool Community",
-    totalmembers: 169449,
-    totalposts: 28514,
-    logourl: "https://assets.skool.com/f/-/1d8b1123248347ddb42dfd1293b27c18df01da30aa414a678a2f1d312832a785/icon.jpg",
-    color: "#FCB900"
-  },
-  {
-    archived: false,
-    role: "pending",
-    id: "5512a2",
-    name: "topchessgang",
-    display_name: "Top Chess Gang",
-    totalmembers: 9631,
-    totalposts: 10149,
-    logourl: "https://assets.skool.com/f/5512a2e71b1649149136ea51bef78b0c/2ed12b54e87f421996b14977684de25dbfd2eb3da7244f6395e2cf4b52ff4345",
-    color: "#739250"
-  }
-]
+import { checkIfLoggedIn, loginToSkool, getCommunities } from './handler';
 
 interface CommunityType {
   archived: boolean;
   role: string;
   id: string;
   name: string;
-  display_name: string;
+  displayname: string;
   totalmembers: number;
   totalposts: number;
   logourl: string;
@@ -133,45 +31,42 @@ interface CommunityType {
 
 export function Community() {
 
-  // TODO: useEffect to check if the has already logged in
-  // TODO: If logged in, lock the login form
-  // TODO: If not, display nothing on the right side
-  // TODO: Add a refresh button to allow the user to refresh the communities
-  // TODO: When the refresh is happening, display a loadingoverlay
-  // TODO: Add a display to show the current community the user is logged in to
-  //       Make the user confirm the community selection
-
   const [refreshToggle, setRefreshToggle] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [skoolEmail, setSkoolEmail] = useState('');
   const [skoolPassword, setSkoolPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [errorMsgVisible, setErrorMsgVisible] = useState(false);
+  const [data, setData] = useState<CommunityType[]>([]);
 
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setVisible(true);
-    checkIfLoggedIn().then(resp => {
+    const fetchData = async () => {
+      setVisible(true);
+      const resp = await checkIfLoggedIn();
       if (resp.loggedIn) {
         setIsLoggedIn(true);
         setSkoolEmail(resp.userEmail);
+        const commData = await getCommunities();
+        setData(commData.communities);
       } else {
         setIsLoggedIn(false);
       }
       setVisible(false);
-    });
+    };
+
+    fetchData();
   }, [refreshToggle])
 
-  const availableCommunities = mockdata.filter(community => !community.archived && community.role === 'group-admin');
-  const unavailableCommunities = mockdata.filter(community => community.archived || community.role !== 'group-admin');
-
+  const availableCommunities = data.filter(community => !community.archived && community.role === 'group-admin');
+  const unavailableCommunities = data.filter(community => community.archived || community.role !== 'group-admin');
 
   const renderCard = (community: CommunityType, isActive: boolean) => {
     return (
       <Card
         key={community.id}
-        title={community.display_name}
+        title={community.displayname}
         shadow='md'
         radius="md"
         padding="xl"
@@ -184,11 +79,11 @@ export function Community() {
       >
         <Image
           src={community.logourl}
-          alt={community.display_name}
+          alt={community.displayname}
           w={50}
           style={{ filter: isActive ? 'none' : 'grayscale(100%)' }}
         />
-        <Title mt={10} ta="left" order={3}> {community.display_name} </Title>
+        <Title mt={10} ta="left" order={3}> {community.displayname} </Title>
         <Group
           justify='space-between'
           pt={10}
@@ -273,6 +168,7 @@ export function Community() {
         }}>Refresh Communities</Button>
       </Paper>
 
+      {/* TODO: Add title to the sections */}
       <div className={classes.grid_container}>
         <LoadingOverlay visible={visible} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
         {isLoggedIn && <>

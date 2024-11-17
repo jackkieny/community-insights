@@ -28,6 +28,7 @@ func main() {
 	routes.RequestAccessRoute(app, client)
 	routes.SkoolLoginRoute(app, client, store)
 	routes.SkoolLoginCheckRoute(app, client, store)
+    routes.GetCommunitiesRoute(app, client, store)
 	routes.Setup(app)
 
 	if err := app.Listen(":5000"); err != nil {
