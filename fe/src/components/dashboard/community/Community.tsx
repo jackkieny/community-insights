@@ -255,7 +255,7 @@ export function Community() {
             fullWidth
             mt="xl"
             onClick={async () => {
-              const err = await loginToSkool(skoolEmail, skoolPassword, errorMsg);
+              const err = await loginToSkool(skoolEmail, skoolPassword);
               console.log(err.errorMsg);
               if (err.errorMsg !== "") {
                 setErrorMsg(err.errorMsg);

@@ -21,7 +21,6 @@ func main() {
 	app := fiber.New()
 	store := session.New()
 
-	routes.Setup(app)
 	routes.SessionRoute(app, store)
 	routes.LoginRoute(app, client, store)
 	routes.RegisterRoute(app, client)
@@ -29,6 +28,7 @@ func main() {
 	routes.RequestAccessRoute(app, client)
 	routes.SkoolLoginRoute(app, client, store)
 	routes.SkoolLoginCheckRoute(app, client, store)
+	routes.Setup(app)
 
 	if err := app.Listen(":5000"); err != nil {
 		log.Fatal().Msgf("Error starting server: %s", err)

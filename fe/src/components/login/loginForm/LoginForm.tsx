@@ -25,19 +25,21 @@ export function LoginForm() {
 
     // TODO: UseEffect to check if the user already has a session -> navigate to dashboard
     useEffect(() => {
-        fetch('/api/session',
-            {
+        const checkSession = async () => {
+            await fetch('/api/session', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: 'include',
-            }
-        ).then((response) => {
-            if (response.ok) {
-                navigate('/dashboard');
-            }
-        });
+            }).then((response) => {
+                if (response.ok) {
+                    console.log('User already has a session');
+                    navigate('/dashboard');
+                }
+            });
+        };
+
+        checkSession();
     }, []);
 
     const handleSubmit = (event: React.FormEvent<any>) => {

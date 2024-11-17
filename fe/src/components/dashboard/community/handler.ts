@@ -21,7 +21,7 @@ export const checkIfLoggedIn = async () => {
   }
 }
 
-export const loginToSkool = async (skoolEmail: string, skoolPassword: string, errorMsg: string) => {
+export const loginToSkool = async (skoolEmail: string, skoolPassword: string) => {
   const response = await fetch('/api/skoollogin', {
     method: 'POST',
     headers: {

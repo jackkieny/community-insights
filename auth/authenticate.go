@@ -11,9 +11,7 @@ func Authenticate(store *session.Store) fiber.Handler {
 		sess, err := store.Get(c)
 		if err != nil {
 			log.Error().Err(err).Str("route", c.Path()).Msg("Error getting session")
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-				"error": "Error when retrieving the store",
-			})
+			return c.Status(fiber.StatusInternalServerError).SendString("Server error")
 		}
 
 		userId := sess.Get("userId")
