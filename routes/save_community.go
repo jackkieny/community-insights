@@ -13,9 +13,20 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func GetCommunitiesRoute(app *fiber.App, client *mongo.Client, store *session.Store) {
-	app.Use("/api/getcommunities", auth.Authenticate(store))
-	app.Get("/api/getcommunities", func(c *fiber.Ctx) error {
+type CommunityId struct {
+	CommunityId string `json:"communityId"`
+}
+
+func SaveCommunityRoute(app *fiber.App, client *mongo.Client, store *session.Store) {
+	app.Use("/api/savecommunity", auth.Authenticate(store))
+	app.Post("/api/savecommunity", func(c *fiber.Ctx) error {
+
+		var communityId CommunityId
+
+		if err := c.BodyParser(&communityId); err != nil {
+			log.Error().Err(err).Str("route", c.Path()).Msg("Error parsing request body")
+			return c.Status(fiber.StatusInternalServerError).SendString("Server error")
+		}
 
 		sess, err := store.Get(c)
 		if err != nil {
@@ -39,18 +50,23 @@ func GetCommunitiesRoute(app *fiber.App, client *mongo.Client, store *session.St
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 		defer cancel()
 
-		var result bson.M
-		err = collection.FindOne(ctx, bson.M{"_id": objectId}).Decode(&result)
+		_, err = collection.UpdateOne(
+			ctx,
+			bson.M{"_id": objectId},
+			bson.M{
+				"$set": bson.M{
+					"currentCommunity": communityId.CommunityId,
+				},
+			},
+		)
 		if err != nil {
-			log.Error().Err(err).Msg("No communities found")
-			return c.Status(fiber.StatusBadRequest).SendString("Server error")
+			log.Error().Err(err).Str("route", c.Path()).Msg("Error saving community selection")
+			return c.Status(fiber.StatusInternalServerError).SendString("Server error")
 		}
 
 		return c.Status(fiber.StatusOK).JSON(fiber.Map{
-			"communities":      result["communities"],
-			"currentCommunity": result["currentCommunity"],
+			"message": "Success! Community seleciton saved",
 		})
 
 	})
-
 }

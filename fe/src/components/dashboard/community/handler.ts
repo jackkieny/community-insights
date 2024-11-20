@@ -50,6 +50,18 @@ export const getCommunities = async () => {
         credentials: 'include',
     });
     const data = await response.json();
-    console.log(data);
     return data;
+}
+
+export const handleSaveCommunity = async (communityId: string) => {
+  await fetch('/api/savecommunity', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      'communityId': communityId,
+    }),
+  })
 }

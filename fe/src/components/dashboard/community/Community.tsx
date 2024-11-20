@@ -11,11 +11,12 @@ import {
   Text,
   Group,
   Divider,
-  LoadingOverlay
+  LoadingOverlay,
+  Checkbox,
 } from '@mantine/core';
 import classes from './Community.module.css';
 import { useEffect, useState } from 'react';
-import { checkIfLoggedIn, loginToSkool, getCommunities } from './handler';
+import { checkIfLoggedIn, loginToSkool, getCommunities, handleSaveCommunity } from './handler';
 
 interface CommunityType {
   archived: boolean;
@@ -38,22 +39,26 @@ export function Community() {
   const [errorMsg, setErrorMsg] = useState('');
   const [errorMsgVisible, setErrorMsgVisible] = useState(false);
   const [data, setData] = useState<CommunityType[]>([]);
+  const [loadingVisible, setLoadingVisible] = useState(false);
+  const [selectedCommunity, setSelectedCommunity] = useState<CommunityType | null>(null)
+  const [currentCommunity, setCurrentCommunity] = useState('');
 
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      setVisible(true);
+      setLoadingVisible(true);
       const resp = await checkIfLoggedIn();
       if (resp.loggedIn) {
         setIsLoggedIn(true);
         setSkoolEmail(resp.userEmail);
         const commData = await getCommunities();
         setData(commData.communities);
+        setCurrentCommunity(commData.currentCommunity);
+        setSelectedCommunity(commData.communities.find((community: CommunityType) => community.id === commData.currentCommunity));
       } else {
         setIsLoggedIn(false);
       }
-      setVisible(false);
+      setLoadingVisible(false);
     };
 
     fetchData();
@@ -75,14 +80,26 @@ export function Community() {
         style={{
           borderColor: isActive ? community.color : undefined,
           cursor: isActive ? 'pointer' : 'not-allowed',
+          border: isActive && community.id === selectedCommunity?.id ? `3px solid ${community.color}` :
+            isActive && community.id !== selectedCommunity?.id ? `1px solid ${community.color}` : undefined,
+        }}
+        onClick={() => {
+          if (isActive) {
+            setSelectedCommunity(community);
+          }
         }}
       >
-        <Image
-          src={community.logourl}
-          alt={community.displayname}
-          w={50}
-          style={{ filter: isActive ? 'none' : 'grayscale(100%)' }}
-        />
+        <Group justify='space-between'>
+          <Image
+            src={community.logourl}
+            alt={community.displayname}
+            w={50}
+            style={{
+              filter: isActive ? 'none' : 'grayscale(100%)',
+            }}
+          />
+          {isActive ? <Checkbox checked={community.id === selectedCommunity?.id} /> : null}
+        </Group>
         <Title mt={10} ta="left" order={3}> {community.displayname} </Title>
         <Group
           justify='space-between'
@@ -119,14 +136,14 @@ export function Community() {
         <Container p={10} mt={30} >
           <TextInput
             label="Email"
-            {...isLoggedIn ? { 
+            {...isLoggedIn ? {
               disabled: true,
               placeholder: skoolEmail
             } : {
               required: true,
               disabled: false,
               placeholder: "hello@skool.com",
-              ...errorMsgVisible ? { error: " "} : {}
+              ...errorMsgVisible ? { error: " " } : {}
             }}
             onChange={(e) => {
               setSkoolEmail(e.target.value);
@@ -142,8 +159,8 @@ export function Community() {
               setSkoolPassword(e.target.value)
               setErrorMsgVisible(false);
             }}
-            style={isLoggedIn ? {display: "none"}: {}}
-            {...errorMsgVisible ? { error: errorMsg} : {}}
+            style={isLoggedIn ? { display: "none" } : {}}
+            {...errorMsgVisible ? { error: errorMsg } : {}}
           />
           <Button
             disabled={isLoggedIn ? true : false}
@@ -151,26 +168,55 @@ export function Community() {
             mt="xl"
             onClick={async () => {
               const err = await loginToSkool(skoolEmail, skoolPassword);
-              console.log(err.errorMsg);
               if (err.errorMsg !== "") {
                 setErrorMsg(err.errorMsg);
                 setErrorMsgVisible(true);
-              } else{
+              } else {
                 setRefreshToggle(!refreshToggle);
               }
             }}
           >Connect Skool</Button>
         </Container>
+
         <Divider my="lg" />
-        <Button fullWidth mt="md" onClick={async () => { 
-          setVisible(true);
+
+        <Button fullWidth mt="md" onClick={async () => {
+          setLoadingVisible(true);
+          setSelectedCommunity(null);
           await setRefreshToggle(!refreshToggle);
         }}>Refresh Communities</Button>
+
+        <Divider my="lg" />
+
+        {selectedCommunity ?
+          <Container p={10} mt={30} >
+            <Paper shadow='xs' radius="md" p={20} withBorder>
+              <Group mt={10} justify='space-around'>
+                <Image
+                  src={selectedCommunity?.logourl}
+                  alt={selectedCommunity?.displayname}
+                  w={40}
+                />
+              </Group>
+              <Group mt={10} justify='space-around'>
+                <Title ta='center' mt={5}> {selectedCommunity?.displayname} </Title>
+              </Group>
+            </Paper>
+            <Button
+              fullWidth
+              mt="xl"
+              {...currentCommunity === selectedCommunity.id ? { disabled: true } : {}}
+              onClick={() => {
+                handleSaveCommunity(selectedCommunity.id);
+                setRefreshToggle(!refreshToggle);
+              }}>Save</Button>
+          </Container>
+          : <Title ta='center' size={25}>No Community Selected</Title>
+        }
       </Paper>
 
-      {/* TODO: Add title to the sections */}
       <div className={classes.grid_container}>
-        <LoadingOverlay visible={visible} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
+        <LoadingOverlay visible={loadingVisible} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
         {isLoggedIn && <>
           <SimpleGrid className={classes.grid} cols={4}>
             {availableCommunities.map(community => renderCard(community, true))}
