@@ -180,37 +180,39 @@ export function Community() {
 
         <Divider my="lg" />
 
-        <Button fullWidth mt="md" onClick={async () => {
-          setLoadingVisible(true);
-          setSelectedCommunity(null);
-          await setRefreshToggle(!refreshToggle);
-        }}>Refresh Communities</Button>
-
-        <Divider my="lg" />
-
         {selectedCommunity ?
-          <Container p={10} mt={30} >
-            <Paper shadow='xs' radius="md" p={20} withBorder>
-              <Group mt={10} justify='space-around'>
-                <Image
-                  src={selectedCommunity?.logourl}
-                  alt={selectedCommunity?.displayname}
-                  w={40}
-                />
-              </Group>
-              <Group mt={10} justify='space-around'>
-                <Title ta='center' mt={5}> {selectedCommunity?.displayname} </Title>
-              </Group>
-            </Paper>
-            <Button
-              fullWidth
-              mt="xl"
-              {...currentCommunity === selectedCommunity.id ? { disabled: true } : {}}
-              onClick={() => {
-                handleSaveCommunity(selectedCommunity.id);
-                setRefreshToggle(!refreshToggle);
-              }}>Save</Button>
-          </Container>
+          <>
+            <Button fullWidth mt="md" onClick={async () => {
+              setLoadingVisible(true);
+              setSelectedCommunity(null);
+              await setRefreshToggle(!refreshToggle);
+            }}>Refresh Communities</Button>
+
+            <Divider my="lg" />
+
+            <Container p={10} mt={30} >
+              <Paper shadow='xs' radius="md" p={20} withBorder>
+                <Group mt={10} justify='space-around'>
+                  <Image
+                    src={selectedCommunity?.logourl}
+                    alt={selectedCommunity?.displayname}
+                    w={40}
+                  />
+                </Group>
+                <Group mt={10} justify='space-around'>
+                  <Title ta='center' mt={5}> {selectedCommunity?.displayname} </Title>
+                </Group>
+              </Paper>
+              <Button
+                fullWidth
+                mt="xl"
+                {...currentCommunity === selectedCommunity.id ? { disabled: true } : {}}
+                onClick={() => {
+                  handleSaveCommunity(selectedCommunity.id);
+                  setRefreshToggle(!refreshToggle);
+                }}>Save</Button>
+            </Container>
+          </>
           : <Title ta='center' size={25}>No Community Selected</Title>
         }
       </Paper>
