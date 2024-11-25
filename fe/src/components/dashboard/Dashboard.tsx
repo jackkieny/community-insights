@@ -2,9 +2,6 @@ import { useEffect, useState } from 'react';
 import { Center, Tooltip, UnstyledButton, Stack, rem, Image } from '@mantine/core';
 import {
     IconHome2,
-    IconGauge,
-    IconDeviceDesktopAnalytics,
-    IconFingerprint,
     IconCalendarStats,
     IconUser,
     IconSettings,
@@ -36,11 +33,8 @@ function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
 
 const data = [
     { icon: IconHome2, label: 'Home' },
-    { icon: IconGauge, label: 'Dashboard' },
-    { icon: IconDeviceDesktopAnalytics, label: 'Analytics' },
-    { icon: IconCalendarStats, label: 'Releases' },
+    { icon: IconCalendarStats, label: 'Planner' },
     { icon: IconUser, label: 'Account' },
-    { icon: IconFingerprint, label: 'Security' },
     { icon: IconSettings, label: 'Settings' },
 ];
 
@@ -56,7 +50,11 @@ export function Dashboard() {
             active={index === active}
             onClick={() => {
                 setActive(index);
-                navigate(link.label.toLowerCase());
+                if (link.label === 'Home') {
+                    navigate('/dashboard');
+                } else {
+                    navigate(link.label.toLowerCase());
+                }
             }}
         />
     ));
