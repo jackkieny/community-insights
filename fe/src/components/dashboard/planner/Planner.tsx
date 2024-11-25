@@ -13,6 +13,7 @@ export function Planner() {
         height={"100%"}
         plugins={[dayGridPlugin, timeGridPlugin]}
         initialView="dayGridMonth"
+        nowIndicator={true}
         headerToolbar={{
           left: "prev,next today",
           center: "title",
