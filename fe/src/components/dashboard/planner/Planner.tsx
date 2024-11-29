@@ -12,7 +12,7 @@ export function Planner() {
       <FullCalendar
         height={"100%"}
         plugins={[dayGridPlugin, timeGridPlugin]}
-        initialView="dayGridMonth"
+        initialView="timeGridWeek"
         nowIndicator={true}
         headerToolbar={{
           left: "prev,next today",
