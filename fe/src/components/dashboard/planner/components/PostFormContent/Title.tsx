@@ -5,10 +5,11 @@ interface PostFormTitleProps {
   setTitle: (value: string) => void;
 }
 
-export function PostFormTitle ({ title, setTitle }: PostFormTitleProps) {
+export function Title ({ title, setTitle }: PostFormTitleProps) {
   return (
     <TextInput
       label="Title"
+      required
       placeholder="Title"
       w="30%"
       value={title}

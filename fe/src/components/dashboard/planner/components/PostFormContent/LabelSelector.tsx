@@ -6,7 +6,7 @@ interface PostFormInputSelectorProps {
   setLabel: (value: ComboboxItem | null) => void;
 }
 
-export function PostFormLabelSelector({ label, setLabel }: PostFormInputSelectorProps) {
+export function LabelSelector({ label, setLabel }: PostFormInputSelectorProps) {
   const [labels, setLabels] = useState<ComboboxItem[]>([]);
 
   useEffect(() => {
@@ -31,6 +31,7 @@ export function PostFormLabelSelector({ label, setLabel }: PostFormInputSelector
   return (
     <Select 
       label="Select Category"
+      required
       placeholder='Discussion, Questions, etc.'
       data={labels}
       value={label ? label.value : null}

@@ -6,10 +6,11 @@ interface PostFormDateTimePickerProps {
     setDatetime: (value: DateValue) => void;
 }
 
-export function PostFormDateTimePicker({ datetime, setDatetime }: PostFormDateTimePickerProps) {
+export function DateTimeSelector({ datetime, setDatetime }: PostFormDateTimePickerProps) {
     return (
         <DateTimePicker
             label="Date and Time"
+            required
             placeholder="Select a Date and Time"
             clearable
             w="auto"

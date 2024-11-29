@@ -5,12 +5,12 @@ import {
     ComboboxItem,
 } from '@mantine/core'
 import { useState } from 'react'
-
-import { PostFormTitle } from './components/PostFormTitle';
-import { PostFormContent } from './components/PostFormContent';
-import { PostFormDateTimePicker } from './components/PostFormDateTimePicker';
 import { DateValue } from '@mantine/dates';
-import { PostFormLabelSelector } from './components/PostFormLabelSelector';
+
+import { Title } from './components/PostFormContent/Title';
+import { Content } from './components/PostFormContent/Content';
+import { DateTimeSelector } from './components/PostFormContent/DateTimeSelector';
+import { LabelSelector } from './components/PostFormContent/LabelSelector';
 import { ActionButton } from './components/PostFormMediaButtons/ActionButton';
 import { FileAttachment } from './components/PostFormMediaButtons/FileAttachment';
 import { Hyperlink } from './components/PostFormMediaButtons/Hyperlink';
@@ -47,9 +47,9 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
         size="75%"
         centered
       >
-        <PostFormTitle title={title} setTitle={setTitle} />
-        <PostFormContent content={content} setContent={setContent} />
-        <Group justify='space-between'>
+        <Title title={title} setTitle={setTitle} />
+        <Content content={content} setContent={setContent} />
+        <Group justify='space-between' mt={15}>
           <Group>
             <FileAttachment />
             <Hyperlink />
@@ -60,9 +60,12 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
             <GIFs />
           </Group>
           <Group justify='space-around'>
-            <PostFormLabelSelector label={label} setLabel={setLabel} />
-            <PostFormDateTimePicker datetime={datetime} setDatetime={setDatetime} />
+            <LabelSelector label={label} setLabel={setLabel} />
+            <DateTimeSelector datetime={datetime} setDatetime={setDatetime} />
           </Group>
+        </Group>
+        <Group justify='left'>
+
         </Group>
         <Group justify='center'>
           <Button color='green' mt={25} fullWidth>Create Post!</Button>

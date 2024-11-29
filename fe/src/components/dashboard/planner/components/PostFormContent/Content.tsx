@@ -5,7 +5,7 @@ interface PostFormContentProps {
   setContent: (value: string) => void;
 }
 
-export function PostFormContent({ content, setContent }: PostFormContentProps) {
+export function Content({ content, setContent }: PostFormContentProps) {
   return (
 
     <Textarea
