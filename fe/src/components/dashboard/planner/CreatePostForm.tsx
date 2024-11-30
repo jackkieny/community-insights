@@ -3,6 +3,7 @@ import {
     Button,
     Group,
     ComboboxItem,
+    Flex,
 } from '@mantine/core'
 import { useState } from 'react'
 import { DateValue } from '@mantine/dates';
@@ -18,6 +19,7 @@ import { EmbeddedVideo } from './components/PostFormMediaButtons/EmbeddedVideo';
 import { Polls } from './components/PostFormMediaButtons/Polls';
 import { Emoji } from './components/PostFormMediaButtons/Emoji';
 import { GIFs } from './components/PostFormMediaButtons/GIFs';
+import { PollForm } from './components/PostFormContent/PollForm';
 
 interface CreatePostFormProps {
   open: boolean;
@@ -36,6 +38,7 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
   const [datetime, setDatetime] = useState<DateValue | null>(null)
   const [label, setLabel] = useState<ComboboxItem | null>(null)
   const [actionButtonSelected, setActionButtonSelected] = useState(false)
+  const [pollButtonSelected, setPollButtonSelected] = useState(false)
 
 
   return (
@@ -47,26 +50,35 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
         size="75%"
         centered
       >
-        <Title title={title} setTitle={setTitle} />
-        <Content content={content} setContent={setContent} />
+        <Group justify='space-between' grow>
+          <Flex gap="md" direction="column" >
+            <Title title={title} setTitle={setTitle} />
+            <Content content={content} setContent={setContent} />
+          </Flex>
+          <Group justify='right'>{pollButtonSelected ? <PollForm /> : null}</Group>
+        </Group>
+
         <Group justify='space-between' mt={15}>
           <Group>
             <FileAttachment />
             <Hyperlink />
             <EmbeddedVideo />
-            <Polls />
+            <Polls pollButtonSelected={pollButtonSelected} setPollButtonSelected={setPollButtonSelected}/>
             <ActionButton actionButtonSelected={actionButtonSelected} setActionButtonSelected={setActionButtonSelected} />
             <Emoji />
             <GIFs />
           </Group>
+
           <Group justify='space-around'>
             <LabelSelector label={label} setLabel={setLabel} />
             <DateTimeSelector datetime={datetime} setDatetime={setDatetime} />
           </Group>
         </Group>
-        <Group justify='left'>
 
+        <Group justify='left'>
+          {/* Media goes here */}
         </Group>
+
         <Group justify='center'>
           <Button color='green' mt={25} fullWidth>Create Post!</Button>
         </Group>
