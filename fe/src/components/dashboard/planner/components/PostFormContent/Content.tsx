@@ -12,9 +12,8 @@ export function Content({ content, setContent }: PostFormContentProps) {
       label="Content"
       placeholder="Write something"
       autosize
-      minRows={5}
+      minRows={7}
       maxRows={10}
-      w="50%"
       value={content}
       onChange={(event) => setContent(event.currentTarget.value)}
     />
