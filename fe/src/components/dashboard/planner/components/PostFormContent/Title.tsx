@@ -11,7 +11,6 @@ export function Title ({ title, setTitle }: PostFormTitleProps) {
       label="Title"
       required
       placeholder="Title"
-      w="30%"
       value={title}
       onChange={(event) => setTitle(event.currentTarget.value)}
     />
