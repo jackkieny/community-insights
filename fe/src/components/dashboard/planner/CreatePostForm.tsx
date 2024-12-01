@@ -7,6 +7,7 @@ import {
 } from '@mantine/core'
 import { useState } from 'react'
 import { DateValue } from '@mantine/dates';
+import { useForm } from '@mantine/form'
 
 import { Title } from './components/PostFormContent/Title';
 import { Content } from './components/PostFormContent/Content';
@@ -29,22 +30,46 @@ interface CreatePostFormProps {
 
 export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
 
+  interface FormValues {
+    title: string;
+    content: string;
+    datetime: DateValue | null;
+    label: ComboboxItem | null;
+    videos: string[];
+    videoIFrames: string[];
+    actionButtonSelected: boolean;
+    pollButtonSelected: boolean;
+    videoButtonSelected: boolean;
+  }
+
+  const form = useForm<FormValues>({
+    initialValues: {
+      title: '',
+      content: '',
+      datetime: null,
+      label: null,
+      videos: [],
+      videoIFrames: [],
+      actionButtonSelected: false,
+      pollButtonSelected: false,
+      videoButtonSelected: false,
+    }
+  })
+
   const [confirmCloseOpen, setConfirmCloseOpen] = useState(false)
-  const handleCloseForm = () => { setConfirmCloseOpen(true) }
-  const handleConfirmClose = () => { setConfirmCloseOpen(false); onClose(); }
-  const handleCancelClose = () => { setConfirmCloseOpen(false) }
-
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
-  const [datetime, setDatetime] = useState<DateValue | null>(null)
-  const [label, setLabel] = useState<ComboboxItem | null>(null)
-  const [videos, setVideos] = useState<string[]>([])
-  const [videoIFrames, setVideoIFrames] = useState<string[]>([])
-
-  const [actionButtonSelected, setActionButtonSelected] = useState(false)
-  const [pollButtonSelected, setPollButtonSelected] = useState(false)
-  const [videoButtonSelected, setVideoButtonSelected] = useState(false)
-
+  const handleCloseForm = () => {
+    if (form.isDirty()) {
+      setConfirmCloseOpen(true)
+    } else {
+      onClose()
+    }
+  }
+  const handleCancelClose = () => { setConfirmCloseOpen(false); }
+  const handleConfirmClose = () => { 
+    form.reset();
+    setConfirmCloseOpen(false);
+    onClose();
+  }
 
   return (
     <>
@@ -57,10 +82,16 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
       >
         <Group justify='space-between' grow>
           <Flex gap="md" direction="column" >
-            <Title title={title} setTitle={setTitle} />
-            <Content content={content} setContent={setContent} />
+            <Title
+              title={form.values.title}
+              setTitle={(value) => form.setFieldValue('title', value)}
+            />
+            <Content
+              content={form.values.content}
+              setContent={(value) => form.setFieldValue('content', value)}
+            />
           </Flex>
-          <Group justify='right'>{pollButtonSelected ? <PollForm /> : null}</Group>
+          <Group justify='right'>{form.values.pollButtonSelected ? <PollForm /> : null}</Group>
         </Group>
 
         <Group justify='space-between' mt={15}>
@@ -68,31 +99,43 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
             <FileAttachment />
             <Hyperlink />
             <EmbeddedVideoButton
-              embeddedVideoSelected={videoButtonSelected}
-              setEmbeddedVideoSelected={setVideoButtonSelected}
-              videos={videos}
-              setVideos={setVideos}
-              videoIFrames={videoIFrames}
-              setVideoIFrames={setVideoIFrames}
+              embeddedVideoSelected={form.values.videoButtonSelected}
+              setEmbeddedVideoSelected={(value) => form.setFieldValue('videoButtonSelected', value)}
+              videos={form.values.videos}
+              setVideos={(value) => form.setFieldValue('videos', value)}
+              videoIFrames={form.values.videoIFrames}
+              setVideoIFrames={(value) => form.setFieldValue('videoIFrames', value)}
             />
-            <Polls pollButtonSelected={pollButtonSelected} setPollButtonSelected={setPollButtonSelected} />
-            <ActionButton actionButtonSelected={actionButtonSelected} setActionButtonSelected={setActionButtonSelected} />
+            <Polls
+              pollButtonSelected={form.values.pollButtonSelected}
+              setPollButtonSelected={(value) => form.setFieldValue('pollButtonSelected', value)}
+            />
+            <ActionButton
+              actionButtonSelected={form.values.actionButtonSelected}
+              setActionButtonSelected={(value) => form.setFieldValue('actionButtonSelected', value)}
+            />
             <Emoji />
             <GIFs />
           </Group>
 
           <Group justify='space-around'>
-            <LabelSelector label={label} setLabel={setLabel} />
-            <DateTimeSelector datetime={datetime} setDatetime={setDatetime} />
+            <LabelSelector
+              label={form.values.label}
+              setLabel={(value) => form.setFieldValue('label', value)}
+            />
+            <DateTimeSelector
+              datetime={form.values.datetime}
+              setDatetime={(value) => form.setFieldValue('datetime', value)}
+            />
           </Group>
         </Group>
 
         <Group justify='left' mt={20}>
           <VideoPreview
-            videos={videos}
-            setVideos={setVideos}
-            videoIFrames={videoIFrames}
-            setVideoIFrames={setVideoIFrames}
+            videos={form.values.videos}
+            setVideos={(value) => form.setFieldValue('videos', value)}
+            videoIFrames={form.values.videoIFrames}
+            setVideoIFrames={(value) => form.setFieldValue('videoIFrames', value)}
           />
         </Group>
 
@@ -101,7 +144,6 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
         </Group>
 
       </Modal>
-
 
       {/* Confirm Close */}
       <Modal
