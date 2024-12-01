@@ -1,9 +1,9 @@
-import { 
-    Modal,
-    Button,
-    Group,
-    ComboboxItem,
-    Flex,
+import {
+  Modal,
+  Button,
+  Group,
+  ComboboxItem,
+  Flex,
 } from '@mantine/core'
 import { useState } from 'react'
 import { DateValue } from '@mantine/dates';
@@ -15,11 +15,12 @@ import { LabelSelector } from './components/PostFormContent/LabelSelector';
 import { ActionButton } from './components/PostFormMediaButtons/ActionButton';
 import { FileAttachment } from './components/PostFormMediaButtons/FileAttachment';
 import { Hyperlink } from './components/PostFormMediaButtons/Hyperlink';
-import { EmbeddedVideo } from './components/PostFormMediaButtons/EmbeddedVideo';
+import { EmbeddedVideoButton } from './components/PostFormMediaButtons/EmbeddedVideoButton';
 import { Polls } from './components/PostFormMediaButtons/Polls';
 import { Emoji } from './components/PostFormMediaButtons/Emoji';
 import { GIFs } from './components/PostFormMediaButtons/GIFs';
 import { PollForm } from './components/PostFormContent/PollForm';
+import { VideoPreview } from './components/PostFormContent/VideoPreview';
 
 interface CreatePostFormProps {
   open: boolean;
@@ -37,8 +38,12 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
   const [content, setContent] = useState('')
   const [datetime, setDatetime] = useState<DateValue | null>(null)
   const [label, setLabel] = useState<ComboboxItem | null>(null)
+  const [videos, setVideos] = useState<string[]>([])
+  const [videoIFrames, setVideoIFrames] = useState<string[]>([])
+
   const [actionButtonSelected, setActionButtonSelected] = useState(false)
   const [pollButtonSelected, setPollButtonSelected] = useState(false)
+  const [videoButtonSelected, setVideoButtonSelected] = useState(false)
 
 
   return (
@@ -62,8 +67,15 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
           <Group>
             <FileAttachment />
             <Hyperlink />
-            <EmbeddedVideo />
-            <Polls pollButtonSelected={pollButtonSelected} setPollButtonSelected={setPollButtonSelected}/>
+            <EmbeddedVideoButton
+              embeddedVideoSelected={videoButtonSelected}
+              setEmbeddedVideoSelected={setVideoButtonSelected}
+              videos={videos}
+              setVideos={setVideos}
+              videoIFrames={videoIFrames}
+              setVideoIFrames={setVideoIFrames}
+            />
+            <Polls pollButtonSelected={pollButtonSelected} setPollButtonSelected={setPollButtonSelected} />
             <ActionButton actionButtonSelected={actionButtonSelected} setActionButtonSelected={setActionButtonSelected} />
             <Emoji />
             <GIFs />
@@ -75,14 +87,19 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
           </Group>
         </Group>
 
-        <Group justify='left'>
-          {/* Media goes here */}
+        <Group justify='left' mt={20}>
+          <VideoPreview
+            videos={videos}
+            setVideos={setVideos}
+            videoIFrames={videoIFrames}
+            setVideoIFrames={setVideoIFrames}
+          />
         </Group>
 
         <Group justify='center'>
           <Button color='green' mt={25} fullWidth>Create Post!</Button>
         </Group>
-        
+
       </Modal>
 
 
@@ -91,7 +108,7 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
         opened={confirmCloseOpen}
         onClose={handleCancelClose}
         title="Confirm"
-        style={{textAlign: 'center'}}
+        style={{ textAlign: 'center' }}
       >
         <p><strong>Are you sure you want to close the form?</strong></p>
         <p>This will clear the post form and it will not be saved.</p>
