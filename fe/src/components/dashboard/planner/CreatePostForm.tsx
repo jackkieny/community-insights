@@ -147,6 +147,7 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
             mt={25}
             fullWidth
             onClick={() =>{
+              console.log(form.values.content);
               const converted = handleConvertContent(form.values.content);
               console.log(converted);
             }}>Create Post!</Button>

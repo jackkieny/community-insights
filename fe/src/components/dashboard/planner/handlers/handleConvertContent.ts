@@ -33,6 +33,8 @@ export const handleConvertContent = (htmlContent: string): string => {
       } else if (node.name === 'li') {
         result += '[li]';
         node.children.forEach((child: any) => traverse(child));
+      } else if (node.name === 'a' && node.attribs && node.attribs.href) {
+        result += `[${node.children.map((child: any) => child.data).join('')}](${node.attribs.href})`;
       }
     }
   };
