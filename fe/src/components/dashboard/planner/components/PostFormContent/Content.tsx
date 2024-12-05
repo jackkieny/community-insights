@@ -1,4 +1,7 @@
-import { Textarea } from "@mantine/core";
+import { RichTextEditor, Link } from "@mantine/tiptap";
+import { useEditor } from '@tiptap/react';
+import { StarterKit } from '@tiptap/starter-kit';
+import { Placeholder } from '@tiptap/extension-placeholder';
 
 interface PostFormContentProps {
   content: string;
@@ -6,16 +9,42 @@ interface PostFormContentProps {
 }
 
 export function Content({ content, setContent }: PostFormContentProps) {
-  return (
 
-    <Textarea
-      label="Content"
-      placeholder="Write something"
-      autosize
-      minRows={7}
-      maxRows={10}
-      value={content}
-      onChange={(event) => setContent(event.currentTarget.value)}
-    />
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Link,
+      Placeholder.configure({ placeholder: 'Write something...' }),
+    ],
+    content: content,
+    onUpdate: ({ editor }) => {
+      setContent(editor.getHTML())
+    },
+  })
+
+
+  return (
+    <RichTextEditor editor={editor} mih={200}>
+      <RichTextEditor.Toolbar>
+
+        <RichTextEditor.ControlsGroup>
+          <RichTextEditor.BulletList />
+          <RichTextEditor.OrderedList />
+        </RichTextEditor.ControlsGroup>
+
+        <RichTextEditor.ControlsGroup>
+          <RichTextEditor.Link />
+          <RichTextEditor.Unlink />
+        </RichTextEditor.ControlsGroup>
+
+        <RichTextEditor.ControlsGroup>
+          <RichTextEditor.ClearFormatting />
+          <RichTextEditor.Undo />
+          <RichTextEditor.Redo />
+        </RichTextEditor.ControlsGroup>
+      </RichTextEditor.Toolbar>
+
+      <RichTextEditor.Content />
+    </RichTextEditor>
   )
 }

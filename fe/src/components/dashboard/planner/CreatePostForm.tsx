@@ -9,6 +9,8 @@ import { useState } from 'react'
 import { DateValue } from '@mantine/dates';
 import { useForm } from '@mantine/form'
 
+import { handleConvertContent } from './handlers/handleConvertContent';
+
 import { Title } from './components/PostFormContent/Title';
 import { Content } from './components/PostFormContent/Content';
 import { DateTimeSelector } from './components/PostFormContent/DateTimeSelector';
@@ -140,7 +142,14 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
         </Group>
 
         <Group justify='center'>
-          <Button color='green' mt={25} fullWidth>Create Post!</Button>
+          <Button
+            color='green'
+            mt={25}
+            fullWidth
+            onClick={() =>{
+              const converted = handleConvertContent(form.values.content);
+              console.log(converted);
+            }}>Create Post!</Button>
         </Group>
 
       </Modal>

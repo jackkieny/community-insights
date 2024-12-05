@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import '@mantine/core/styles.css'
+import '@mantine/tiptap/styles.css'
 
 import { NothingFoundBackground } from "./components/Error/NothingFoundBackground"
 import { Home } from "./components/home/Home"
