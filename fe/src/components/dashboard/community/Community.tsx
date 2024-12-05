@@ -16,7 +16,13 @@ import {
 } from '@mantine/core';
 import classes from './Community.module.css';
 import { useEffect, useState } from 'react';
-import { checkIfLoggedIn, loginToSkool, getCommunities, handleSaveCommunity } from './handler';
+import { 
+  checkIfLoggedIn,
+  loginToSkool,
+  getCommunities,
+  handleSaveCommunity,
+  handleRefreshCommunities,
+} from './handler';
 
 interface CommunityType {
   archived: boolean;
@@ -38,7 +44,7 @@ export function Community() {
   const [skoolPassword, setSkoolPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [errorMsgVisible, setErrorMsgVisible] = useState(false);
-  const [data, setData] = useState<CommunityType[]>([]);
+  const [communities, setCommunities] = useState<CommunityType[]>([]);
   const [loadingVisible, setLoadingVisible] = useState(false);
   const [selectedCommunity, setSelectedCommunity] = useState<CommunityType | null>(null)
   const [currentCommunity, setCurrentCommunity] = useState('');
@@ -47,25 +53,30 @@ export function Community() {
   useEffect(() => {
     const fetchData = async () => {
       setLoadingVisible(true);
-      const resp = await checkIfLoggedIn();
-      if (resp.loggedIn) {
-        setIsLoggedIn(true);
-        setSkoolEmail(resp.userEmail);
-        const commData = await getCommunities();
-        setData(commData.communities);
-        setCurrentCommunity(commData.currentCommunity);
-        setSelectedCommunity(commData.communities.find((community: CommunityType) => community.id === commData.currentCommunity));
-      } else {
+
+      const loggedIn = await checkIfLoggedIn();
+      if (!loggedIn.loggedIn) {
         setIsLoggedIn(false);
+        setLoadingVisible(false);
+        return;
       }
+
+      setIsLoggedIn(true);
+      setSkoolEmail(loggedIn.userEmail);
+
+      const communitiesData = await getCommunities();
+      setCommunities(communitiesData.communities);
+      setCurrentCommunity(communitiesData.currentCommunity);
+      setSelectedCommunity(communitiesData.communities.find((community: CommunityType) => community.id === communitiesData.currentCommunity));
+
       setLoadingVisible(false);
     };
 
     fetchData();
   }, [refreshToggle])
 
-  const availableCommunities = data.filter(community => !community.archived && community.role === 'group-admin');
-  const unavailableCommunities = data.filter(community => community.archived || community.role !== 'group-admin');
+  const availableCommunities = communities.filter(community => !community.archived && community.role === 'group-admin');
+  const unavailableCommunities = communities.filter(community => community.archived || community.role !== 'group-admin');
 
   const renderCard = (community: CommunityType, isActive: boolean) => {
     return (
@@ -182,11 +193,13 @@ export function Community() {
 
         {selectedCommunity ?
           <>
-            <Button fullWidth mt="md" onClick={async () => {
-              setLoadingVisible(true);
-              setSelectedCommunity(null);
-              await setRefreshToggle(!refreshToggle);
-            }}>Refresh Communities</Button>
+            <Button
+              fullWidth
+              mt="md"
+              onClick={async () => {
+                await handleRefreshCommunities(refreshToggle, setRefreshToggle, setLoadingVisible);
+              }}
+            >Refresh Communities</Button>
 
             <Divider my="lg" />
 

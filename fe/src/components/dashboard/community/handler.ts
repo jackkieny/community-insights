@@ -6,6 +6,7 @@ export const checkIfLoggedIn = async () => {
     },
     credentials: 'include',
   });
+
   if (response.ok) {
     const data = await response.json();
     return {
@@ -64,4 +65,23 @@ export const handleSaveCommunity = async (communityId: string) => {
       'communityId': communityId,
     }),
   })
+}
+
+export const handleRefreshCommunities = async (
+  refreshToggle: boolean,
+  setRefreshToggle: (refreshToggle: boolean) => void,
+  setLoadingVisible: (loadingVisible: boolean) => void,
+) => {
+  setLoadingVisible(true);
+
+  await fetch('/api/refreshcommunities', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include'
+  })
+
+  setLoadingVisible(false);
+  setRefreshToggle(!refreshToggle);
 }

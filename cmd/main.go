@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	// "github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/jackkieny/community-insights/db"
 	"github.com/jackkieny/community-insights/routes"
@@ -21,6 +22,13 @@ func main() {
 	app := fiber.New()
 	store := session.New()
 
+	// rateLimitConfig := limiter.Config{
+	// 	Max:        10,
+	// 	Expiration: 1 * time.Minute,
+	// }
+
+	// app.Use(limiter.New(rateLimitConfig))
+
 	routes.SessionRoute(app, store)
 	routes.LoginRoute(app, client, store)
 	routes.RegisterRoute(app, client)
@@ -31,6 +39,7 @@ func main() {
 	routes.GetCommunitiesRoute(app, client, store)
 	routes.SaveCommunityRoute(app, client, store)
 	routes.GetLabelsRoute(app, client, store)
+	routes.RefreshCommunitiesRoute(app, client, store)
 	routes.Setup(app)
 
 	if err := app.Listen(":5000"); err != nil {
