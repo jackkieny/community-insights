@@ -20,7 +20,7 @@
     "@mantine/form": "^7.14.0",
     "@mantine/hooks": "^7.13.4",
     "@mantine/tiptap": "^7.14.3",
-    "@tabler/icons": "^3.22.0",
+    "@tabler/icons": "^3.24.0",
     "@tabler/icons-react": "^3.21.0",
     "@tiptap/extension-link": "^2.10.3",
     "@tiptap/extension-placeholder": "^2.10.3",
