@@ -2,6 +2,7 @@ import { RichTextEditor, Link } from "@mantine/tiptap";
 import { useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import { Placeholder } from '@tiptap/extension-placeholder';
+import { IconTrash } from '@tabler/icons-react';
 
 interface PostFormContentProps {
   content: string;
@@ -38,9 +39,17 @@ export function Content({ content, setContent }: PostFormContentProps) {
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>
-          <RichTextEditor.ClearFormatting />
           <RichTextEditor.Undo />
           <RichTextEditor.Redo />
+        </RichTextEditor.ControlsGroup>
+
+        <RichTextEditor.ControlsGroup>
+          <RichTextEditor.Control 
+            title="Clear form"
+            aria-label="Clear form"
+            onClick={() => editor?.commands.setContent('')}
+          ><IconTrash stroke={1.5} size="1rem"/>
+          </RichTextEditor.Control>
         </RichTextEditor.ControlsGroup>
       </RichTextEditor.Toolbar>
 
