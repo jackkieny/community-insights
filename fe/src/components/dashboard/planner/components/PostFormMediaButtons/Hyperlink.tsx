@@ -7,8 +7,8 @@ import { IconLink } from '@tabler/icons-react'
 export function Hyperlink() {
   return (
     <>
-      <Tooltip label='Link' position="bottom">
-        <Button color='gray'>
+      <Tooltip label='Check out the toolbar features for links.' position="bottom">
+        <Button color='gray' disabled>
           <IconLink />
         </Button>
       </Tooltip>
