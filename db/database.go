@@ -35,7 +35,7 @@ func Init() *mongo.Client {
 
 	elapsed := time.Since(start)
 
-	log.Info().Msgf("Connected to MongoDB! (took %s)", elapsed)
+	log.Info().Msgf("Connected to MongoDB! (took %.3fs)", elapsed.Seconds())
 
 	return client
 }

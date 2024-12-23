@@ -9,6 +9,8 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/jackkieny/community-insights/db"
 	"github.com/jackkieny/community-insights/routes"
+	authenticationRoutes "github.com/jackkieny/community-insights/routes/authentication"
+	skoolRoutes "github.com/jackkieny/community-insights/routes/skool"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
@@ -29,17 +31,19 @@ func main() {
 
 	// app.Use(limiter.New(rateLimitConfig))
 
+	authenticationRoutes.LoginRoute(app, client, store)
+	authenticationRoutes.RegisterRoute(app, client)
+	authenticationRoutes.LogoutRoute(app, store)
+	authenticationRoutes.RequestAccessRoute(app, client)
+
+	skoolRoutes.SkoolLoginRoute(app, client, store)
+	skoolRoutes.SkoolLoginCheckRoute(app, client, store)
+	skoolRoutes.GetCommunitiesRoute(app, client, store)
+	skoolRoutes.SaveCommunityRoute(app, client, store)
+	skoolRoutes.GetLabelsRoute(app, client, store)
+	skoolRoutes.RefreshCommunitiesRoute(app, client, store)
+
 	routes.SessionRoute(app, store)
-	routes.LoginRoute(app, client, store)
-	routes.RegisterRoute(app, client)
-	routes.LogoutRoute(app, store)
-	routes.RequestAccessRoute(app, client)
-	routes.SkoolLoginRoute(app, client, store)
-	routes.SkoolLoginCheckRoute(app, client, store)
-	routes.GetCommunitiesRoute(app, client, store)
-	routes.SaveCommunityRoute(app, client, store)
-	routes.GetLabelsRoute(app, client, store)
-	routes.RefreshCommunitiesRoute(app, client, store)
 	routes.Setup(app)
 
 	if err := app.Listen(":5000"); err != nil {
