@@ -23,6 +23,7 @@ import {
   handleSaveCommunity,
   handleRefreshCommunities,
 } from './handler';
+import { useNavigate } from 'react-router-dom';
 
 interface CommunityType {
   archived: boolean;
@@ -37,6 +38,8 @@ interface CommunityType {
 }
 
 export function Community() {
+
+  const navigate = useNavigate();
 
   const [refreshToggle, setRefreshToggle] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -53,6 +56,19 @@ export function Community() {
   useEffect(() => {
     const fetchData = async () => {
       setLoadingVisible(true);
+
+      fetch('/api/session', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include'
+      }).then(async (resp) => {
+        if (!resp.ok) {
+          navigate('/login');
+        }
+      });
+      
 
       const loggedIn = await checkIfLoggedIn();
       if (!loggedIn.loggedIn) {
