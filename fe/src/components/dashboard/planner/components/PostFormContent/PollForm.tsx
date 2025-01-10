@@ -1,9 +1,13 @@
 import { Button, CloseButton, Flex, Grid, Group, Input } from "@mantine/core";
 import { useState } from "react";
 
-export function PollForm() {
-  const [pollOptions, setPollOptions] = useState<string[]>(["", "", ""]);
-  const [numOfPollOptions, setNumOfPollOptions] = useState(3);
+interface PollFormProps {
+  pollOptions: string[];
+  setPollOptions: (pollOptions: string[]) => void;
+}
+
+export function PollForm({ pollOptions, setPollOptions }: PollFormProps) {
+  const [numOfPollOptions, setNumOfPollOptions] = useState(2);
 
   const handleRemoveOption = (index: number) => {
     setPollOptions(pollOptions.filter((_, i) => i !== index));
@@ -24,7 +28,7 @@ export function PollForm() {
           placeholder={`Option ${i + 1}`}
           {...(numOfPollOptions > 2 ? {
             rightSectionPointerEvents: "all",
-            rightSection: <CloseButton onClick={() => {handleRemoveOption(i); console.log(i)}} />
+            rightSection: <CloseButton onClick={() => {handleRemoveOption(i); }} />
           } : {})}
         />
       </Grid.Col>
