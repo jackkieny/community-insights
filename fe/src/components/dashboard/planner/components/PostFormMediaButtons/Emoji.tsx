@@ -7,14 +7,14 @@ import {
 import { IconMoodSmileFilled } from '@tabler/icons-react'
 
 export function Emoji() {
-  
+
   const [tooltipOpened, setTooltipOpened] = useState(false)
   const handleButtonClick = () => setTooltipOpened((prev) => !prev);
-  
+
   const emojiButtonLabel = <>
-    Windows: <Kbd>Win</Kbd> + <Kbd>:</Kbd> <br/>
-    Mac: <Kbd>Fn</Kbd> / <Kbd>🌐</Kbd> + <Kbd>E</Kbd> 
-  </>  
+    Windows: <Kbd>Win</Kbd> + <Kbd>:</Kbd> <br />
+    Mac: <Kbd>Fn</Kbd> / <Kbd>🌐</Kbd> + <Kbd>E</Kbd>
+  </>
 
   return (
     <>
