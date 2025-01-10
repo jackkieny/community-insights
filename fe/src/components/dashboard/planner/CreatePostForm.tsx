@@ -9,7 +9,8 @@ import { useState } from 'react'
 import { DateValue } from '@mantine/dates';
 import { useForm } from '@mantine/form'
 
-import { handleConvertContent } from './handlers/handleConvertContent';
+import { handleCreatePost } from './handlers/handleCreatePost';
+import { handleCheckReadyToSubmit } from './handlers/handleCheckReadyToSubmit';
 
 import { Title } from './components/PostFormContent/Title';
 import { Content } from './components/PostFormContent/Content';
@@ -39,9 +40,12 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
     label: ComboboxItem | null;
     videos: string[];
     videoIFrames: string[];
+    pollOptions: string[];
+
     actionButtonSelected: boolean;
     pollButtonSelected: boolean;
     videoButtonSelected: boolean;
+    emojiKeyobardSelected: boolean;
   }
 
   const form = useForm<FormValues>({
@@ -52,9 +56,12 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
       label: null,
       videos: [],
       videoIFrames: [],
+      pollOptions: new Array(2).fill(''),
+
       actionButtonSelected: false,
       pollButtonSelected: false,
       videoButtonSelected: false,
+      emojiKeyobardSelected: false,
     }
   })
 
@@ -67,12 +74,22 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
     }
   }
   const handleCancelClose = () => { setConfirmCloseOpen(false); }
-  const handleConfirmClose = () => { 
+  const handleConfirmClose = () => {
     form.reset();
     setConfirmCloseOpen(false);
     onClose();
   }
 
+  const readyToSubmit = handleCheckReadyToSubmit (
+    form.values.title,
+    form.values.content,
+    form.values.label?.value as string,
+    form.values.datetime,
+    form.values.videos,
+    form.values.pollButtonSelected,
+    form.values.pollOptions,
+  )
+  
   return (
     <>
       <Modal
@@ -93,7 +110,13 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
               setContent={(value) => form.setFieldValue('content', value)}
             />
           </Flex>
-          <Group justify='right'>{form.values.pollButtonSelected ? <PollForm /> : null}</Group>
+          <Group justify='right'>
+            {form.values.pollButtonSelected ? 
+              <PollForm 
+                pollOptions={form.values.pollOptions}
+                setPollOptions={(value) => form.setFieldValue('pollOptions', value)}
+              /> : null}
+          </Group>
         </Group>
 
         <Group justify='space-between' mt={15}>
@@ -143,13 +166,28 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
 
         <Group justify='center'>
           <Button
+            {...readyToSubmit ? {} : { disabled: true }}
             color='green'
             mt={25}
             fullWidth
-            onClick={() =>{
-              console.log(form.values.content);
-              const converted = handleConvertContent(form.values.content);
-              console.log(converted);
+            onClick={() => {
+                handleCreatePost(
+                    form.values.title,
+                    form.values.content,
+                    form.values.label?.value as string,
+                    form.values.datetime,
+                    form.values.actionButtonSelected,
+                    form.values.videos,
+                    form.values.pollOptions,
+                    form.values.pollButtonSelected,
+                ).then((response) => {
+                    if (response !== 'Post created successfully') {
+                      alert(response);
+                    } else {
+                      form.reset();
+                      onClose();
+                    }
+                });
             }}>Create Post!</Button>
         </Group>
 

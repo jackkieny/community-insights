@@ -11,6 +11,7 @@ import (
 	"github.com/jackkieny/community-insights/routes"
 	authenticationRoutes "github.com/jackkieny/community-insights/routes/authentication"
 	skoolRoutes "github.com/jackkieny/community-insights/routes/skool"
+    posts "github.com/jackkieny/community-insights/routes/post"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
@@ -42,6 +43,8 @@ func main() {
 	skoolRoutes.SaveCommunityRoute(app, client, store)
 	skoolRoutes.GetLabelsRoute(app, client, store)
 	skoolRoutes.RefreshCommunitiesRoute(app, client, store)
+
+    posts.CreatePostRoute(app, store, client)
 
 	routes.SessionRoute(app, store)
 	routes.Setup(app)

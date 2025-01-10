@@ -1,5 +1,4 @@
 export const validateVideoLink = (videoLink: string): {isValid: boolean, videoType: string}=> {
-  console.log(videoLink)
   const patterns = {
     youtube: /^https:\/\/(www\.)?(youtube\.com|youtu\.be)\/.+$/,
     vimeo: /^https:\/\/(www\.)?vimeo\.com\/.+$/,
