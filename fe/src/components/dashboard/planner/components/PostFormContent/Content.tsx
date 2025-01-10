@@ -47,7 +47,10 @@ export function Content({ content, setContent }: PostFormContentProps) {
           <RichTextEditor.Control 
             title="Clear form"
             aria-label="Clear form"
-            onClick={() => editor?.commands.setContent('')}
+            onClick={() => {
+              editor?.commands.setContent('');
+              setContent('');
+            }}
           ><IconTrash stroke={1.5} size="1rem"/>
           </RichTextEditor.Control>
         </RichTextEditor.ControlsGroup>
