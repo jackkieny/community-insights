@@ -1,10 +1,6 @@
 package auth
 
-import (
-	"regexp"
-
-	"github.com/rs/zerolog/log"
-)
+import "regexp"
 
 func ValidateVideoLink(videoLinks []string) bool {
 	patterns := map[string]*regexp.Regexp{
@@ -25,7 +21,6 @@ func ValidateVideoLink(videoLinks []string) bool {
 			}
 		}
 		if !valid {
-			log.Error().Msgf("Invalid video link: %s", link)
 			return false
 		}
 	}
