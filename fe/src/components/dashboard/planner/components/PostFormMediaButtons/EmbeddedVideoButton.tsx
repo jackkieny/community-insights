@@ -2,7 +2,7 @@ import {
   Tooltip,
   Button,
   Modal,
-  Input,
+  TextInput,
   Title,
 } from '@mantine/core'
 import { IconBrandYoutube } from '@tabler/icons-react'
@@ -43,18 +43,16 @@ export function EmbeddedVideoButton(
     }
     const { html, error } = await getVideoIFrame(videoType, videoLink)
     if (error) {
-      setErrorMsg('Invalid video link')
+      setErrorMsg(error ?? 'Something went wrong. Please try again.')
       return
     } else if (!html) {
-      setErrorMsg('Invalid video link')
+      setErrorMsg(error ?? 'Something went wrong. Please try again.')
       return
     } else {
       setVideos([...videos, videoLink])
       setVideoIFrames([...videoIFrames, html])
     }
     handleClose()
-
-
   }
 
   const handleClose = () => {
@@ -76,7 +74,7 @@ export function EmbeddedVideoButton(
         title="Insert Embedded Video"
       >
         <Title order={4}>Enter a Youtube, Vimeo, Loom or Wistia link</Title>
-        <Input
+        <TextInput
           required
           placeholder="Enter video URL"
           mt={10}
@@ -85,7 +83,7 @@ export function EmbeddedVideoButton(
           {...errorMsg && { error: errorMsg }}
         />
         <Button
-          mt={15}
+          mt={25}
           fullWidth
           onClick={() => handleInsert()}
         >Insert</Button>

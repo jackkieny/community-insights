@@ -28,7 +28,6 @@ export const handleCreatePost = async (
   // Sanitize input
   const sanitizedTitle = validator.escape(title);
   const sanitizedLabel = validator.escape(label);
-  const sanitizedVideoLinks = videoLinks.map(link => validator.escape(link));
   const sanitizedPollOptions = pollOptions.map(option => validator.escape(option));
   
   // Convert datetime to UTC
@@ -49,7 +48,7 @@ export const handleCreatePost = async (
       label: sanitizedLabel,
       datetime: utcDate,
       action: action,
-      video_links: sanitizedVideoLinks,
+      video_links: videoLinks,
       poll_selected: pollOptionsButton,
       poll_options: sanitizedPollOptions,
     }),

@@ -1,6 +1,10 @@
 package auth
 
-import "regexp"
+import (
+	"regexp"
+
+	"github.com/rs/zerolog/log"
+)
 
 func ValidateVideoLink(videoLinks []string) bool {
 	patterns := map[string]*regexp.Regexp{
@@ -10,12 +14,21 @@ func ValidateVideoLink(videoLinks []string) bool {
 		"wistia":  regexp.MustCompile(`^https:\/\/([a-zA-Z0-9]+)\.wistia\.com\/`),
 	}
 
-	for _, videoLink := range videoLinks {
+	var valid bool
+
+	for _, link := range videoLinks {
+		valid = false
 		for _, pattern := range patterns {
-			if pattern.MatchString(videoLink) {
-				return true
+			if pattern.MatchString(link) {
+				valid = true
+				break
 			}
 		}
+		if !valid {
+			log.Error().Msgf("Invalid video link: %s", link)
+			return false
+		}
 	}
-	return false
+
+	return valid
 }

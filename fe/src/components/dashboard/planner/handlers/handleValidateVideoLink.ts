@@ -45,9 +45,15 @@ export const getVideoIFrame = async (linkType: string, embeddedLink: string): Pr
       const data = await response.json();
       return { html: data.html };
     } else {
-      return { error: 'Invalid link' };
+      return {
+        error: 'Failed to find video data. Double check the URL is correct and try again.'
+      };
     }
   } catch (error) {
-    return { error: 'Invalid link' };
+    if (error instanceof Error) {
+      return { error: `Network error: ${error.message}. Please check your browser setting and ensure that trackers are not being blocked. You can reenable the blockers after the video has uploaded.` };
+    } else {
+      return { error: 'An unknown error occurred' };
+    }
   }
 };
