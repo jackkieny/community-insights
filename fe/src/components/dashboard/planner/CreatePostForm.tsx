@@ -186,6 +186,7 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
                     } else {
                       form.reset();
                       onClose();
+                      alert(response);
                     }
                 });
             }}>Create Post!</Button>
