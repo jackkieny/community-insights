@@ -126,7 +126,6 @@ func CreatePostRoute(app *fiber.App, store *session.Store, client *mongo.Client)
 
 		// Queue the post via RabbitMQ
 
-		fmt.Println(post)
 		return c.Status(fiber.StatusCreated).SendString("Post created")
 	})
 }
