@@ -8,7 +8,6 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/rs/zerolog/log"
 )
 
 type LoginPayload struct {
@@ -18,7 +17,7 @@ type LoginPayload struct {
 
 func LoginToSkool(email, password string) (string, error) {
 	if err := godotenv.Load(); err != nil {
-        log.Error().Err(err).Str("handler", "LoginToSkool").Msg("Error loading .env file")
+		return "", fmt.Errorf("error loading .env file, %v", err)
 	}
 
 	url := os.Getenv("SKOOL_LOGIN_URL")
@@ -30,12 +29,12 @@ func LoginToSkool(email, password string) (string, error) {
 
 	jsonPayload, err := json.Marshal(payload)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("error marshalling payload, %v", err)
 	}
 
 	request, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonPayload))
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("error creating request, %v", err)
 	}
 
 	request.Header.Set("Content-Type", "application/json")
@@ -43,12 +42,12 @@ func LoginToSkool(email, password string) (string, error) {
 	webClient := &http.Client{}
 	response, err := webClient.Do(request)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("error sending request, %v", err)
 	}
 	defer response.Body.Close()
 
 	if response.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("Did not receive 200 status code. Got %d", response.StatusCode)
+		return "", fmt.Errorf("did not receive 200 status code. Got %d", response.StatusCode)
 	}
 
 	cookies := response.Cookies()
@@ -58,5 +57,5 @@ func LoginToSkool(email, password string) (string, error) {
 		}
 	}
 
-	return "", fmt.Errorf("Could not find auth_token in response")
+	return "", fmt.Errorf("could not find auth_token in response")
 }
