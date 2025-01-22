@@ -12,8 +12,10 @@ export function Emoji() {
   const handleButtonClick = () => setTooltipOpened((prev) => !prev);
 
   const emojiButtonLabel = <>
-    Windows: <Kbd>Win</Kbd> + <Kbd>:</Kbd> <br />
-    Mac: <Kbd>Fn</Kbd> / <Kbd>🌐</Kbd> + <Kbd>E</Kbd>
+    <div style={{ lineHeight: '2' }}>
+      Windows: <Kbd>Win</Kbd> + <Kbd>.</Kbd><br />
+      Mac: <Kbd>Fn</Kbd> / <Kbd>🌐</Kbd> + <Kbd>E</Kbd>
+    </div>
   </>
 
   return (
