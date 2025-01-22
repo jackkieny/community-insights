@@ -2,20 +2,21 @@ package db
 
 import (
 	"context"
-	"log"
 	"os"
+	"time"
 
 	"github.com/joho/godotenv"
+	"github.com/rs/zerolog/log"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func Init() *mongo.Client {
-	log.Println("Connecting to MongoDB...")
+	start := time.Now()
 
 	if err := godotenv.Load(); err != nil {
-		log.Fatalf("Error loading .env file %s", err)
+		log.Fatal().Err(err).Msg("Error loading .env file")
 	}
 
 	MONGO_URI := os.Getenv("MONGO_URI")
@@ -25,14 +26,16 @@ func Init() *mongo.Client {
 
 	client, err := mongo.Connect(context.TODO(), opts)
 	if err != nil {
-		log.Fatalf("Error connecting to MongoDB: %s", err)
+		log.Fatal().Err(err).Msg("Error connecting to MongoDB")
 	}
 
 	if err := client.Database("admin").RunCommand(context.TODO(), bson.D{{Key: "ping", Value: 1}}).Err(); err != nil {
-		log.Fatalf("Error when trying to ping MongoDB: %s", err)
+		log.Fatal().Err(err).Msg("Error when trying to ping MongoDB")
 	}
 
-	log.Println("Connected to MongoDB!")
+	elapsed := time.Since(start)
+
+	log.Info().Msgf("Connected to MongoDB! (took %.3fs)", elapsed.Seconds())
 
 	return client
 }

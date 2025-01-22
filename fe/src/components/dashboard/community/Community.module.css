@@ -1,0 +1,33 @@
+.login_pannel{
+    position: absolute;
+}
+
+.title {
+    font-weight: 900;
+}
+
+.skool_S { color: var(--skool-blue);    }
+.skool_K { color: var(--skool-red);     }
+.skool_O { color: var(--skool-yellow);  }
+.skool_o { color: var(--skool-skyblue); }
+.skool_L { color: var(--skool-orange);  }
+
+.grid_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid {
+    flex: 1;
+    margin-left: rem(470px);
+    overflow: auto;
+}
+
+.card {
+    width: rem(300px);
+    height: rem(200px);
+}
+
+.divider {
+    margin-left: rem(470px);
+}

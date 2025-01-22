@@ -1,4 +1,4 @@
-package routes
+package authenticationRoutes
 
 import (
 	"github.com/gofiber/fiber/v2"
@@ -6,10 +6,10 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-func SessionRoute(app *fiber.App, store *session.Store) {
-	app.Get("/api/session", func(c *fiber.Ctx) error {
-
-		// Get all sessions
+/*** PROTECTED ***/
+func LogoutRoute(app *fiber.App, store *session.Store) {
+	app.Post("/api/logout", func(c *fiber.Ctx) error {
+		// Get the session
 		sess, err := store.Get(c)
 		if err != nil {
 			log.Error().Err(err).Str("route", c.Path()).Msg("Error getting session")
@@ -23,6 +23,12 @@ func SessionRoute(app *fiber.App, store *session.Store) {
 			return c.Status(fiber.StatusUnauthorized).SendString("Unauthorized")
 		}
 
-		return c.Status(fiber.StatusOK).SendString("Session is active")
+		// Destroy the session
+		if err := sess.Destroy(); err != nil {
+			log.Error().Err(err).Str("route", c.Path()).Msg("Error destroying session")
+			return c.Status(fiber.StatusInternalServerError).SendString("Server error")
+		}
+
+		return c.SendString("Logged out")
 	})
 }

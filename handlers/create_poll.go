@@ -10,21 +10,23 @@ import (
 	"github.com/joho/godotenv"
 )
 
-type LoginPayload struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+type CreatePollPayload struct {
+	GroupId string   `json:"group_id"`
+	Options []string `json:"options"`
 }
 
-func LoginToSkool(email, password string) (string, error) {
+func CreatePoll(pollOptions []string, currentCommunity, authToken string) (string, error) {
+	// Load .env file
 	if err := godotenv.Load(); err != nil {
 		return "", fmt.Errorf("error loading .env file, %v", err)
 	}
 
-	url := os.Getenv("SKOOL_LOGIN_URL")
+	url := os.Getenv("SKOOL_POLL_URL")
 
-	payload := LoginPayload{
-		Email:    email,
-		Password: password,
+	// Create payload
+	payload := CreatePollPayload{
+		GroupId: currentCommunity,
+		Options: pollOptions,
 	}
 
 	jsonPayload, err := json.Marshal(payload)
@@ -32,30 +34,40 @@ func LoginToSkool(email, password string) (string, error) {
 		return "", fmt.Errorf("error marshalling payload, %v", err)
 	}
 
+	// Create request
 	request, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonPayload))
 	if err != nil {
-		return "", fmt.Errorf("error creating request, %v", err)
+		return "", err
 	}
 
 	request.Header.Set("Content-Type", "application/json")
-
+	request.AddCookie(&http.Cookie{Name: "auth_token", Value: authToken})
 	webClient := &http.Client{}
+
+	// Send request
 	response, err := webClient.Do(request)
 	if err != nil {
 		return "", fmt.Errorf("error sending request, %v", err)
 	}
 	defer response.Body.Close()
 
+	// Check status code
 	if response.StatusCode != http.StatusOK {
 		return "", fmt.Errorf("did not receive 200 status code. Got %d", response.StatusCode)
 	}
 
-	cookies := response.Cookies()
-	for _, cookie := range cookies {
-		if cookie.Name == "auth_token" {
-			return cookie.Value, nil
-		}
+	// Read response body
+	var result map[string]interface{}
+	if err := json.NewDecoder(response.Body).Decode(&result); err != nil {
+		return "", fmt.Errorf("error decoding response body, %v", err)
 	}
 
-	return "", fmt.Errorf("could not find auth_token in response")
+	pollId := result["poll_id"].(string)
+
+	return pollId, nil
+}
+
+func DeletePoll() int {
+	// Skeleton for later
+	return 0
 }

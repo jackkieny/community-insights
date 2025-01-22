@@ -1,13 +1,13 @@
-package routes
+package authenticationRoutes
 
 import (
 	"context"
-	"log"
 	"strings"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/jackkieny/community-insights/auth"
+	"github.com/rs/zerolog/log"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -22,51 +22,45 @@ type RequestAccessUser struct {
 
 func RequestAccessRoute(app *fiber.App, client *mongo.Client) {
 	app.Post("/api/requestaccess", func(c *fiber.Ctx) error {
-		log.Println("Received request access request")
 
+		// Parse the request body
 		var user RequestAccessUser
-
 		if err := c.BodyParser(&user); err != nil {
-			log.Println("Error parsing JSON:", err)
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-				"serverError": "Cannot parse JSON",
-			})
+			log.Error().Err(err).Str("route", c.Path()).Msg("Error parsing request body")
+			return c.Status(fiber.StatusInternalServerError).SendString("Server error")
 		}
 
+		// Check for required fields
 		if user.Name == "" || user.Email == "" || user.CommunityLink == "" || user.Revenue == "" {
-			log.Println("Missing required fields")
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"error": "Missing required fields",
 			})
 		}
 
+		// Validate email
 		user.Email = strings.ToLower(user.Email)
-		log.Println("Convert email to lower case:", user.Email)
-
 		if !auth.ValidateEmail(user.Email) {
-			log.Println("Invalid email format:", user.Email)
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"error": "Invalid email format",
 			})
 		}
-		log.Println("Email validated:", user.Email)
 
+		// Database setup
 		collection := client.Database("community_insights").Collection("requestAccess")
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 		defer cancel()
 
-		log.Println("Checking if user already requested access")
+		// Check if email already exists
 		var result bson.M
 		err := collection.FindOne(ctx, bson.M{"email": user.Email}).Decode(&result)
 		if err == nil {
-			log.Println("User already requested access:", user.Email)
+			log.Warn().Str("route", c.Path()).Str("email", user.Email).Msg("User already requested access")
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"error": "User already requested access",
 			})
 		}
-		log.Println("User has not requested access:", user.Email)
 
-		log.Println("Inserting user into database")
+		// Insert the user access request
 		_, err = collection.InsertOne(ctx, bson.M{
 			"name":           user.Name,
 			"email":          user.Email,
@@ -75,13 +69,12 @@ func RequestAccessRoute(app *fiber.App, client *mongo.Client) {
 			"revenue":        user.Revenue,
 		})
 		if err != nil {
-			log.Println("Error inserting user into database:", err)
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-				"error": "Error inserting user into database",
-			})
+			log.Error().Err(err).Str("route", c.Path()).Msg("Error inserting user into database")
+			return c.Status(fiber.StatusInternalServerError).SendString("Server error")
 		}
 
-		log.Println("Access request made for user", user.Email)
+		// Log the request
+		log.Info().Str("email", user.Email).Msg("Request created")
 
 		return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 			"message": "Request created",
