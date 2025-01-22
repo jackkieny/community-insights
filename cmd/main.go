@@ -58,6 +58,7 @@ func main() {
 	skoolRoutes.RefreshCommunitiesRoute(app, client, store)
 
 	posts.CreatePostRoute(app, store, client)
+	posts.GetPostsRoute(app, store, client)
 
 	routes.SessionRoute(app, store)
 	routes.Setup(app)

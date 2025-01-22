@@ -1,14 +1,29 @@
 import FullCalendar from "@fullcalendar/react"
 import dayGridPlugin from "@fullcalendar/daygrid"
 import timeGridPlugin from "@fullcalendar/timegrid"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { CreatePostForm } from "./CreatePostForm"
+import { LoadingOverlay } from "@mantine/core"
+import { handleGetPosts } from "./handlers/handleGetPosts"
 
 export function Planner() {
   const [createPostFormOpen, setCreatePostFormOpen] = useState(false)
-  
+  const [loading, setLoading] = useState(false)
+  const [events, setEvents] = useState([])
+
+  useEffect(() => {
+    async function fetchPosts() {
+      setLoading(true)
+      const { events } = await handleGetPosts()
+      setEvents(events)
+      setLoading(false)
+    }
+    fetchPosts()
+  },[])
+
   return (
-    <div style={{ height: "100%" }}>
+    <div style={{ height: "100%", userSelect: "none"}}>
+      <LoadingOverlay visible={loading} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
       <FullCalendar
         height={"100%"}
         plugins={[dayGridPlugin, timeGridPlugin]}
@@ -19,20 +34,16 @@ export function Planner() {
           center: "title",
           right: 'myCustomButton dayGridMonth,timeGridWeek,timeGridDay'
         }}
-        events={[
-          { title: "New Event", allDay: false, start: "2024-11-24T10:00:00"},
-          { title: "New Event", allDay: false, start: "2024-11-24T10:30:00"},
-          { title: "New Event", allDay: false, start: "2024-11-24T10:45:00"},
-        ]}
+        events={events}
         customButtons={{
           myCustomButton: {
-            text: "Create Post" ,
-            click: function() { setCreatePostFormOpen(true) },
+            text: "Create Post",
+            click: function () { setCreatePostFormOpen(true) },
           }
         }}
       />
       <CreatePostForm open={createPostFormOpen} onClose={() => setCreatePostFormOpen(false)} />
-      
+
     </div>
   )
 }
