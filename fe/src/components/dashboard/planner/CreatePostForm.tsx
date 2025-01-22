@@ -46,6 +46,8 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
     pollButtonSelected: boolean;
     videoButtonSelected: boolean;
     emojiKeyobardSelected: boolean;
+
+    datetimeError: string | null;
   }
 
   const form = useForm<FormValues>({
@@ -62,6 +64,8 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
       pollButtonSelected: false,
       videoButtonSelected: false,
       emojiKeyobardSelected: false,
+
+      datetimeError: null,
     }
   })
 
@@ -151,6 +155,8 @@ export function CreatePostForm({ open, onClose }: CreatePostFormProps) {
             <DateTimeSelector
               datetime={form.values.datetime}
               setDatetime={(value) => form.setFieldValue('datetime', value)}
+              datetimeError={form.values.datetimeError}
+              setDatetimeError={(value) => form.setFieldValue('datetimeError', value)}
             />
           </Group>
         </Group>
