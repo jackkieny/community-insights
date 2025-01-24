@@ -63,7 +63,7 @@ func Init() *amqp.Connection {
 	}
 
 	// Setup a consumer to listen for messages on the ping queue
-	msgs, err := pingQueue.Consume(
+	_, err = pingQueue.Consume(
 		"ping", // queue
 		"",     // consumer
 		true,   // auto-ack
@@ -74,11 +74,6 @@ func Init() *amqp.Connection {
 	)
 	if err != nil {
 		log.Fatal().Msgf("Failed to register a consumer: %s", err)
-	}
-
-	for msg := range msgs {
-		log.Info().Msgf("Message received: %s", msg.Body)
-		break
 	}
 
 	// Delete the ping queue
