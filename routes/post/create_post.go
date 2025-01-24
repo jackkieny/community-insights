@@ -2,7 +2,6 @@ package post
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -95,8 +94,8 @@ func CreatePostRoute(app *fiber.App, store *session.Store, client *mongo.Client)
 				log.Error().Err(err).Str("route", c.Path()).Msg("Error creating poll")
 				return c.Status(fiber.StatusBadRequest).SendString("Error creating poll")
 			}
+			log.Info().Str("route", c.Path()).Msgf("Poll created with id %s", pollId)
 		}
-		log.Info().Str("route", c.Path()).Msgf("Poll created with id %s", pollId)
 
 		// Create the post
 		collection = client.Database("community_insights").Collection("posts")
