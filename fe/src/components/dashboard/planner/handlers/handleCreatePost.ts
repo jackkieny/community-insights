@@ -54,7 +54,7 @@ export const handleCreatePost = async (
     }),
   });
 
-  if (await response.ok) {
+  if (response.ok) {
     return "Post created successfully";
   } else {
     const data = await response.json();
@@ -62,3 +62,4 @@ export const handleCreatePost = async (
     return "Error:" + errorMessage + " Please try again.";
   }
 };
+
