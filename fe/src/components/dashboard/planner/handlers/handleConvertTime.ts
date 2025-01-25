@@ -8,6 +8,5 @@ export const convertTimeToUTC = (datetime: DateValue) => {
 
 export const convertTimeToLocal = (isoString: string) => {
   if (!isoString) return null;
-  const date = new Date(isoString);
-  return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  return new Date(isoString);
 };
