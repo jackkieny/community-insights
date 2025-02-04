@@ -103,6 +103,7 @@ func CreatePostRoute(app *fiber.App, store *session.Store, client *mongo.Client)
 		defer cancel()
 
 		postData := bson.M{
+			"status":    0,
 			"community": currentCommunity,
 			"title":     post.Title,
 			"content":   post.Content,
