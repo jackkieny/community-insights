@@ -34,6 +34,7 @@ export function Planner() {
           center: "title",
           right: 'myCustomButton dayGridMonth,timeGridWeek,timeGridDay'
         }}
+        defaultTimedEventDuration={"00:59"}
         events={events}
         customButtons={{
           myCustomButton: {
